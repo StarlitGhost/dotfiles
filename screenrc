@@ -1,5 +1,5 @@
-backtick 1 0 0 /user/mhc/tools/screen-cpu-usage
-backtick 2 0 0 /user/mhc/tools/screen-mem-usage
+backtick 1 0 0 $REALHOME/tools/screen-cpu-usage
+backtick 2 0 0 $REALHOME/tools/screen-mem-usage
 caption always '%{= kg}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%1`  %{w}%2`%{g}][%{B} %d-%m-%y %{W} %c %{g}]'
 hardstatus string "[%h]"
 
