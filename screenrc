@@ -1,0 +1,23 @@
+backtick 1 0 0 /user/mhc/tools/screen-cpu-usage
+backtick 2 0 0 /user/mhc/tools/screen-mem-usage
+caption always '%{= kg}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%1`  %{w}%2`%{g}][%{B} %d-%m-%y %{W} %c %{g}]'
+hardstatus string "[%h]"
+
+term xterm
+
+# make pageUp and pageDown work with screen's scrollback buffer
+bindkey "^[[5~" eval "copy" "stuff ^u"
+bindkey -m "^[[5~" stuff ^u
+bindkey -m "^[[6~" stuff ^d
+
+# use arrow keys to switch terminals
+#    prev bound to Ctrl + Shift + left
+#    next bound to Ctrl + Shift + right
+# X
+bindkey ^[[1;6D prev
+bindkey ^[[1;6C next
+# Putty
+bindkey ^[^[[D prev
+bindkey ^[^[[C next
+
+defscrollback 10000

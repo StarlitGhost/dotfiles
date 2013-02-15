@@ -1,4 +1,4 @@
 dotfiles
 ========
 
-My dotfiles
+My system-independent dotfiles

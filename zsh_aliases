@@ -1,0 +1,13 @@
+alias cls='clear'
+cp() { rsync -r $1 $2; }
+alias lh='ls -ld .??*'
+
+alias ez='nano $REALHOME/.zshrc'
+alias eza='nano $REALHOME/.zsh_aliases'
+alias ezau='nano $REALHOME/.zsh_aliases_ut'
+alias eze='nano $REALHOME/.zshenv'
+alias sz='source $REALHOME/.zshrc'
+
+alias unexport='unset'
+
+source $REALHOME/.zsh_aliases_ut
