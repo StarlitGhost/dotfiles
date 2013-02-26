@@ -10,4 +10,8 @@ alias sz='source $REALHOME/.zshrc'
 
 alias unexport='unset'
 
+sshs () {
+        screen -RR $1 ssh $1
+}
+
 source $REALHOME/.zsh_aliases_ut
