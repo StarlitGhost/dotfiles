@@ -12,4 +12,4 @@ HISTFILE=$REALHOME/.zsh_history
 
 DOTFILES=$REALHOME/.dotfiles
 
-ZSH_CUSTOM=$DOTFILES/omz-custom
+ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
