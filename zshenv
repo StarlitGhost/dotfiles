@@ -9,3 +9,7 @@ source $REALHOME/.zshenv_ut
 PATH=$REALHOME/bin:$PATH
 
 HISTFILE=$REALHOME/.zsh_history
+
+DOTFILES=$REALHOME/.dotfiles
+
+ZSH_CUSTOM=$DOTFILES/omz-custom
