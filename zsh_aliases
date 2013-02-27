@@ -14,4 +14,8 @@ sshs () {
         screen -RR $1 ssh $1
 }
 
+alias sl='screen -ls'
+alias sls='screen -ls'
+alias sr='screen -r'
+
 source $REALHOME/.zsh_aliases_ut
