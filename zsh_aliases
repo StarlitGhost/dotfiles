@@ -21,4 +21,8 @@ alias sr='screen -r'
 alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
 
+if [[ `uname -o` == Cygwin ]]; then
+	alias cyg-ports='cyg-apt --no-verify --mirror="ftp://ftp.cygwinports.org/pub/cygwinports/"'
+fi
+
 source $REALHOME/.zsh_aliases_ut
