@@ -6,7 +6,7 @@ alias ez='nano $REALHOME/.zshrc'
 alias eza='nano $REALHOME/.zsh_aliases'
 alias ezau='nano $REALHOME/.zsh_aliases_ut'
 alias eze='nano $REALHOME/.zshenv'
-alias sz='source $REALHOME/.zshrc'
+alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
 
 alias unexport='unset'
 
@@ -17,5 +17,8 @@ sshs () {
 alias sl='screen -ls'
 alias sls='screen -ls'
 alias sr='screen -r'
+
+alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
+alias u.='update_dotfiles'
 
 source $REALHOME/.zsh_aliases_ut
