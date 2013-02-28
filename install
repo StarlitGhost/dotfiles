@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# from http://errtheblog.com/posts/89-huba-huba
+# modified from http://errtheblog.com/posts/89-huba-huba
 
 home = File.expand_path('~')
 
