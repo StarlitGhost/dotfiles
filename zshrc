@@ -40,11 +40,7 @@ source $ZSH/oh-my-zsh.sh
 
 source $REALHOME/.zsh_aliases
 
-bindkey '\e[H' beginning-of-line
-bindkey '\e[F' end-of-line
-bindkey '\e[3~' delete-char
-bindkey ';5D' emacs-backward-word
-bindkey ';5C' emacs-forward-word
+source $REALHOME/.zsh_keybinds
 
 export SKIPZSH=1
 

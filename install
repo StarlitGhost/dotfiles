@@ -10,7 +10,7 @@ Dir['*'].each do |file|
   next if file =~ /ignored/
 
   target = File.join(home, ".#{file}")
-  `ln -s #{File.expand_path file} #{target}`
+  `ln -sn #{File.expand_path file} #{target}`
 end
 
 # git push on commit
