@@ -1,5 +1,4 @@
 case $USER in
-	*mhc*)		REALHOME=/user/mhc ;;
 	*sim*)		REALHOME=/user/mhc ;;
 	*)		REALHOME=${HOME}
 esac
