@@ -12,3 +12,5 @@ HISTFILE=$REALHOME/.zsh_history
 DOTFILES=$REALHOME/.dotfiles
 
 ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
+
+EDITOR=nano
