@@ -21,6 +21,10 @@ alias sr='screen -r'
 alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
 
+export TODOTXT_DEFAULT_ACTION=ls
+export TODOTXT_SORT_COMMAND='env LC_COLLATE=C sort -k 2,2 -k 1,1n'
+alias t='todo.sh -d $DOTFILES/ignored/todo.cfg'
+
 if [[ `uname -o` == Cygwin ]]; then
 	alias cyg-ports='cyg-apt --no-verify --mirror="ftp://ftp.cygwinports.org/pub/cygwinports/"'
 fi
