@@ -14,3 +14,5 @@ DOTFILES=$REALHOME/.dotfiles
 ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
 
 EDITOR=nano
+
+PYTHONSTARTUP=$REALHOME/.pystartup
