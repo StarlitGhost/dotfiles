@@ -2,7 +2,10 @@
 
 # modified from http://errtheblog.com/posts/89-huba-huba
 
-home = File.expand_path('~')
+home = File.expand_path(ENV['REALHOME'])
+
+dotfiles_dir = File.expand_path(File.dirname(__FILE__))
+Dir.chdir(dotfiles_dir)
 
 Dir['*'].each do |file|
   next if file =~ /install/

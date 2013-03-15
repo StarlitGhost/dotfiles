@@ -42,6 +42,8 @@ source $REALHOME/.zsh_aliases
 
 source $REALHOME/.zsh_keybinds
 
+export HISTFILE=$REALHOME/.zsh_history_$USER
+
 export SKIPZSH=1
 
 fortune

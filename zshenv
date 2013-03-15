@@ -1,18 +1,18 @@
 case $USER in
-	*sim*)		REALHOME=/user/mhc ;;
-	*)		REALHOME=${HOME}
+	*sim*)		export REALHOME=/user/mhc ;;
+	*)		export REALHOME=${HOME}
 esac
 
 source $REALHOME/.zshenv_ut
 
-PATH=$REALHOME/bin:$PATH
+export PATH=$REALHOME/bin:$PATH
 
-HISTFILE=$REALHOME/.zsh_history
+export HISTFILE=$REALHOME/.zsh_history_$USER
 
-DOTFILES=$REALHOME/.dotfiles
+export DOTFILES=$REALHOME/.dotfiles
 
-ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
+export ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
 
-EDITOR=nano
+export EDITOR=nano
 
-PYTHONSTARTUP=$REALHOME/.pystartup
+export PYTHONSTARTUP=$REALHOME/.pystartup
