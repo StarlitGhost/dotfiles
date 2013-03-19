@@ -7,7 +7,10 @@ source $REALHOME/.zshenv_ut
 
 export PATH=$REALHOME/bin:$PATH
 
-export HISTFILE=$REALHOME/.zsh_history_$USER
+case $USER in
+	*sim*)		export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER ;;
+	*)		export HISTFILE=$REALHOME/.zsh_history_$USER
+esac
 
 export DOTFILES=$REALHOME/.dotfiles
 
