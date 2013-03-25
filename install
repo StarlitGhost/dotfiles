@@ -10,6 +10,7 @@ Dir.chdir(dotfiles_dir)
 Dir['*'].each do |file|
   next if file =~ /install/
   next if file =~ /README.md/
+  next if file =~ /LICENSE.txt/
   next if file =~ /ignored/
 
   target = File.join(home, ".#{file}")
