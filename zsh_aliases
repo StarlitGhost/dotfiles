@@ -1,6 +1,10 @@
 alias cls='clear'
 cp() { rsync -r $1 $2; }
+
+alias la='ls -la'
 alias lh='ls -ld .??*'
+alias lt='ls -latr'
+alias lr='ls -lat'
 
 alias ez='nano $REALHOME/.zshrc'
 alias eza='nano $REALHOME/.zsh_aliases'
