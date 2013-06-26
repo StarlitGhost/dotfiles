@@ -3,7 +3,7 @@ backtick 2 0 0 $REALHOME/tools/screen-mem-usage
 caption always '%{= kg}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%1`  %{w}%2`%{g}][%{B} %d-%m-%y %{W} %c %{g}]'
 hardstatus string "[%h]"
 
-term xterm
+term screen-256color
 
 # make pageUp and pageDown work with screen's scrollback buffer
 bindkey "^[[5~" eval "copy" "stuff ^u"
