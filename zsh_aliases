@@ -20,6 +20,7 @@ sshs () {
 alias sl='screen -ls'
 alias sls='screen -ls'
 alias sr='screen -r'
+alias swipe='screen -wipe'
 
 alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
