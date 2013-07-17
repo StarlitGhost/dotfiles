@@ -50,11 +50,12 @@ function prompt_char() {
   echo "\$"
 }
 
-local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})%?%{$reset_color%}"
-PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] %(!.#.$) '
+local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})%?%{$FX[reset]%}"
+PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$FX[reset]%}$(my_git_prompt) : %~\n[${ret_status}] %(!.#.$) '
+RPROMPT='%{$FX[bold]$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}%{$FX[reset]%}'
 
 ZSH_THEME_PROMPT_RETURNCODE_PREFIX="%{$fg_bold[red]%}"
-ZSH_THEME_GIT_PROMPT_PREFIX=" $fg[white]‹ %{$fg_bold[yellow]%}"
+ZSH_THEME_GIT_PROMPT_PREFIX=" $fg_bold[white]‹ %{$fg_bold[yellow]%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg_bold[magenta]%}↑"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[green]%}●"
 ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[red]%}●"
