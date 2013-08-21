@@ -38,6 +38,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
+eval `dircolors -b $DIRCOLORS`
+
 source $REALHOME/.zsh_aliases
 
 source $REALHOME/.zsh_keybinds

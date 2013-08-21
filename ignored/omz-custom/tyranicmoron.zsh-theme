@@ -50,8 +50,21 @@ function prompt_char() {
   echo "\$"
 }
 
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' stagedstr '%F{green}●'
+zstyle ':vcs_info:*' unstagedstr '%F{yellow}●'
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{11}%r'
+zstyle ':vcs_info:*' enable p4
+
+theme_precmd() {
+  zstyle ':vcs_info:*' formats ' %B%F{green}[%b%c%u%B%F{green}]'
+  vcs_info
+}
+
 local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})%?%{$FX[reset]%}"
-PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$FX[reset]%}$(my_git_prompt) : %~\n[${ret_status}] %(!.#.$) '
+PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$FX[reset]%}$(my_git_prompt)${vcs_info_msg_0_}%{$FX[reset]%} : %~\n[${ret_status}] %(!.#.$) '
 RPROMPT='%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}%{$FX[reset]%}'
 
 ZSH_THEME_PROMPT_RETURNCODE_PREFIX="%{$fg_bold[red]%}"
@@ -62,3 +75,6 @@ ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[red]%}●"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[white]%}●"
 ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg_bold[red]%}✕"
 ZSH_THEME_GIT_PROMPT_SUFFIX=" $fg_bold[white]›%{$reset_color%}"
+
+autoload -U add-zsh-hook
+add-zsh-hook precmd theme_precmd

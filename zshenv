@@ -18,4 +18,6 @@ export ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
 
 export EDITOR=nano
 
+export DIRCOLORS=$REALHOME/.dircolors
+
 export PYTHONSTARTUP=$REALHOME/.pystartup
