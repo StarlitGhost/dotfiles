@@ -1,6 +1,6 @@
 case $USER in
-	*sim*)		export REALHOME=/user/mhc ;;
-	*)		export REALHOME=${HOME}
+	 *felix* | *sim* )	export REALHOME=/user/mhc ;;
+	 * )			export REALHOME=${HOME}
 esac
 
 source $REALHOME/.zshenv_ut
@@ -8,8 +8,8 @@ source $REALHOME/.zshenv_ut
 export PATH=$REALHOME/bin:$PATH
 
 case $USER in
-	*sim*)		export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER ;;
-	*)		export HISTFILE=$REALHOME/.zsh_history_$USER
+	*felix* | *sim* )	export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER ;;
+	* )			export HISTFILE=$REALHOME/.zsh_history_$USER
 esac
 
 export DOTFILES=$REALHOME/.dotfiles
