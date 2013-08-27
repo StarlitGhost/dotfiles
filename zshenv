@@ -6,6 +6,7 @@ esac
 source $REALHOME/.zshenv_ut
 
 export PATH=$REALHOME/bin:$PATH
+typeset -U PATH
 
 case $USER in
 	*felix* | *sim* )	export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER ;;
