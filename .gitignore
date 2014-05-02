@@ -1,4 +1,7 @@
 weechat/logs/*
-weechat/weechat.log
+weechat/*.log
 weechat/weechat_fifo_*
 weechat/irc.conf
+weechat/relay.conf
+weechat/urlserver_list.txt
+*.pem
