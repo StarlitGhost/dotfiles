@@ -69,4 +69,4 @@ ZSH_HIGHLIGHT_STYLES[assign]='none'                             # variable assig
 
 export SKIPZSH=1
 
-fortune
+fortune | cowsay
