@@ -5,7 +5,7 @@ esac
 
 source $REALHOME/.zshenv_ut
 
-export PATH=$REALHOME/bin:$PATH
+export PATH=$REALHOME/bin:$REALHOME/.local/bin:$PATH
 typeset -U PATH
 
 case $USER in
@@ -22,3 +22,5 @@ export EDITOR=nano
 export DIRCOLORS=$REALHOME/.dircolors
 
 export PYTHONSTARTUP=$REALHOME/.pystartup
+
+source $REALHOME/.local/bin/virtualenvwrapper.sh
