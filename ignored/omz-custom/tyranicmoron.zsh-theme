@@ -58,13 +58,17 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{11}%r'
 zstyle ':vcs_info:*' enable p4
 
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo `basename $VIRTUAL_ENV`
+}
+
 theme_precmd() {
   zstyle ':vcs_info:*' formats ' %B%F{green}[%b%c%u%B%F{green}]'
   vcs_info
 }
 
 local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})%?%{$FX[reset]%}"
-PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$FX[reset]%}$(my_git_prompt)${vcs_info_msg_0_}%{$FX[reset]%} : %~\n[${ret_status}] %(!.#.$) '
+PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$FX[reset]%}$(my_git_prompt)${vcs_info_msg_0_}%{$FX[reset]%}$(virtualenv_info) : %~\n[${ret_status}] %(!.#.$) '
 RPROMPT='%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}%{$FX[reset]%}'
 
 ZSH_THEME_PROMPT_RETURNCODE_PREFIX="%{$fg_bold[red]%}"
