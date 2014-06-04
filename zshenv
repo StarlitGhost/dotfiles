@@ -5,7 +5,7 @@ esac
 
 source $REALHOME/.zshenv_ut
 
-export PATH=$REALHOME/bin:$REALHOME/.local/bin:$REALHOME/scripts:$PATH
+export PATH=$REALHOME/bin:$REALHOME/.local/bin:$REALHOME/scripts:$REALHOME/.dotfiles/ignored/commands:$PATH
 typeset -U PATH
 
 case $USER in
