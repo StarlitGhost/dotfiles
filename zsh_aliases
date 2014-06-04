@@ -46,6 +46,8 @@ alias pyman='$REALHOME/.dotfiles/ignored/commands/pyman.py'
 
 alias cmake-clean='$REALHOME/.dotfiles/ignored/commands/cmake-clean.py'
 
+alias ansi-colours='$REALHOME/.dotfiles/ignored/commands/ansi-colours.sh'
+
 if [[ `uname -o` == Cygwin ]]; then
 	alias cyg-ports='cyg-apt --no-verify --mirror="ftp://ftp.cygwinports.org/pub/cygwinports/"'
 fi
