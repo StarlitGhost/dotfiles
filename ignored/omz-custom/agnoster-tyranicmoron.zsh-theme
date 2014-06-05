@@ -51,7 +51,8 @@ prompt_end() {
   else
     echo -n "%{%k%}"
   fi
-  echo -n "%{%f%}"
+  echo -n "%{%f%}
+╰─> "
   CURRENT_BG=''
 }
 
@@ -194,10 +195,6 @@ build_prompt() {
   prompt_git
   prompt_p4
   prompt_hg
-  prompt_end
-  echo -n "
-"
-  prompt_status
   prompt_end
 }
 
