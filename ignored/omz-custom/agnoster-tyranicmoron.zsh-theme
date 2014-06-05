@@ -119,7 +119,7 @@ prompt_p4() {
     zstyle ':vcs_info:*' actionformats ' %u%c'
     zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{11}%r'
     vcs_info
-    echo -n "p4${vcs_info_msg_0_%% }"
+    echo -n "p4${vcs_info_msg_0_%% }"
   fi
 }
 
