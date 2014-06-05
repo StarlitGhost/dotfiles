@@ -118,7 +118,7 @@ prompt_p4() {
     zstyle ':vcs_info:*' formats ' %b%u%c'
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
-    echo -n "Ⓥ${vcs_info_msg_0_%% }"
+    echo -n "℗${vcs_info_msg_0_%% }"
   fi
 }
 
