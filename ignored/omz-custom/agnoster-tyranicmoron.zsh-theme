@@ -195,8 +195,9 @@ build_prompt() {
   prompt_p4
   prompt_hg
   prompt_end
-  echo -n "\n"
-  prompt_segment blue black "$"
+  echo -n "
+"
+  prompt_status
   prompt_end
 }
 
