@@ -52,7 +52,7 @@ prompt_end() {
     echo -n "%{%k%}"
   fi
   echo -n "%{%f%}
-╰─> "
+╰─>"
   CURRENT_BG=''
 }
 
