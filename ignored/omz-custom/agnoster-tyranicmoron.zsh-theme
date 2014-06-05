@@ -106,17 +106,20 @@ prompt_git() {
 
 prompt_p4() {
   if $(p4 sync -n >/dev/null 2>&1); then
-    echo "in p4!"
+    prompt_segment green black
 
     setopt promptsubst
     autoload -Uz vcs_info
 
     zstyle ':vcs_info:*' enable p4
-    zstyle ':vcs_info:*' get-revision true
-    zstyle ':vcs_info:*' stagedstr '�^�^�'
-    zstyle ':vcs_info:git:*' unstagedstr '�^�^�'
+    zstyle ':vcs_info:*' check-for-changes true
+    zstyle ':vcs_info:*' stagedstr '✚'
+    zstyle ':vcs_info:*' unstagedstr '●'
+    zstyle ':vcs_info:*' formats ' %u%c'
+    zstyle ':vcs_info:*' actionformats ' %u%c'
+    zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{11}%r'
     vcs_info
-    echo -n "${ref/refs\/heads\//�^  }${vcs_info_msg_0_%% }${mode}"
+    echo -n "${ref/refs\/heads\// }${vcs_info_msg_0_%% }"
   fi
 }
 
