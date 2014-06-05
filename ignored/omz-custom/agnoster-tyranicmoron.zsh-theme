@@ -195,6 +195,9 @@ build_prompt() {
   prompt_p4
   prompt_hg
   prompt_end
+  echo -n "\n"
+  prompt_segment blue black "$"
+  prompt_end
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
