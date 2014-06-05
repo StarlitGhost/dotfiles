@@ -115,7 +115,7 @@ prompt_p4() {
     zstyle ':vcs_info:*' check-for-changes true
     zstyle ':vcs_info:*' stagedstr '✚'
     zstyle ':vcs_info:*' unstagedstr '●'
-    zstyle ':vcs_info:*' formats ' %u%c'
+    zstyle ':vcs_info:*' formats ' %b%u%c'
     zstyle ':vcs_info:*' actionformats ' %u%c'
     zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{11}%r'
     vcs_info
