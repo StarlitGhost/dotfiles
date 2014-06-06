@@ -56,6 +56,31 @@ prompt_end() {
   CURRENT_BG=''
 }
 
+RSEGMENT_SEPARATOR=''
+rprompt_segment() {
+  local bg fg
+  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
+  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
+    echo -n " %{$bg%F{$CURRENT_BG}%}$RSEGMENT_SEPARATOR%{$fg%} "
+  else
+    echo -n "%{$fg%}$RSEGMENT_SEPARATOR%{$bg%} "
+  fi
+  CURRENT_BG=$1
+  [[ -n $3 ]] && echo -n $3
+}
+
+# End the prompt, closing any open segments
+rprompt_end() {
+  if [[ -n $CURRENT_BG ]]; then
+    echo -n " %{%k%}"
+  else
+    echo -n "%{%k%}"
+  fi
+  echo -n "%{%f%}"
+  CURRENT_BG=''
+}
+
 ### Prompt components
 # Each component will draw itself, and hide itself if no information needs to be shown
 
@@ -200,5 +225,16 @@ build_prompt() {
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
 
+rprompt_time() {
+  time = '%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}%{$FX[reset]%}'
+  rprompt_segment black default
+  echo -n '$time'
+}
+
 ## Right prompt
-RPROMPT='%{$(echotc UP 1)%}%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}%{$FX[reset]%}%{$(echotc DO 1)%}'
+build_rprompt() {
+  rprompt_time
+  rprompt_end
+}
+
+RPROMPT='%{$(echotc UP 1)%}$(build_rprompt)%{$(echotc DO 1)%}'
