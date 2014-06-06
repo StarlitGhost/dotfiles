@@ -62,9 +62,9 @@ rprompt_segment() {
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
   if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    echo -n " %{$bg%F{$CURRENT_BG}%}$RSEGMENT_SEPARATOR%{$fg%} "
+    echo -n " %{$fg%}$RSEGMENT_SEPARATOR%{$bg%} "
   else
-    echo -n "%{$fg%}$RSEGMENT_SEPARATOR%{$bg%} "
+    echo -n "%F{$1}$RSEGMENT_SEPARATOR%{$fg%}%{$bg%} "
   fi
   CURRENT_BG=$1
   [[ -n $3 ]] && echo -n $3
@@ -227,8 +227,7 @@ PROMPT='%{%f%b%k%}$(build_prompt) '
 
 rprompt_time() {
   time='%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}%{$FX[reset]%}'
-  rprompt_segment black default
-  echo -n '$time'
+  rprompt_segment black default '$time'
 }
 
 ## Right prompt
