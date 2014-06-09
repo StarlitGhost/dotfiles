@@ -46,6 +46,9 @@ source $REALHOME/.zsh_keybinds
 
 export HISTFILE=$REALHOME/.zsh_history_$USER
 
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets root)
+
+# main
 ZSH_HIGHLIGHT_STYLES[alias]='fg=048'                            # light turquoise
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=028'                          # green
 ZSH_HIGHLIGHT_STYLES[function]='fg=154'                         # yellowy green
@@ -66,6 +69,19 @@ ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=208'           # orange
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=014'    # cyan
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=208,standout'      # orange - escaped chars
 ZSH_HIGHLIGHT_STYLES[assign]='none'                             # variable assignment
+
+# brackets
+ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,standout'
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[bracket-level-6]='fg=red'
+ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
+
+# root
+ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 
 export SKIPZSH=1
 
