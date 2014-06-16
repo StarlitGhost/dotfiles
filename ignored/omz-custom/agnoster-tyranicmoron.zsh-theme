@@ -136,7 +136,7 @@ prompt_git() {
 }
 
 prompt_p4() {
-  if $(p4 sync -n >/dev/null 2>&1); then
+  if $(p4 where >/dev/null 2>&1); then
     prompt_segment green black
 
     setopt promptsubst
