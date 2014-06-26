@@ -38,6 +38,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
+LISTMAX=0
+
 eval `dircolors -b $DIRCOLORS`
 
 source $REALHOME/.zsh_aliases
