@@ -1,33 +1,55 @@
+# dos clear (less typing!)
 alias cls='clear'
 
+# ls
 alias la='ls -la'
 alias lh='ls -ld .??*'
 alias lt='ls -latr'
 alias lr='ls -lat'
 
+# zsh config files
 alias ez='nano $REALHOME/.zshrc'
 alias eza='nano $REALHOME/.zsh_aliases'
 alias ezau='nano $REALHOME/.zsh_aliases_ut'
 alias eze='nano $REALHOME/.zshenv'
 alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
 
+alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
+alias u.='update_dotfiles'
+
+# more obvious opposite of export
 alias unexport='unset'
 
-sshs () {
-        screen -RR $1 ssh $1
+# tmux
+alias tl='tmux ls'
+alias ta='tmux attach -t'
+alias tr='ta'
+alias tn='tmux has -t $1 &> /dev/null && tmux attach -t $1 || tmux new -s $1'
+
+ssht () {
+
 }
 
+# screen
 alias sl='screen -ls'
 alias sls='screen -ls'
 alias sr='screen -r'
 alias swipe='screen -wipe'
 
+sshs () {
+	screen -RR $1 ssh $1
+}
+
+# progress bar, and generally better in every way
 alias cp="rsync -avz"
 
+# make which also look at aliases
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
 
+# fancy formatted git log
 alias gitlog="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all | cat"
 
+# kill a background job
 alias killbg='kill ${${(v)jobstates#*:*:}%=*}'
 function killjob()
 {
@@ -37,17 +59,18 @@ function killjob()
     done
 }
 
-alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
-alias u.='update_dotfiles'
-
+# todo.txt
 export TODOTXT_DEFAULT_ACTION=ls
 export TODOTXT_SORT_COMMAND='env LC_COLLATE=C sort -k 2,2 -k 1,1n'
 alias t='todo.sh -d $DOTFILES/ignored/todo.cfg'
 
+# man for python modules
 alias pyman='$REALHOME/.dotfiles/ignored/commands/pyman.py'
 
+# clean out all cmake generated files from the current directory
 alias cmake-clean='$REALHOME/.dotfiles/ignored/commands/cmake-clean.py'
 
+# test colour theme with some tables and ascii art
 alias ansi-colours='$REALHOME/.dotfiles/ignored/commands/ansi-colours.sh ; $REALHOME/.dotfiles/ignored/commands/ansi-table.sh ; $REALHOME/.dotfiles/ignored/commands/ansi-pacman.sh ; $REALHOME/.dotfiles/ignored/commands/ansi-invaders.sh'
 
 if [[ `uname -o` == Cygwin ]]; then
@@ -77,4 +100,5 @@ check_virtualenv
 # Add the following to ~/.bash_aliases:
 alias cd="venv_cd"
 
+# source untracked environment or machine specific aliases
 source $REALHOME/.zsh_aliases_ut
