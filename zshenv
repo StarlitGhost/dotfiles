@@ -5,7 +5,10 @@ esac
 
 source $REALHOME/.zshenv_ut
 
-export PATH=$REALHOME/bin:$REALHOME/.local/bin:$REALHOME/scripts:$REALHOME/.dotfiles/ignored/commands:$PATH
+export PATH=$REALHOME/bin:$PATH
+export PATH=$REALHOME/.local/bin:$PATH
+export PATH=$REALHOME/scripts:$PATH
+export PATH=$REALHOME/.dotfiles/ignored/commands:$PATH
 typeset -U PATH
 
 export LD_LIBRARY_PATH=$REALHOME/lib:/usr/local/lib:$LD_LIBRARY_PATH
@@ -13,7 +16,7 @@ typeset -U LD_LIBRARY_PATH
 
 case $USER in
 	*felix* | *sim* | *simvideo* )	export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER ;;
-	* )			export HISTFILE=$REALHOME/.zsh_history_$USER
+	* )				export HISTFILE=$REALHOME/.zsh_history_$USER
 esac
 
 export LANG=en_GB.UTF-8
