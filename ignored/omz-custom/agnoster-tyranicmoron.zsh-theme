@@ -57,7 +57,7 @@ prompt_end() {
     echo -n "%{%k%}"
   fi
   echo -n "%{%f%}
-╰─>"
+$SEGMENT_SEPARATOR"
   CURRENT_BG=''
 }
 
@@ -69,7 +69,7 @@ rprompt_segment() {
   if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
     echo -n " %{$fg%}$RSEGMENT_SEPARATOR%{$bg%} "
   else
-    echo -n "%F{$1}$RSEGMENT_SEPARATOR%{$fg%}%{$bg%} "
+    echo -n "%{%F{$1}%}$RSEGMENT_SEPARATOR%{$fg%}%{$bg%} "
   fi
   CURRENT_BG=$1
   [[ -n $3 ]] && echo -n $3
@@ -243,4 +243,5 @@ build_rprompt() {
   rprompt_end
 }
 
-RPROMPT='%{$(echotc UP 1)%}$(build_rprompt)%{$(echotc DO 1)%}'
+# Don't bother for now, there are some cursor position issues
+#RPROMPT='%{$(echotc UP 1)%}$(build_rprompt)%{$(echotc DO 1)%}'
