@@ -16,6 +16,10 @@ case $USER in
 	* )			export HISTFILE=$REALHOME/.zsh_history_$USER
 esac
 
+export LC_ALL=en_GB.UFT-8
+export LANG=en_GB.UTF-8
+export LANGUAGE=en_GB.UTF-8
+
 export DOTFILES=$REALHOME/.dotfiles
 
 export ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
