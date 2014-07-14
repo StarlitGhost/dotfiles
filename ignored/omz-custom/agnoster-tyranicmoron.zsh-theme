@@ -28,6 +28,7 @@
 CURRENT_BG='NONE'
 SEGMENT_SEPARATOR=''
 SAME_COL_SEG_SEP=''
+RSEGMENT_SEPARATOR=''
 
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
@@ -60,12 +61,12 @@ prompt_end() {
   else
     echo -n "%{%k%}"
   fi
-  echo -n "%{%f%}
-$SEGMENT_SEPARATOR"
   CURRENT_BG=''
 }
 
-RSEGMENT_SEPARATOR=''
+# Begin an rprompt segment
+# Takes two arguments, background and foreground. Both can be omitted,
+# rendering default background/foreground.
 rprompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
@@ -79,7 +80,7 @@ rprompt_segment() {
   [[ -n $3 ]] && echo -n $3
 }
 
-# End the prompt, closing any open segments
+# End the rprompt, closing any open segments
 rprompt_end() {
   if [[ -n $CURRENT_BG ]]; then
     echo -n " %{%k%}"
@@ -231,20 +232,32 @@ prompt_datetime() {
   prompt_segment black default "%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}"
 }
 
+prompt_marker() {
+  prompt_segment blue black "\$"
+}
+
 ## Main prompt
-build_prompt() {
+build_preprompt() {
   RETVAL=$?
-  prompt_datetime
   prompt_status
+  prompt_datetime
   prompt_virtualenv
   prompt_context
   prompt_dir
   prompt_git
   prompt_p4
-  prompt_hg
   prompt_end
 }
 
+## Input-line prompt
+build_prompt() {
+  RETVAL=$?
+  prompt_marker
+  prompt_end
+}
+
+print_preprompt() { print -rP '%{%f%b%k%}$(build_preprompt)' }
+add-zsh-hook precmd print_preprompt
 PROMPT='%{%f%b%k%}$(build_prompt) '
 
 ZLE_RPROMPT_INDENT=0

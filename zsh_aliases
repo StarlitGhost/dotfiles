@@ -23,7 +23,7 @@ alias unexport='unset'
 # fancy syntax-highlighted cat
 alias pyg='pygmentize -g'
 cat () {
- 	pyg $* || cat $*
+ 	pyg "$@" || cat "$@"
 }
 
 # tmux
