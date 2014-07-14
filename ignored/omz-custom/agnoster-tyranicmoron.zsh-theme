@@ -40,7 +40,11 @@ prompt_segment() {
     echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
   else
     if [[ $1 == $CURRENT_BG ]]; then
-      echo -n " %{$bg%}%F{black}$SAME_COL_SEG_SEP%{$fg%} "
+      if [[ $CURRENT_BG != "black" ]]; then
+        echo -n " %{$bg%}%F{black}$SAME_COL_SEG_SEP%{$fg%} "
+      else
+        echo -n " %{$bg%}%F{white}$SAME_COL_SEG_SEP%{$fg%} "
+      fi
     else
       echo -n "%{$bg%}%{$fg%} "
     fi
@@ -215,9 +219,22 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
+prompt_time() {
+  prompt_segment black default "%{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}"
+}
+
+prompt_date() {
+  prompt_segment black default "%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d}"
+}
+
+prompt_datetime() {
+  prompt_segment black default "%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}"
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
+  prompt_datetime
   prompt_status
   prompt_virtualenv
   prompt_context
