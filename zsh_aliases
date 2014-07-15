@@ -22,9 +22,9 @@ alias unexport='unset'
 
 # fancy syntax-highlighted cat
 alias pyg='pygmentize -g'
-cat () {
- 	pyg "$@" || cat "$@"
-}
+#cat () {
+# 	pyg "$@" || cat "$@"
+#}
 
 # tmux
 alias tl='tmux ls'
