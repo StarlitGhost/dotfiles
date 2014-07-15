@@ -14,7 +14,7 @@ alias ezau='nano $REALHOME/.zsh_aliases_ut'
 alias eze='nano $REALHOME/.zshenv'
 alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
 
-alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
+alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull --recurse-submodules && git submodule update ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
 
 # more obvious opposite of export
