@@ -46,6 +46,13 @@ sshs () {
 	screen -RR $1 ssh $1
 }
 
+# find a file in the PATH
+pathfind () {
+    for i in "${(s/:/)PATH}"; do
+        find $i -maxdepth 1 -name "$@" ;
+    done
+}
+
 # progress bar, and generally better in every way
 alias cp="rsync -avz"
 
