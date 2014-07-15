@@ -1,6 +1,5 @@
 # Use ~ as the home directory if REALHOME isn't defined
 if [ -z "$REALHOME" ]; then
-    echo "REALHOME is not defined, using ~"
     export REALHOME="~"
 fi
 
