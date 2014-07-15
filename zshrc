@@ -1,16 +1,15 @@
 # Use ~ as the home directory if REALHOME isn't defined
 if [ -z "$REALHOME" ]; then
-    echo "REALHOME is not defined, using ~"
     export REALHOME="~"
 fi
 
 # Replace zsh with a newer version that supports all the features we want
 autoload -U is-at-least
-if ! is-at-least 5; then
+if ! is-at-least 4.3.9; then
     if [ -e $REALHOME/bin/zsh ]; then
         exec $REALHOME/bin/zsh -l
     else
-        exit # abort if there's no newer zsh for us to use, as a lot will be incompatible
+        return # abort if there's no newer zsh for us to use, as a lot will be incompatible
     fi
 fi
 
