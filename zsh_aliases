@@ -46,10 +46,10 @@ sshs () {
 	screen -RR $1 ssh $1
 }
 
-# find a file in the PATH
+# find an executable file in the PATH
 pathfind () {
     for i in "${(s/:/)PATH}"; do
-        find $i -maxdepth 1 -name "$@" ;
+        find $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null ;
     done
 }
 
