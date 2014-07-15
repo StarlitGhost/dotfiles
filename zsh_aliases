@@ -20,10 +20,15 @@ alias u.='update_dotfiles'
 # more obvious opposite of export
 alias unexport='unset'
 
+# make .csh files source-able, for setting up environment variables
+source_csh () {
+    exec csh -c "source $@; exec zsh"
+}
+
 # fancy syntax-highlighted cat
 alias pyg='pygmentize -g'
 #cat () {
-# 	pyg "$@" || cat "$@"
+#    pyg "$@" || cat "$@"
 #}
 
 # tmux
