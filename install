@@ -2,7 +2,11 @@
 
 # modified from http://errtheblog.com/posts/89-huba-huba
 
-home = File.expand_path(ENV['REALHOME'])
+if ENV['REALHOME']
+  home = File.expand_path(ENV['REALHOME'])
+else
+  home = File.expand_path('~')
+end
 
 dotfiles_dir = File.expand_path(File.dirname(__FILE__))
 Dir.chdir(dotfiles_dir)

@@ -1,8 +1,3 @@
-# Use ~ as the home directory if REALHOME isn't defined
-if [ -z "$REALHOME" ]; then
-    export REALHOME="~"
-fi
-
 # Replace zsh with a newer version that supports all the features we want
 autoload -U is-at-least
 if ! is-at-least 4.3.9; then
@@ -10,6 +5,8 @@ if ! is-at-least 4.3.9; then
         exec $REALHOME/bin/zsh -l
     else
         return # abort if there's no newer zsh for us to use, as a lot will be incompatible
+        # I'd really like to print a message here, but we can't if this isn't an interactive shell
+        # TODO: add a check for that and print a message if we're interactive
     fi
 fi
 
