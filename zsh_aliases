@@ -114,7 +114,7 @@ venv_cd () {
 # Call check_virtualenv in case opening directly into a directory (e.g
 # when opening a new tab in Terminal.app).
 check_virtualenv
- 
+
 # Add the following to ~/.bash_aliases:
 alias cd="venv_cd"
 
