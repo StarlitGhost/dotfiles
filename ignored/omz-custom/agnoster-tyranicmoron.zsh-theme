@@ -223,7 +223,7 @@ prompt_status() {
   local symbols
   symbols=()
   #[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
+  #[[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
@@ -243,18 +243,24 @@ prompt_datetime() {
 
 prompt_marker() {
   local marker
+  local bg fg
   marker=""
+  bg=""
+  fg=""
   if [[ $UID -eq 0 ]]; then
     marker=" "
+    bg=yellow
+    fg=black
   else
     marker="$"
+    bg=black
+    fg=default
   fi
-  [[ $RETVAL -ne 0 ]] && marker="%{%F{red}%}✘"
-  if [[ $UID -eq 0 ]]; then
-    prompt_segment yellow black "$marker"
-  else
-    prompt_segment black default "$marker"
+  if [[ $RETVAL -ne 0 ]]; then
+    marker="✘"
+    fg=red
   fi
+  prompt_segment $bg $fg "$marker"
 }
 
 ## Main prompt
