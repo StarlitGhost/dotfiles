@@ -29,6 +29,7 @@ CURRENT_BG='NONE'
 SEGMENT_SEPARATOR=''
 SAME_COL_SEG_SEP=''
 RSEGMENT_SEPARATOR=''
+RSAME_COL_SEG_SEP=''
 
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
@@ -74,7 +75,15 @@ rprompt_segment() {
   if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
     echo -n " %{$fg%}$RSEGMENT_SEPARATOR%{$bg%} "
   else
-    echo -n "%{%F{$1}%}$RSEGMENT_SEPARATOR%{$fg%}%{$bg%} "
+    if [[ $1 == $CURRENT_BG ]]; then
+      if [[ $CURRENT_BG != "black" ]]; then
+        echo -n " %{$fg%}%F{black}$RSAME_COL_SEG_SEP%{$bg%} "
+      else
+        echo -n " %{$fg%}%F{white}$RSAME_COL_SEG_SEP%{$bg%} "
+      fi
+    else
+      echo -n "%{%F{$1}%}$RSEGMENT_SEPARATOR%{$fg%}%{$bg%} "
+    fi
   fi
   CURRENT_BG=$1
   [[ -n $3 ]] && echo -n $3
