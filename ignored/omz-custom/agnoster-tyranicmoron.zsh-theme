@@ -222,7 +222,7 @@ prompt_virtualenv() {
 prompt_status() {
   local symbols
   symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
+  #[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
@@ -242,7 +242,19 @@ prompt_datetime() {
 }
 
 prompt_marker() {
-  prompt_segment blue black "\$"
+  local marker
+  marker=""
+  if [[ $UID -eq 0 ]]; then
+    marker=" "
+  else
+    marker="$"
+  fi
+  [[ $RETVAL -ne 0 ]] && marker="%{%F{red}%}✘"
+  if [[ $UID -eq 0 ]]; then
+    prompt_segment yellow black "$marker"
+  else
+    prompt_segment black default "$marker"
+  fi
 }
 
 ## Main prompt
