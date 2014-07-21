@@ -7,3 +7,6 @@
 [submodule "nano"]
 	path = nano
 	url = https://github.com/MatthewCox/nanorc.git
+[submodule "tmuxifier"]
+	path = tmuxifier
+	url = https://github.com/jimeh/tmuxifier.git

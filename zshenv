@@ -5,6 +5,7 @@ esac
 
 source $REALHOME/.zshenv_ut
 
+export PATH=$REALHOME/.tmuxifier/bin:$PATH
 export PATH=$REALHOME/bin:$PATH
 export PATH=$REALHOME/.local/bin:$PATH
 export PATH=$REALHOME/scripts:$PATH
