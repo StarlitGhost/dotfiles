@@ -48,18 +48,32 @@ plugins=(git screen extract cp history history-substring-search virtualenv virtu
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
+#############################
+## Customize to your needs...
 
+# make the 'there are x options, do you want to list them all?' message only
+# appear if there are more options than would fit in the current terminal
 LISTMAX=0
 
+# customizable filetype colours for ls (currently none defined, though)
 eval `dircolors -b $DIRCOLORS`
 
+# tmuxifier initialisation
+eval "$(tmuxifier init -)"
+
+# my aliases
 source $REALHOME/.zsh_aliases
 
+# my keybindings
 source $REALHOME/.zsh_keybinds
 
+# per-user history file in my actual home
 export HISTFILE=$REALHOME/.zsh_history_$USER
 
+###########################
+## zsh-syntax-highlighting
+
+# enabled highlighters
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets root)
 
 # main
@@ -75,9 +89,9 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=178,bold'                 # dark yellow, i
 ZSH_HIGHLIGHT_STYLES[path_approx]='fg=178,bold,standout'        # path possibly contains mistyped letters, zsh will suggest a correction
 ZSH_HIGHLIGHT_STYLES[globbing]='fg=075'                         # azure
 ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=075'                # azure
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='none'               
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='none'               
-ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='none'               
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='none'               # default
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='none'               # default
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='none'               # default
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=208'           # orange
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=208'           # orange
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=014'    # cyan
@@ -97,6 +111,9 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 # root
 ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 
+# don't launch zsh from other shells if I happen to launch them and they otherwise would
+# (for machines on which I don't have chsh or ypchsh rights, so have to have another shell launch zsh for me)
 export SKIPZSH=1
 
+# the classic shell introduction
 fortune | cowsay
