@@ -58,9 +58,9 @@ prompt_segment() {
 # End the prompt, closing any open segments
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{%f%}"
   else
-    echo -n "%{%k%}"
+    echo -n "%{%k%f%}"
   fi
   CURRENT_BG=''
 }
@@ -254,7 +254,7 @@ prompt_marker() {
   else
     marker="$"
     bg=black
-    fg=default
+    fg=white
   fi
   if [[ $RETVAL -ne 0 ]]; then
     marker="✘"
@@ -267,7 +267,7 @@ prompt_marker() {
 build_preprompt() {
   RETVAL=$?
   prompt_status
-  prompt_datetime
+  #prompt_datetime
   prompt_virtualenv
   prompt_context
   prompt_dir
