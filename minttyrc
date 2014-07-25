@@ -1,4 +1,4 @@
-Transparency=low
+Transparency=off
 CursorType=block
 Font=DejaVu Sans Mono for Powerline
 FontHeight=10
@@ -6,8 +6,8 @@ Locale=en_GB
 Charset=UTF-8
 Scrollbar=none
 Columns=232
-Rows=52
-PgUpDnScroll=yes
+Rows=72
+PgUpDnScroll=no
 FontSmoothing=default
 AllowBlinking=yes
 BoldAsFont=yes
