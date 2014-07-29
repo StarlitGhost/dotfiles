@@ -1,3 +1,5 @@
+skip_global_compinit=1
+
 case $USER in
 	 *felix* | *sim* | *simvideo* )	export REALHOME=/user/mhc ;;
 	 * )			export REALHOME=${HOME}
