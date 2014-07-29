@@ -59,7 +59,7 @@ LISTMAX=0
 eval `dircolors -b $DIRCOLORS`
 
 # tmuxifier initialisation
-eval "$(tmuxifier init -)"
+eval "$(tmuxifier init - zsh)"
 
 # my aliases
 source $REALHOME/.zsh_aliases
