@@ -1,4 +1,12 @@
+set autoindent
+# always display the cursor location
+set const
+# use the blank line under the titlebar as editing space
+set morespace
 set nowrap
+set smarthome
+set tabsize 4
+set tabstospaces
 
 include ~/.nano/apacheconf.nanorc
 include ~/.nano/asciidoc.nanorc

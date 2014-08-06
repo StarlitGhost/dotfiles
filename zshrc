@@ -70,6 +70,8 @@ source $REALHOME/.zsh_keybinds
 # per-user history file in my actual home
 export HISTFILE=$REALHOME/.zsh_history_$USER
 
+setopt interactivecomments
+
 ###########################
 ## zsh-syntax-highlighting
 
@@ -110,6 +112,9 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 
 # root
 ZSH_HIGHLIGHT_STYLES[root]='bg=red'
+
+###########################
+## Last few things...
 
 # don't launch zsh from other shells if I happen to launch them and they otherwise would
 # (for machines on which I don't have chsh or ypchsh rights, so have to have another shell launch zsh for me)
