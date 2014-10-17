@@ -57,7 +57,7 @@ pathversion () {
 }
 
 # progress bar, and generally better in every way
-alias cp="rsync -avz"
+alias cp="rsync -avz --progress"
 
 # make which also look at aliases
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
