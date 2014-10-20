@@ -59,6 +59,16 @@ pathversion () {
 # progress bar, and generally better in every way
 alias cp="rsync -avz --progress"
 
+# move files into dir, auto-creating dir and all intervening dirs if they don't exist
+mkmv () {
+    local -a arr
+    arr=($@)
+    #print ${arr[-1]}
+    mkdir -p ${arr[-1]}
+    #print ${arr[1,-2]}
+    mv ${arr[1,-2]} ${arr[-1]}
+}
+
 # make which also look at aliases
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
 
