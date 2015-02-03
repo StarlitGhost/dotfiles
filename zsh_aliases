@@ -69,6 +69,14 @@ mkmv () {
     mv ${arr[1,-2]} ${arr[-1]}
 }
 
+# copy files into dir, auto-creating dir and all intervening dirs if they don't exist
+mkcp () {
+    local -a arr
+    arr=($@)
+    mkdir -p ${arr[-1]}
+    cp ${arr[1,-2]} ${arr[-1]}
+}
+
 # make which also look at aliases
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
 
