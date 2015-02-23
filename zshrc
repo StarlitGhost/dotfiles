@@ -44,7 +44,12 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git screen extract cp history history-substring-search virtualenv virtualenvwrapper zsh-syntax-highlighting)
+plugins=(colored-man colorize command-not-found cp extract gitfast history history-substring-search screen themes tmux virtualenv virtualenvwrapper zsh-syntax-highlighting)
+
+# Work plugins
+if [[ $USER == mhc || $USER == sim || $USER == simvideo ]]; then
+    plugins+=(uge)
+fi
 
 source $ZSH/oh-my-zsh.sh
 

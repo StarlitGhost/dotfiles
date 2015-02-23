@@ -7,6 +7,10 @@ alias lh='ls -ld .??*'
 alias lt='ls -latr'
 alias lr='ls -lat'
 
+lass () {
+    la "$@" --color=always | less
+}
+
 # zsh config files
 alias ez='nano $REALHOME/.zshrc'
 alias eza='nano $REALHOME/.zsh_aliases'
@@ -18,6 +22,12 @@ alias szc='sz ; clear'
 alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git submodule init && git pull --recurse-submodules && git submodule update --recursive ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
 
+# fancy syntax-highlighted cat
+alias pyg='pygmentize -g'
+pyglet () {
+    pyg "$@" | less
+}
+
 # more obvious opposite of export
 alias unexport='unset'
 
@@ -26,27 +36,11 @@ source_csh () {
     exec csh -c "source $@; exec zsh"
 }
 
-# fancy syntax-highlighted cat
-alias pyg='pygmentize -g'
-#cat () {
-#    pyg "$@" || cat "$@"
-#}
-
 # tmux
 alias tl='tmux ls'
 alias ta='tmux attach -t'
-#alias tr='ta'
+alias td='tmux detach -t'
 alias tn='tmux has -t $1 &> /dev/null && tmux attach -t $1 || tmux new -s $1'
-
-# screen
-alias sl='screen -ls'
-alias sls='screen -ls'
-alias sr='screen -r'
-alias swipe='screen -wipe'
-
-sshs () {
-	screen -RR $1 ssh $1
-}
 
 # find an executable file (or symlinked executable file) in the PATH
 pathfind () {
@@ -55,8 +49,33 @@ pathfind () {
     done
 }
 
+# find an executable file in the PATH and execute it with --version appended
+pathversion () {
+    for i in "${(s/:/)PATH}"; do
+        find -L $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null -exec echo {} \; -exec {} --version \;
+    done
+}
+
 # progress bar, and generally better in every way
-alias cp="rsync -avz"
+alias cp="rsync -avz --progress"
+
+# move files into dir, auto-creating dir and all intervening dirs if they don't exist
+mkmv () {
+    local -a arr
+    arr=($@)
+    #print ${arr[-1]}
+    mkdir -p ${arr[-1]}
+    #print ${arr[1,-2]}
+    mv ${arr[1,-2]} ${arr[-1]}
+}
+
+# copy files into dir, auto-creating dir and all intervening dirs if they don't exist
+mkcp () {
+    local -a arr
+    arr=($@)
+    mkdir -p ${arr[-1]}
+    cp ${arr[1,-2]} ${arr[-1]}
+}
 
 # make which also look at aliases
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
@@ -115,6 +134,24 @@ check_virtualenv
 
 # Add the following to ~/.bash_aliases:
 alias cd="venv_cd"
+
+# screen
+alias sl='screen -ls'
+alias sls='screen -ls'
+alias sr='screen -r'
+alias swipe='screen -wipe'
+
+sshs () {
+	screen -RR $1 ssh $1
+}
+
+ruge() {
+    compinit
+    local f
+    f=($REALHOME/.dotfiles/ignored/omz-custom/plugins/uge/*(.))
+    unfunction $f:t 2> /dev/null
+    autoload -U $f:t
+}
 
 # source untracked environment or machine specific aliases
 source $REALHOME/.zsh_aliases_ut
