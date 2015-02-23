@@ -267,9 +267,9 @@ prompt_marker() {
 build_preprompt() {
   RETVAL=$?
   prompt_status
-  #prompt_datetime
+  prompt_datetime
   prompt_virtualenv
-  prompt_context
+  #prompt_context
   prompt_dir
   prompt_git
   prompt_p4
@@ -279,6 +279,7 @@ build_preprompt() {
 ## Input-line prompt
 build_prompt() {
   RETVAL=$?
+  prompt_context
   prompt_marker
   prompt_end
 }

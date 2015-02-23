@@ -1,0 +1,24 @@
+[user]
+	name = Matthew Cox
+	email = matthewcpcox@gmail.com
+[color]
+branch = auto
+diff = auto
+status = auto
+[color "branch"]
+current = yellow reverse
+local = yellow
+remote = green
+[color "diff"]
+meta = yellow bold
+frag = magenta bold
+old = red
+new = green
+[color "status"]
+added = green
+changed = yellow
+untracked = cyan
+[alias]
+	permission-reset = !git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply
+[push]
+	default = simple

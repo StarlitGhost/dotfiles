@@ -36,4 +36,4 @@ export DIRCOLORS=$REALHOME/.dircolors
 
 export PYTHONSTARTUP=$REALHOME/.pystartup
 
-source virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper.sh
