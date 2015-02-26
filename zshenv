@@ -36,4 +36,10 @@ export DIRCOLORS=$REALHOME/.dircolors
 
 export PYTHONSTARTUP=$REALHOME/.pystartup
 
-source /usr/bin/virtualenvwrapper.sh
+if [[ -e $(command -v virtualenvwrapper.sh) ]]; then
+    source virtualenvwrapper.sh
+elif [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
+    source /usr/bin/virtualenvwrapper.sh
+else
+    print("virtualenvwrapper.sh is missing, have you installed virtualenvwrapper?")
+fi
