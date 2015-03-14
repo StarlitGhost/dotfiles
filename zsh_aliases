@@ -153,5 +153,7 @@ ruge() {
     autoload -U $f:t
 }
 
-# source untracked environment or machine specific aliases
-source $REALHOME/.zsh_aliases_ut
+# source untracked environment or machine specific aliases, if they exist
+if [[ -e $REALHOME/.zsh_aliases_ut ]]; then
+    source $REALHOME/.zsh_aliases_ut
+fi

@@ -5,7 +5,10 @@ case $USER in
 	 * )			export REALHOME=${HOME}
 esac
 
-source $REALHOME/.zshenv_ut
+# source untracked machine specific environment variables, if they exist
+if [[ -e $REALHOME/.zshenv_ut ]]; then
+    source $REALHOME/.zshenv_ut
+fi
 
 export PATH=$REALHOME/.tmuxifier/bin:$PATH
 export PATH=$REALHOME/bin:$PATH
@@ -41,5 +44,5 @@ if [[ -e $(command -v virtualenvwrapper.sh) ]]; then
 elif [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
     source /usr/bin/virtualenvwrapper.sh
 else
-    print("virtualenvwrapper.sh is missing, have you installed virtualenvwrapper?")
+    print "virtualenvwrapper.sh is missing, have you installed virtualenvwrapper?"
 fi
