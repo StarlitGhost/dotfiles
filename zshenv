@@ -35,8 +35,8 @@ export ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
 
 export EDITOR=nano
 
-export DIRCOLORS=$REALHOME/.dircolors
-eval `dircolors -b $REALHOME/.dircolors`
+# customized file/dir colours for ls
+eval `dircolors -b $REALHOME/._dircolors_`
 
 export PYTHONSTARTUP=$REALHOME/.pystartup
 
@@ -46,4 +46,9 @@ elif [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
     source /usr/bin/virtualenvwrapper.sh
 else
     print "virtualenvwrapper.sh is missing, have you installed virtualenvwrapper?"
+fi
+
+# if environment variables need to be modified for this machine, source a file that does that
+if [[ -e $REALHOME/.zshenv_ut_post ]]; then
+    source $REALHOME/.zshenv_ut_post
 fi
