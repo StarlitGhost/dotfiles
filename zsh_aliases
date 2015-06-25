@@ -105,13 +105,13 @@ export TODOTXT_SORT_COMMAND='env LC_COLLATE=C sort -k 2,2 -k 1,1n'
 alias t='todo.sh -d $DOTFILES/ignored/todo.cfg'
 
 # perforce aliases
-# use sed to colour p4 grep output similar to standard grep colouring
-# TODO: it'd be nice to highlight the actual matches too. would need to do some parsing on the input args
+# use sed to colour p4 grep output similar to standard grep colouring, then use standard grep to colour the matches themselves
 p4grep() {
           # depot path¦#¦revision¦  :/-  ¦line num ¦ :/-|purple ¦dep¦cyan ¦#¦yellow¦rev¦cyan¦:/-¦green ¦line¦cyan¦:/-¦reset
-    p4 grep -n $* | sed \
+    p4 grep -n -e $* | sed \
      -e "s|^\(//[^#]*\)#\([0-9]*\)\([:-]\)\([0-9]*\)[:-]|\x1B[35m\1\x1B[36m#\x1B[33m\2\x1B[36m\3\x1B[32m\4\x1B[36m\3\x1B[0m|" \
-     -e "s|--|\x1B[36m--\x1B[0m|"
+     -e "s|^--$|\x1B[36m--\x1B[0m|" \
+    | grep -E ${*[1,-2]}
 }
 
 # man for python modules
