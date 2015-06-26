@@ -17,8 +17,8 @@ Dir['*'].each do |file|
   next if file =~ /LICENSE.txt/
   next if file =~ /ignored/
 
-  target = File.join(home, ".#{file}")
-  `ln -sn #{File.expand_path file.sub(/\.zsh$/, '')} #{target} > /dev/null 2>&1`
+  target = File.join(home, ".#{file.sub(/\.zsh$/, '')}")
+  `ln -sn #{File.expand_path file} #{target} > /dev/null 2>&1`
 end
 
 # git push on commit
