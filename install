@@ -17,6 +17,8 @@ Dir['*'].each do |file|
   next if file =~ /LICENSE.txt/
   next if file =~ /ignored/
 
+  file.sub!(/\.zsh$/, '')
+
   target = File.join(home, ".#{file}")
   `ln -sn #{File.expand_path file} #{target} > /dev/null 2>&1`
 end
