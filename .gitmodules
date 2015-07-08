@@ -10,3 +10,6 @@
 [submodule "tmuxifier"]
 	path = tmuxifier
 	url = https://github.com/jimeh/tmuxifier.git
+[submodule "vim/bundle/vim-airline"]
+	path = vim/bundle/vim-airline
+	url = git@github.com:bling/vim-airline.git
