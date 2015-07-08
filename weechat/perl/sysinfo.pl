@@ -38,8 +38,14 @@
 # You can also reach Travis in #crd on efnet.
 #
 # ported to WeeChat (http://www.weechat.org/) by Nils Görs. Copyright
-# (c) 2011-2012 Nils Görs
+# (c) 2011-2015 Nils Görs
 #
+# 2015-05-16: 0.9 Keridos <fuffzehn@gmail.com>
+#             add compatibility with linux kernel 4.x
+# 2015-02-15: 0.8 nils_2 (freenode@nils_2)
+#           : based on sysinfo 2.81.24 (Feb 10 2015)
+# 2013-08-10: 0.7 nils_2 (freenode@nils_2)
+#           : add: support of vcgencmd (eg raspberry pi)
 # 2013-03-06: 0.6 Thomas Poechtrager <t.poechtrager@gmail.com>
 #           : fixed memory usage
 # 2012-11-15: 0.5 nils_2 (freenode@nils_2)
@@ -64,7 +70,7 @@ use POSIX qw(floor);
 use strict;
 
 my $SCRIPT_NAME         = "sysinfo";
-my $SCRIPT_VERSION      = "0.6";
+my $SCRIPT_VERSION      = "0.9";
 my $SCRIPT_DESCR        = "provides a system info command";
 my $SCRIPT_LICENSE      = "GPL3";
 my $SCRIPT_AUTHOR       = "Nils Görs <weechatter\@arcor.de>";
@@ -174,13 +180,13 @@ my $col2 = '';
 my $bar_item = "";
 my %Hooks       = ();
 my $weechat_version = "";
-
+my $vcgencmd = "/usr/bin/vcgencmd";
 ###############################################
 ### Nothing below here should need changed. ###
 ###############################################
 
-my $sysinfoVer  = '2.81.22';
-my $sysinfoDate = 'Nov 16, 2012, 22:20 CET';
+my $sysinfoVer  = '2.81.24';
+my $sysinfoDate = 'Feb 11, 2015, 09:31 MDT';
 
 my $os		= `uname -s`; chomp($os);
 my $osn		= `uname -n`; chomp($osn);
@@ -203,7 +209,9 @@ my $sun			= 1 if $os =~ /^SunOS$/;
 
 
 my $alpha		= 1 if $osm =~ /^alpha$/;
-my $arm                 = 1 if $osm =~ /^arm/;
+my $arm                 = 1 if $osm =~ /^arm$/;
+my $armv6l              = 1 if $osm =~ /^armv6l$/;
+my $armv7l              = 1 if $osm =~ /^armv7l$/;
 my $i586		= 1 if $osm =~ /^i586$/;
 my $i686		= 1 if $osm =~ /^i686$/;
 my $ia64		= 1 if $osm =~ /^ia64$/;
@@ -218,14 +226,16 @@ my $sh                  = 1 if $osm=~ /^sh/;
 my $sparc               = 1 if $osm =~ /^sparc$/;
 my $sparc64             = 1 if $osm =~ /^sparc64$/;
 my $x86_64		= 1 if $osm =~ /^x86_64$/;
-
+my $amd64               = 1 if $osm =~ /^amd64$/;
 
 my $d7		= 1 if $darwin && $osv =~ /^7\.\d+\.\d+/;
 my $d8		= 1 if $darwin && $osv =~ /^8\.\d+\.\d+/;
 my $d9		= 1 if $darwin && $osv =~ /^9\.\d+\.\d+/;
 my $l26		= 1 if $linux && $osv =~ /^2\.6/;
-my $l3          = 1 if $linux && $osv =~ /^2\.7/  || $osv =~ /^3\./;
+my $l3          = 1 if $linux && $osv =~ /^2\.7/  || $osv =~ /^3\./ || $osv =~ /^4\./;
 my $f_old	= 1 if $freebsd && $osv =~ /^4\.1-/ || $osv =~ /^4\.0-/ || $osv =~ /^3/ || $osv =~ /^2/;
+
+my $isJail = `sysctl -n security.jail.jailed` if $freebsd;
 
 my $progArgs = $ARGV[0];
 if($progArgs) {
@@ -398,6 +408,18 @@ if($linux) {
 			shift @distros;	shift @distros;
 		} until (scalar @distros == 0) || (length $distro > 0);
 		if ($distro eq "Debian") {
+                        if (-e "/etc/issue") {
+                                my $issue = `head -n 1 /etc/issue`;
+                                chomp($issue);
+                                if ($issue =~ /^Raspbian/) {
+                                        $distro         = "Raspbian";
+                                        $distrov        = $issue;
+                                        $distrov        =~ s/.* ([0-9.]*) .*/$1/;
+                                } elsif ($issue =~ /^OSMC:/) {
+                                        $distro         = "Open Source Media Center";
+                                        $distrov        = "";
+                                }
+                        }
 			if (-e "/etc/lsb-release") {
 				$realdistro = `cat /etc/lsb-release | grep DISTRIB_DESCRIPTION`;
 				if ($realdistro ne "") {
@@ -459,15 +481,25 @@ if($options{showcpu} eq "on") {
 			@cpu		= grep(/^COMPAQ/, @dmesgboot);
 			$cpu		= join("\n", $cpu[0]);
 		} else {
+                        if ($isJail == '1') # full dmesg not available to jails
+                        {
+                                $cpu            = "";
+                                @cpu            = `sysctl -n hw.model`;
+                                $cpu            = join("\n", @cpu);
+                        }
+                        else
+                        {
+                        $cpu            = "";
 			@cpu		= grep(/CPU: /, @dmesgboot);
 			$cpu		= join("\n", @cpu);
 			$cpu		=~ s/Warning:.*disabled//;
 			@cpu		= split(/CPU: /, $cpu);
-			$cpu		= $cpu[1];
+			$cpu		= $cpu;
 			$cpu		=~ s/\s\d\.\d\dGHz//g;
 			$cpu		=~ s/\s*[^\s]*-class CPU//gi;
 			$cpu		=~ s/(\S*)-MHz/$1 MHz/gi;
 			$cpu		=~ s/@\s+//;
+			}
 			chomp($cpu);
 			$smp		= `$sysctl -n hw.ncpu`;
 	 		chomp($smp);
@@ -542,6 +574,20 @@ if($options{showcpu} eq "on") {
 		}
                 if($arm) {
                         $cpu            = &cpuinfo("Processor\\s+: ");
+                }
+                if ($armv6l || $armv7l) {
+                        $cpu            = &cpuinfo("model name\\s+: ");
+                        $cpu            =~ s/-compatible//;
+                        $cpu            =~ s/processor //;
+                        if (-r "/sys/bus/cpu/devices/cpu0/cpufreq/scaling_cur_freq") {
+                                $mhz            = `cat /sys/bus/cpu/devices/cpu0/cpufreq/scaling_cur_freq`;
+                                $mhz            = ($mhz / 1000);
+                                $cpu            = sprintf("%s (%.2f MHz)", $cpu, $mhz);
+                        }
+                        @smp            = grep(/processor\s+: /, @cpuinfo);
+                        if (scalar @smp > 0) {
+                                $smp            = scalar @smp;
+                        }
                 }
 		if($i686 || $i586 || $x86_64) {
 			$cpu		= &cpuinfo("model name\\s+: ");
@@ -654,8 +700,7 @@ if($options{showcpu} eq "on") {
 	$cpu	=~ s/\s*CPU//gi;
 	$cpu	=~ s/ +/ /g;
 }
-
-#end of sysinfo()
+# keep this, its end of sysinfo()
 }
 
 sub batteryacpi {
@@ -731,6 +776,14 @@ sub diskusage {
 	} elsif($sun) {
 		$vara = `$df | grep -v swap | grep -v libc | awk '{ sum+=\$2 / 1024 / 1024}; END { print sum }'`; chomp($vara);
 		$vard = `$df | grep -v swap | grep -v libc | awk '{ sum+=\$3 / 1024 / 1024}; END { print sum }'`; chomp($vard);
+        } elsif($freebsd) {
+                if ($isJail == '1') { # in jails, storage is listed as /mnt/ mountpoints from the host, not as /dev/ devices
+                        $vara = `$df | grep -v swap | awk '{ sum+=\$2 / 1024 / 1024}; END { print sum }'`; chomp($vara);
+                        $vard = `$df | grep -v swap | awk '{ sum+=\$3 / 1024 / 1024}; END { print sum }'`; chomp($vard);
+                } else {
+                        $vara = `$df | grep dev | awk '{ sum+=\$2 / 1024 / 1024}; END { print sum }'`; chomp($vara);
+                        $vard = `$df | grep dev | awk '{ sum+=\$3 / 1024 / 1024}; END { print sum }'`; chomp($vard);
+                }
 	} else {
 		$vara = `$df | grep dev | awk '{ sum+=\$2 / 1024 / 1024}; END { print sum }'`; chomp($vara);
 		$vard = `$df | grep dev | awk '{ sum+=\$3 / 1024 / 1024}; END { print sum }'`; chomp($vard);
@@ -738,10 +791,10 @@ sub diskusage {
 	if ($vara eq "" or $vara == 0 ) {
 		return "0GB/0GB (0%)";
 	} else {
-		$varp = sprintf("%.2f", $vard / $vara * 100);
-		$vara = sprintf("%.2f", $vara);
-		$vard = sprintf("%.2f", $vard);
-		return $vard."GB/".$vara."GB ($varp%)";
+                $varp = sprintf("%.2f", $vard / $vara * 100);
+                $vara = sprintf("%.2f", $vara);
+                $vard = sprintf("%.2f", $vard);
+                return $vard."GB/".$vara."GB ($varp%)";
 	}
 }
 
