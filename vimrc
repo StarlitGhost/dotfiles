@@ -25,6 +25,12 @@ set sidescrolloff=5         " ...and left/right? not sure what this is supposed 
 set wildmenu                " tab completion menu stuff?
 set wildmode=list:longest,full
 
+" Key mapping
+inoremap jj <Esc>
+nnoremap JJJJ <Nop>
+nnoremap ; :
+nnoremap : ;
+
 " Colour settings
 highlight LineNr ctermfg=DarkGray
 highlight CursorLineNr ctermfg=White
