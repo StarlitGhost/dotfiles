@@ -8,6 +8,7 @@ execute pathogen#infect()
 syntax on                   " turn on syntax highlighting
 filetype plugin indent on   " determine filetypes by name and contents, for auto-indent and plugins
 set relativenumber number   " enable current line number, and relative line numbering above/below
+set shell=zsh               " use my preferred shell, csh is garbage
 set encoding=utf-8          " use the only sensible text encoding
 set t_Co=256                " use 256 colours, this isn't the 80s
 set mouse=a                 " enable mouse support
@@ -19,13 +20,13 @@ set ignorecase smartcase    " case-insensitive search, except when using capital
 set autoindent              " auto-indent even if the filetype doesn't have indent settings
 set hlsearch incsearch      " highlight search matches, incrementally
 set showmatch               " highlight matching brackets
-set showcmd                 " show (partial) command in status line
-set scrolloff=5             " always keep 5 lines above or below the current line
-set sidescrolloff=5         " ...and left/right? not sure what this is supposed to do
+set scrolloff=5             " keep 5 lines above/below the current line
+set sidescrolloff=5         " ...and on the left/right? not sure what this actually does
 set wildmenu                " tab completion menu stuff?
 set wildmode=list:longest,full
+set showcmd                 " show (partial) command in status line
 
-" Key mapping
+" Key mappings
 inoremap jj <Esc>
 nnoremap JJJJ <Nop>
 nnoremap ; :
@@ -41,4 +42,4 @@ set laststatus=2            " always show statusline
 set noshowmode              " disable the default mode display
 
 " GitGutter options
-set updatetime=750          " 4000ms is way too long to wait
+set updatetime=2000         " vim default of 4000ms is way too long
