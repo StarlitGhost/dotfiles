@@ -19,7 +19,7 @@ alias eze='nano $REALHOME/.zshenv'
 alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
 alias szc='sz ; clear'
 
-alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git submodule init && git pull --recurse-submodules && git submodule update --recursive ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
+alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull && git submodule init && git submodule foreach git checkout master > /dev/null 2>&1 && git submodule foreach git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
 
 # fancy syntax-highlighted cat
