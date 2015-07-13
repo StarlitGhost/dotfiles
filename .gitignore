@@ -5,5 +5,6 @@ weechat/irc.conf
 weechat/relay.conf
 weechat/urlserver_list.txt
 weechat/grep*
+weechat/script/plugins.xml.gz
 *.pem
 .nfs*
