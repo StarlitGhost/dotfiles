@@ -2,7 +2,16 @@
 set nocompatible
 
 " Plugin system
-execute pathogen#infect()
+" execute pathogen#infect()
+filetype off
+set rtp+=$REALHOME/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'kien/ctrlp.vim'
+Bundle 'bling/vim-airline'
+Bundle 'airblade/vim-gitgutter'
+filetype on
 
 " Basic vim options
 syntax on                   " turn on syntax highlighting
