@@ -31,6 +31,7 @@ inoremap jj <Esc>
 nnoremap JJJJ <Nop>
 nnoremap ; :
 nnoremap : ;
+autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 
 " Colour settings
 highlight LineNr ctermfg=DarkGray
