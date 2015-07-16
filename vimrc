@@ -2,7 +2,7 @@
 set nocompatible
 
 " Plugin system
-" execute pathogen#infect()
+"execute pathogen#infect()
 filetype off
 set rtp+=$REALHOME/.vim/bundle/vundle/
 call vundle#rc()
@@ -11,6 +11,8 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'vim-scripts/Conque-Shell'
+Bundle 'guns/xterm-color-table.vim'
 filetype on
 
 " Basic vim options

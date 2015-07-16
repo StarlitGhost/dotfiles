@@ -22,3 +22,9 @@
 [submodule "vim/bundle/vundle"]
 	path = vim/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
+[submodule "vim/bundle/xterm-color-table.vim"]
+	path = vim/bundle/xterm-color-table.vim
+	url = git@github.com:guns/xterm-color-table.vim.git
+[submodule "vim/bundle/Conque-Shell"]
+	path = vim/bundle/Conque-Shell
+	url = git@github.com:vim-scripts/Conque-Shell.git
