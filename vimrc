@@ -47,7 +47,7 @@ nnoremap : ;
 autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 
 " Colour settings
-highlight LineNr ctermbg=Black ctermfg=DarkGray
+highlight LineNr ctermbg=234 ctermfg=DarkGray
 highlight CursorLineNr ctermbg=Black ctermfg=White
 highlight CursorLine cterm=NONE ctermbg=Black
 highlight CursorColumn cterm=NONE ctermbg=Black
