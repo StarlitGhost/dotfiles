@@ -18,7 +18,10 @@ filetype on
 " Basic vim options
 syntax on                   " turn on syntax highlighting
 filetype plugin indent on   " determine filetypes by name and contents, for auto-indent and plugins
-set relativenumber number   " enable current line number, and relative line numbering above/below
+set number                  " enable line numbering...
+if exists('+relativenumber') " (option was added in vim version 7.3)
+    set relativenumber      " ...and make it relative to the current line
+endif
 set shell=zsh               " use my preferred shell, csh is garbage
 set encoding=utf-8          " use the only sensible text encoding
 set t_Co=256                " use 256 colours, this isn't the 80s
@@ -39,6 +42,8 @@ set showcmd                 " show (partial) command in status line
 set cursorline              " highlight the current line
 "set cursorcolumn            " highlight the current column
 set autoread                " automatically refresh unchanged files if they have edits on disk
+autocmd FocusGained,BufEnter * :silent! !
+set clipboard=exclude:.*    " disable the system clipboard integration, way too slow when I don't have an X server running
 
 " Key mappings
 inoremap jj <Esc>
