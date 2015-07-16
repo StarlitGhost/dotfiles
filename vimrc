@@ -36,6 +36,8 @@ set sidescrolloff=5         " ...and on the left/right? not sure what this actua
 set wildmenu                " tab completion menu stuff?
 set wildmode=list:longest,full
 set showcmd                 " show (partial) command in status line
+set cursorline              " highlight the current line
+"set cursorcolumn            " highlight the current column
 
 " Key mappings
 inoremap jj <Esc>
@@ -45,8 +47,10 @@ nnoremap : ;
 autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 
 " Colour settings
-highlight LineNr ctermfg=DarkGray
-highlight CursorLineNr ctermfg=White
+highlight LineNr ctermbg=Black ctermfg=DarkGray
+highlight CursorLineNr ctermbg=Black ctermfg=White
+highlight CursorLine cterm=NONE ctermbg=Black
+highlight CursorColumn cterm=NONE ctermbg=Black
 
 " Powerline/airline options
 let g:airline_powerline_fonts = 1   " enable powerline symbols for airline
