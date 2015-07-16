@@ -12,10 +12,12 @@ lass () {
 }
 
 # zsh config files
-alias ez='nano $REALHOME/.zshrc'
-alias eza='nano $REALHOME/.zsh_aliases'
-alias ezau='nano $REALHOME/.zsh_aliases_ut'
-alias eze='nano $REALHOME/.zshenv'
+alias ez='$EDITOR $REALHOME/.zshrc'
+alias eza='$EDITOR $REALHOME/.zsh_aliases'
+alias ezau='$EDITOR $REALHOME/.zsh_aliases_ut'
+alias eze='$EDITOR $REALHOME/.zshenv'
+alias ezeu='$EDITOR $REALHOME/.zshenv_ut'
+alias ezeup='$EDITOR $REALHOME/.zshenv_ut_post'
 alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
 alias szc='sz ; clear'
 
