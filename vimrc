@@ -52,6 +52,7 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+nnoremap <silent> <Esc><Esc> :let @/=""<CR>
 autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 
 " Colour settings
