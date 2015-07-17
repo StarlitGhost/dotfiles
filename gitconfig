@@ -21,5 +21,7 @@
 [alias]
 	permission-reset = !git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply
 	gud = gui
+	diffs = diff --staged
+	unstage = reset HEAD --
 [push]
 	default = current

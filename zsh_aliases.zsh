@@ -92,7 +92,10 @@ switchdir () {
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
 
 # fancy formatted git log
-alias gitlog="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all | cat"
+# format placeholders: http://git-scm.com/docs/pretty-formats
+alias glog='git log --oneline --decorate --graph --color --date=relative \
+    --pretty=format:"%C(auto)%h %C(cyan)(%ad)%C(auto)%d%C(reset) %s %C(blue)<%an>"'
+alias glogd='glog --date=short'
 
 # kill a background job
 alias killbg='kill ${${(v)jobstates#*:*:}%=*}'
