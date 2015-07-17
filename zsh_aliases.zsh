@@ -108,6 +108,7 @@ alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --sho
 alias glog='git log --oneline --decorate --graph --color --date=relative \
     --pretty=format:"%C(auto)%h %C(cyan)(%ad)%C(auto)%d%C(reset) %s %C(blue)<%an>"'
 alias glogd='glog --date=short'
+alias gds='git diffs --color'
 
 # kill a background job
 alias killbg='kill ${${(v)jobstates#*:*:}%=*}'
