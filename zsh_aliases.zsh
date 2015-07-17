@@ -21,7 +21,15 @@ alias ezeup='$EDITOR $REALHOME/.zshenv_ut_post'
 alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
 alias szc='sz ; clear'
 
-alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; git pull && git submodule init && git submodule foreach git checkout master > /dev/null 2>&1 && git submodule foreach git pull ; ./install ; echo "" ; sz ; popd > /dev/null 2>&1'
+alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
+    git pull && \
+    git submodule update --init && \
+    git submodule foreach git checkout master > /dev/null 2>&1 && \
+    git submodule foreach git pull ; \
+    ./install ; \
+    echo "" ; \
+    sz ; \
+    popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
 
 # fancy syntax-highlighted cat
@@ -59,14 +67,16 @@ pathfind () {
 # find an executable file in the PATH and execute it with --version appended
 pathversion () {
     for i in "${(s/:/)PATH}"; do
-        find -L $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null -exec echo {} \; -exec {} --version \;
+        find -L $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null \
+            -exec echo {} \; -exec {} --version \;
     done
 }
 
 # progress bar, and generally better in every way
 alias cp="rsync -avz --progress"
 
-# move files into dir, auto-creating dir and all intervening dirs if they don't exist
+# move files into dir, auto-creating dir
+# and all intervening dirs if they don't exist
 mkmv () {
     local -a arr
     arr=($@)
@@ -76,7 +86,8 @@ mkmv () {
     mv ${arr[1,-2]} ${arr[-1]}
 }
 
-# copy files into dir, auto-creating dir and all intervening dirs if they don't exist
+# copy files into dir, auto-creating dir
+# and all intervening dirs if they don't exist
 mkcp () {
     local -a arr
     arr=($@)
@@ -84,6 +95,7 @@ mkcp () {
     cp ${arr[1,-2]} ${arr[-1]}
 }
 
+# sed replace on the current dir and go to the result
 switchdir () {
     cd `pwd | sed 's|'$1'|_mhc_switchdir|;s|'$2'|'$1'|' | sed 's|_mhc_switchdir|'$2'|'`
 }
@@ -113,7 +125,8 @@ export TODOTXT_SORT_COMMAND='env LC_COLLATE=C sort -k 2,2 -k 1,1n'
 alias t='todo.sh -d $DOTFILES/ignored/todo.cfg'
 
 # perforce aliases
-# use sed to colour p4 grep output similar to standard grep colouring, then use standard grep to colour the matches themselves
+# use sed to colour p4 grep output similar to standard grep colouring,
+# then use standard grep to colour the matches themselves
 p4grep() {
           # depot path¦#¦revision¦  :/-  ¦line num ¦ :/-|purple ¦dep¦cyan ¦#¦yellow¦rev¦cyan¦:/-¦green ¦line¦cyan¦:/-¦reset
     p4 grep -n -e $* | sed \
@@ -129,7 +142,10 @@ alias pyman='$REALHOME/.dotfiles/ignored/commands/pyman.py'
 alias cmake-clean='$REALHOME/.dotfiles/ignored/commands/cmake-clean.py'
 
 # test colour theme with some tables and ascii art
-alias ansi-colours='$REALHOME/.dotfiles/ignored/commands/ansi-colours.sh ; $REALHOME/.dotfiles/ignored/commands/ansi-table.sh ; $REALHOME/.dotfiles/ignored/commands/ansi-pacman.sh ; $REALHOME/.dotfiles/ignored/commands/ansi-invaders.sh'
+alias ansi-colours='$REALHOME/.dotfiles/ignored/commands/ansi-colours.sh ;\
+    $REALHOME/.dotfiles/ignored/commands/ansi-table.sh ;\
+    $REALHOME/.dotfiles/ignored/commands/ansi-pacman.sh ;\
+    $REALHOME/.dotfiles/ignored/commands/ansi-invaders.sh'
 
 if [[ `uname -o` == Cygwin ]]; then
 	alias cyg-ports='cyg-apt --no-verify --mirror="ftp://ftp.cygwinports.org/pub/cygwinports/"'
@@ -156,7 +172,6 @@ venv_cd () {
 # when opening a new tab in Terminal.app).
 check_virtualenv
 
-# Add the following to ~/.bash_aliases:
 alias cd="venv_cd"
 
 # screen
