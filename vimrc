@@ -47,10 +47,10 @@ set autoread                " automatically refresh unchanged files if they have
 autocmd FocusGained,BufEnter * :silent! !
 set clipboard=exclude:.*    " disable the system clipboard integration, way too slow when I don't have an X server running
 
-" Highlight the 100th column and onwards
+" Highlight the 80th column, and all columns >100
 " 500 seems reasonable since you have to give a limit
 if exists('+colorcolumn')
-    let &colorcolumn=join(range(101,500),",")
+    let &colorcolumn="80,".join(range(101,500),",")
 endif
 
 " Key mappings
@@ -79,4 +79,4 @@ set noshowmode              " disable the default mode display
 set updatetime=2000         " vim default of 4000ms is way too long
 
 " Rainbow Brackets options
-let g:rainbow_active = 1
+let g:rainbow_active = 0
