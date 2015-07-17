@@ -36,7 +36,7 @@ set autoindent              " auto-indent even if the filetype doesn't have inde
 set hlsearch incsearch      " highlight search matches, incrementally
 set showmatch               " highlight matching brackets
 set scrolloff=5             " keep 5 lines above/below the current line
-set sidescrolloff=5         " ...and on the left/right? not sure what this actually does
+set sidescrolloff=5         " ...and cols on the left/right (if wrap is off)
 set colorcolumn=100         " highlight the 100th column
 set wildmenu                " tab completion menu stuff?
 set wildmode=list:longest,full
