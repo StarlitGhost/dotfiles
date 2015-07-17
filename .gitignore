@@ -1,3 +1,6 @@
+*.pem
+.nfs*
+*.swp
 weechat/logs/*
 weechat/*.log
 weechat/weechat_fifo_*
@@ -6,5 +9,8 @@ weechat/relay.conf
 weechat/urlserver_list.txt
 weechat/grep*
 weechat/script/plugins.xml.gz
-*.pem
-.nfs*
+vim/bundle/.vundle/*
+vim/syntax/vhc.vim
+vim/syntax/tgn.vim
+vim/ftdetect/vhc.vim
+vim/ftdetect/tgn.vim

@@ -36,6 +36,7 @@ set hlsearch incsearch      " highlight search matches, incrementally
 set showmatch               " highlight matching brackets
 set scrolloff=5             " keep 5 lines above/below the current line
 set sidescrolloff=5         " ...and on the left/right? not sure what this actually does
+set colorcolumn=100         " highlight the 100th column
 set wildmenu                " tab completion menu stuff?
 set wildmode=list:longest,full
 set showcmd                 " show (partial) command in status line
@@ -44,6 +45,12 @@ set cursorline              " highlight the current line
 set autoread                " automatically refresh unchanged files if they have edits on disk
 autocmd FocusGained,BufEnter * :silent! !
 set clipboard=exclude:.*    " disable the system clipboard integration, way too slow when I don't have an X server running
+
+" Highlight the 100th column and onwards
+" 500 seems reasonable since you have to give a limit
+if exists('+colorcolumn')
+    let &colorcolumn=join(range(101,500),",")
+endif
 
 " Key mappings
 inoremap jj <Esc>
@@ -60,6 +67,7 @@ highlight LineNr ctermbg=234 ctermfg=DarkGray
 highlight CursorLineNr ctermbg=Black ctermfg=White
 highlight CursorLine cterm=NONE ctermbg=Black
 highlight CursorColumn cterm=NONE ctermbg=Black
+highlight ColorColumn ctermbg=234
 
 " Powerline/airline options
 let g:airline_powerline_fonts = 1   " enable powerline symbols for airline
