@@ -13,6 +13,7 @@ Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-scripts/Conque-Shell'
 Bundle 'guns/xterm-color-table.vim'
+Bundle 'luochen1990/rainbow'
 filetype on
 
 " Basic vim options
@@ -76,3 +77,6 @@ set noshowmode              " disable the default mode display
 
 " GitGutter options
 set updatetime=2000         " vim default of 4000ms is way too long
+
+" Rainbow Brackets options
+let g:rainbow_active = 1

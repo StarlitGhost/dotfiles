@@ -28,3 +28,6 @@
 [submodule "vim/bundle/Conque-Shell"]
 	path = vim/bundle/Conque-Shell
 	url = git@github.com:vim-scripts/Conque-Shell.git
+[submodule "vim/bundle/rainbow"]
+	path = vim/bundle/rainbow
+	url = git@github.com:luochen1990/rainbow.git
