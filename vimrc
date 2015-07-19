@@ -2,19 +2,15 @@
 set nocompatible
 
 " Plugin system
-"execute pathogen#infect()
-filetype off
-set rtp+=$REALHOME/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'kien/ctrlp.vim'
-Bundle 'bling/vim-airline'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'vim-scripts/Conque-Shell'
-Bundle 'guns/xterm-color-table.vim'
-Bundle 'luochen1990/rainbow'
-filetype on
+call plug#begin('~/.vim/plugged')
+Plug 'vim-scripts/Conque-Shell'
+Plug 'kien/ctrlp.vim'
+Plug 'bling/vim-airline'
+Plug 'airblade/vim-gitgutter'
+Plug 'luochen1990/rainbow'
+Plug 'guns/xterm-color-table.vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+call plug#end()
 
 " Basic vim options
 syntax on                   " turn on syntax highlighting
