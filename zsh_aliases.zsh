@@ -23,7 +23,7 @@ alias szc='sz ; clear'
 
 alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
     git pull && \
-    git submodule update --init && \
+    git submodule update --init --recursive && \
     git submodule foreach git checkout master > /dev/null 2>&1 && \
     git submodule foreach git pull ; \
     ./install ; \
