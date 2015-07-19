@@ -10,8 +10,8 @@ Instructions for setting up on a new debian-based machine.
 My dotfiles still work on other systems, but package installation is different.
 
 ```
-sudo apt-get install automake build-essential cmake git python-dev python-pip \
-ruby ssh tmux vim zsh
+sudo apt-get --yes install automake build-essential cmake git \
+python-dev python-pip ruby ssh tmux vim zsh
 sudo pip install virtualenv virtualenvwrapper
 source /usr/local/bin/virtualenvwrapper.sh ; mkvirtualenv home
 pip install powerline-status
@@ -30,7 +30,7 @@ chsh -s /bin/zsh ; exec zsh -l
 And some additional steps for systems I load a desktop on.
 
 ```
-sudo apt-get install guake
+sudo apt-get --yes install guake
 sudo ln -s /usr/share/applications/guake.desktop /etc/xdg/autostart/
 git clone https://github.com/powerline/fonts.git ~/powerline-fonts
 ~/powerline-fonts/install.sh
