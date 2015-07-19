@@ -13,20 +13,27 @@ My dotfiles still work on other systems, but package installation is different.
 sudo apt-get install automake build-essential cmake git python-dev python-pip \
 ruby ssh tmux vim zsh
 sudo pip install virtualenv virtualenvwrapper
-mkvirtualenv home
+source /usr/local/bin/virtualenvwrapper.sh ; mkvirtualenv home
 pip install powerline-status
+ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
+```
+Add key to GitHub account, then...
+```
 git clone git@github.com:MatthewCox/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
+git pull && git submodule update --init --recursive && \
+git submodule foreach git checkout master && git submodule foreach git pull
 ./install
-// Make zsh default shell
-// Run zsh
-// Run update_dotfiles
+chsh -s /bin/zsh ; exec zsh -l
 ```
 
-And additional steps for systems I load a desktop on.
+And some additional steps for systems I load a desktop on.
 
 ```
 sudo apt-get install guake
-// Guake autorun on startup
-// Powerline font installation
+sudo ln -s /usr/share/applications/guake.desktop /etc/xdg/autostart/
+git clone https://github.com/powerline/fonts.git ~/powerline-fonts
+cd ~/powerline-fonts ; sudo ./install.sh
+~/.dotfiles/ignored/gnome-terminal-obsidian.sh
+~/.gotfiles/ignored/guake-obsidian.sh
 ```
