@@ -19,6 +19,7 @@ ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
 ```
 Add key to GitHub account, then...
 ```
+ssh-keyscan github.com >> ~/.ssh/known_hosts
 git clone git@github.com:MatthewCox/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 git pull && git submodule update --init --recursive && \
