@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 gconftool-2 -s -t string /apps/guake/style/font/style "DejaVu Sans Mono for Powerline 10"
+gconftool-2 -s -t bool /apps/guake/general/use_default_font false
 gconftool-2 -s -t int /apps/guake/style/background/transparency 2
 gconftool-2 -s -t string /apps/guake/style/font/color "#C8C8C8C8C8C8"
 gconftool-2 -s -t string /apps/guake/style/background/color "#222228282A2A"
