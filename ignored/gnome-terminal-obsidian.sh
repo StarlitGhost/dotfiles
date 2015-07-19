@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/font "DejaVu Sans Mono for Powerline 10"
+gconftool-2 -s -t bool /apps/gnome-terminal/profiles/Default/use_system_font false
+gconftool-2 -s -t bool /apps/gnome-terminal/profiles/Default/use_theme_colors false
 gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/foreground_color "#C8C8C8C8C8C8"
 gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/background_color "#222228282A2A"
 gconftool-2 -s -t float /apps/gnome-terminal/profiles/Default/background_darkness 0.98
