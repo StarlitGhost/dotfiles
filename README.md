@@ -36,5 +36,5 @@ sudo ln -s /usr/share/applications/guake.desktop /etc/xdg/autostart/
 git clone https://github.com/powerline/fonts.git ~/powerline-fonts
 ~/powerline-fonts/install.sh
 ~/.dotfiles/ignored/gnome-terminal-obsidian.sh
-~/.gotfiles/ignored/guake-obsidian.sh
+~/.dotfiles/ignored/guake-obsidian.sh
 ```
