@@ -34,19 +34,24 @@ set showmatch               " highlight matching brackets
 set scrolloff=5             " keep 5 lines above/below the current line
 set sidescrolloff=5         " ...and cols on the left/right (if wrap is off)
 set colorcolumn=100         " highlight the 100th column
-set wildmenu                " tab completion menu stuff?
+set wildmenu                " tab completion menu stuff
 set wildmode=list:longest,full
 set showcmd                 " show (partial) command in status line
 set cursorline              " highlight the current line
 "set cursorcolumn            " highlight the current column
 set autoread                " automatically refresh unchanged files if they have edits on disk
 autocmd FocusGained,BufEnter * :silent! !
-set clipboard=exclude:.*    " disable the system clipboard integration, way too slow when I don't have an X server running
+set clipboard=exclude:.*    " disable system clipboard integration, too slow when X isn't running
 
 " Highlight the 80th column, and all columns >100
 " 500 seems reasonable since you have to give a limit
 if exists('+colorcolumn')
     let &colorcolumn="80,".join(range(101,500),",")
+endif
+
+" Enable mouse resizing of vim windows inside tmux/screen
+if &term =~ '^screen'
+    set ttymouse=xterm2
 endif
 
 " Key mappings
@@ -57,6 +62,7 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 nnoremap <silent> <Esc><Esc> :let @/=""<CR>
+" F5 to save & execute the current python buffer
 autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 
 " Colour settings
