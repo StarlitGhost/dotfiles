@@ -43,6 +43,8 @@ set cursorline              " highlight the current line
 set autoread                " automatically refresh unchanged files if they have edits on disk
 autocmd FocusGained,BufEnter * :silent! !
 set clipboard=exclude:.*    " disable system clipboard integration, too slow when X isn't running
+
+" Make undo history persistent
 if has('persistent_undo')
     let myUndoDir = expand($REALHOME . '/.vim/undodir')
     " Create undodir if it doesn't exist
