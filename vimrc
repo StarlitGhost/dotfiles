@@ -10,6 +10,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'luochen1990/rainbow'
 Plug 'guns/xterm-color-table.vim'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 " Basic vim options
@@ -42,6 +43,15 @@ set cursorline              " highlight the current line
 set autoread                " automatically refresh unchanged files if they have edits on disk
 autocmd FocusGained,BufEnter * :silent! !
 set clipboard=exclude:.*    " disable system clipboard integration, too slow when X isn't running
+if has('persistent_undo')
+    let myUndoDir = expand($REALHOME . '/.vim/undodir')
+    " Create undodir if it doesn't exist
+    call system('mkdir ' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
+endif
 
 " Highlight the 80th column, and all columns >100
 " 500 seems reasonable since you have to give a limit
@@ -71,6 +81,7 @@ highlight CursorLineNr ctermbg=Black ctermfg=White
 highlight CursorLine cterm=NONE ctermbg=Black
 highlight CursorColumn cterm=NONE ctermbg=Black
 highlight ColorColumn ctermbg=234
+highlight Visual ctermbg=238
 
 " Powerline/airline options
 let g:airline_powerline_fonts = 1   " enable powerline symbols for airline

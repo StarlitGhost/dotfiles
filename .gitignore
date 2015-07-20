@@ -10,7 +10,7 @@ weechat/urlserver_list.txt
 weechat/grep*
 weechat/script/plugins.xml.gz
 vim/plugged/*
-vim/bundle/.vundle/*
+vim/undodir/*
 vim/syntax/vhc.vim
 vim/syntax/tgn.vim
 vim/ftdetect/vhc.vim
