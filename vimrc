@@ -58,7 +58,7 @@ if has('persistent_undo')
 endif
 
 " Highlight the 80th column, and all columns >100
-" 500 seems reasonable since you have to give a limit
+" 500 seems reasonable since you have to give an upper limit
 if exists('+colorcolumn')
     let &colorcolumn="80,".join(range(101,500),",")
 endif
@@ -68,25 +68,43 @@ if &term =~ '^screen'
     set ttymouse=xterm2
 endif
 
+" Automatically source ~/.vimrc when it is saved
+autocmd BufWritePost .vimrc source $MYVIMRC
+
 " Key mappings
+"""""""""""""""
+" Exit insert mode with jj 
 inoremap jj <Esc>
+" Not really sure? It accompanied the jj bind online
 nnoremap JJJJ <Nop>
+" Swap ; & : in normal and visual modes, for shift-less commands
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+" Open .vimrc in a new tab
+nnoremap <leader>v :tabedit $MYVIMRC<CR>
+" Toggle visible whitespace characters
+nnoremap <leader>w :set list!<CR>
+set listchars=tab:▸\ ,eol:¬ " characters to use for tab and end-of-line in visible whitespace mode
+" Esc twice to clear the last search
 nnoremap <silent> <Esc><Esc> :let @/=""<CR>
 " F5 to save & execute the current python buffer
 autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 
 " Colour settings
+""""""""""""""""""
 highlight LineNr ctermbg=234 ctermfg=DarkGray
 highlight CursorLineNr ctermbg=Black ctermfg=White
 highlight CursorLine cterm=NONE ctermbg=Black
 highlight CursorColumn cterm=NONE ctermbg=Black
 highlight ColorColumn ctermbg=234
 highlight Visual ctermbg=238
+highlight NonText ctermfg=237
+highlight SpecialKey ctermfg=237
 
+" Plugin Settings
+""""""""""""""""""
 " Powerline/airline options
 let g:airline_powerline_fonts = 1   " enable powerline symbols for airline
 set laststatus=2            " always show statusline
