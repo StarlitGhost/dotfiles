@@ -69,7 +69,7 @@ pathfind () {
 pathversion () {
     for i in "${(s/:/)PATH}"; do
         find -L $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null \
-            -exec echo {} \; -exec {} --version \;
+            -exec echo -e "\x1B[35m{}\x1B[0m" \; -exec {} --version \;
     done
 }
 
