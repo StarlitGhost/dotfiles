@@ -55,7 +55,8 @@ alias tn='tmux has -t $1 &> /dev/null && tmux attach -t $1 || tmux new -s $1'
 alias htop='TERM=xterm-color htop'
 
 # vim
-alias vimrc='vim $REALHOME/.vimrc'
+alias vim='vim -u $REALHOME/.vimrc'
+alias vimrc='$EDITOR $REALHOME/.vimrc'
 
 # find an executable file (or symlinked executable file) in the PATH
 pathfind () {

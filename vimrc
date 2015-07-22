@@ -1,8 +1,11 @@
 " We're not using Vi, so don't pretend we are
 set nocompatible
 
+" Set the runtime path (where .vim dir is) to include my $REALHOME var
+let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim'), &runtimepath)
+
 " Plugin system
-call plug#begin('~/.vim/plugged')
+call plug#begin(expand($REALHOME . '/.vim/plugged'))
 Plug 'vim-scripts/Conque-Shell'
 Plug 'kien/ctrlp.vim'
 Plug 'bling/vim-airline'

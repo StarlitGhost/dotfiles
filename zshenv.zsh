@@ -33,7 +33,7 @@ export DOTFILES=$REALHOME/.dotfiles
 
 export ZSH_CUSTOM=$DOTFILES/ignored/omz-custom
 
-export EDITOR=vim
+export EDITOR="$REALHOME/.dotfiles/ignored/EDITOR"
 
 # customized file/dir colours for ls
 eval `dircolors -b $REALHOME/._dircolors_`

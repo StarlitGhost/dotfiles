@@ -1,0 +1,2 @@
+#!/bin/sh
+MYVIMRC=$REALHOME/.vimrc vim -u $REALHOME/.vimrc "$@"
