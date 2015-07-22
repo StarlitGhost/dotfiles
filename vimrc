@@ -1,4 +1,4 @@
-" Some sort of magic for system-independence and reliability
+" We're not using Vi, so don't pretend we are
 set nocompatible
 
 " Plugin system
