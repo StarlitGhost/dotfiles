@@ -40,6 +40,7 @@ set scrolloff=5             " keep 5 lines above/below the current line
 set sidescrolloff=5         " ...and cols on the left/right (if wrap is off)
 set textwidth=100           " hard-wrap typed text past this column, at the nearest whitespace
 set colorcolumn=100         " highlight the 100th column
+set listchars=tab:▸\ ,eol:¬ " characters to use for tab and end-of-line in visible whitespace mode
 set wildmenu                " tab completion menu stuff
 set wildmode=list:longest,full
 set showcmd                 " show (partial) command in status line
@@ -90,13 +91,21 @@ vnoremap ; :
 vnoremap : ;
 " Open .vimrc in a new tab
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
-" Toggle visible whitespace characters
-nnoremap <leader>w :set list!<CR>
-set listchars=tab:▸\ ,eol:¬ " characters to use for tab and end-of-line in visible whitespace mode
 " Esc twice to clear the last search
 nnoremap <silent> <Esc><Esc> :let @/=""<CR>
 " F5 to save & execute the current python buffer
 autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
+
+" c(hange) o(ption) _ mappings
+"""""""""""""""""""""""""""""""
+" Toggle visible whitespace characters
+nnoremap <silent> cow :set list!<CR>
+" Toggle line numbering
+nnoremap <silent> con :set number! relativenumber!<CR>
+" Toggle relative line numbering (cor & con don't play well, remembering state would be cool)
+nnoremap <silent> cor :set relativenumber!<CR>
+" Toggle the GitGutter
+nnoremap <silent> cog :GitGutterToggle<CR>
 
 " Colour settings
 """"""""""""""""""
