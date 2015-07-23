@@ -74,6 +74,9 @@ endif
 " Automatically source ~/.vimrc when it is saved
 autocmd BufWritePost .vimrc source $MYVIMRC
 
+" Automatically cd into the directory that the file is in
+autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+
 " Key mappings
 """""""""""""""
 " Exit insert mode with jj 
@@ -105,6 +108,7 @@ highlight ColorColumn ctermbg=234
 highlight Visual ctermbg=238
 highlight NonText ctermfg=237
 highlight SpecialKey ctermfg=237
+highlight MatchParen cterm=Bold ctermbg=33 ctermfg=17
 
 " Plugin Settings
 """"""""""""""""""
