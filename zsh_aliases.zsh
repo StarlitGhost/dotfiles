@@ -57,6 +57,8 @@ alias htop='TERM=xterm-color htop'
 # vim
 alias vim='vim -u $REALHOME/.vimrc'
 alias vimrc='$EDITOR $REALHOME/.vimrc'
+alias v='vim'
+alias e='$EDITOR'
 
 # find an executable file (or symlinked executable file) in the PATH
 pathfind () {

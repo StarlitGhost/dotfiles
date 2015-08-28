@@ -12,7 +12,7 @@ Plug 'bling/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'luochen1990/rainbow'
 Plug 'guns/xterm-color-table.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
@@ -98,8 +98,10 @@ autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shelle
 
 " c(hange) o(ption) _ mappings
 """""""""""""""""""""""""""""""
+" Toggle word wrapping
+nnoremap <silent> cow :set wrap!<CR>
 " Toggle visible whitespace characters
-nnoremap <silent> cow :set list!<CR>
+nnoremap <silent> col :set list!<CR>
 " Toggle line numbering
 nnoremap <silent> con :set number! relativenumber!<CR>
 " Toggle relative line numbering (cor & con don't play well, remembering state would be cool)
