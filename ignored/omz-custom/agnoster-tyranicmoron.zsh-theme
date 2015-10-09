@@ -246,6 +246,15 @@ prompt_datetime() {
   prompt_segment black default "%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}"
 }
 
+prompt_timer() {
+  local fg
+  fg=default
+  if [[ $timer_show -gt 10000 ]]; then
+    fg=red
+  fi
+  prompt_segment black $fg "◷ `printf '%.0f' $timer_show`ms"
+}
+
 prompt_marker() {
   local marker
   local bg fg
@@ -271,8 +280,9 @@ prompt_marker() {
 ## Main prompt
 build_preprompt() {
   RETVAL=$?
+  prompt_timer
   prompt_status
-  prompt_datetime
+  #prompt_datetime
   prompt_virtualenv
   #prompt_context
   prompt_dir
