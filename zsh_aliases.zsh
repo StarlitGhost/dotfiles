@@ -75,6 +75,14 @@ pathversion () {
     done
 }
 
+# find an executable file in the PATH and execute it with -V appended
+pathv () {
+    for i in "${(s/:/)PATH}"; do
+        find -L $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null \
+            -exec echo -e "\x1B[35m{}\x1B[0m" \; -exec {} -V \;
+    done
+}
+
 # progress bar, and generally better in every way
 alias cp="rsync -avz --progress"
 
