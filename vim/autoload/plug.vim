@@ -1092,7 +1092,11 @@ G_LOG_PROB = 1.0 / int(vim.eval('s:update.threads'))
 G_STOP = thr.Event()
 
 class PlugError(Exception):
-  pass
+  def __init__(self, msg):
+    self._msg = msg
+  @property
+  def msg(self):
+    return self._msg
 class CmdTimedOut(PlugError):
   pass
 class CmdFailed(PlugError):
@@ -1283,7 +1287,7 @@ class Plugin(object):
         with self.lock:
           thread_vim_command("let s:update.new['{0}'] = 1".format(self.name))
     except PlugError as exc:
-      self.write(Action.ERROR, self.name, str(exc))
+      self.write(Action.ERROR, self.name, exc.msg)
     except KeyboardInterrupt:
       G_STOP.set()
       self.write(Action.ERROR, self.name, ['Interrupted!'])
