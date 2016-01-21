@@ -677,6 +677,13 @@ my %default_options_look =
      "", 0, 0, "on", "on", 0,
      "", "", "buffers_signal_config", "", "", ""
  ],
+ "indent_amount" => [
+     "indent_amount", "integer",
+     "amount of indenting to use. This option only takes effect if bar ".
+     "is left/right positioned, and indenting is enabled",
+     "", 0, 16, 2, 2, 0,
+     "", "", "buffers_signal_config", "", "", ""
+ ],
  "short_names" => [
      "short_names", "boolean",
      "display short names (remove text before first \".\" in buffer name)",
@@ -1325,16 +1332,17 @@ sub build_buffers
             {
                 if ( weechat::config_integer( $options{"indenting"} ) eq 1 )
                 {
-                    $str .= "  ";
+                    $str .= " " x weechat::config_integer( $options{"indent_amount"} );
                 }
                 elsif ( (weechat::config_integer($options{"indenting"}) eq 2) and (weechat::config_integer($options{"indenting_number"}) eq 0) )        #under_name
                 {
                     if ( weechat::config_boolean( $options{"show_number"} ) eq 0 )
                     {
-                      $str .= "  ";
-                    }else
+                      $str .= " " x weechat::config_integer( $options{"indent_amount"} );
+                    }
+                    else
                     {
-                      $str .= ( (" " x ( $max_number_digits - length($buffer->{"number"}) ))." " );
+                      $str .= ( (" " x ( $max_number_digits - length($buffer->{"number"}) )).(" " x weechat::config_integer( $options{"indent_amount"} ) ) );
                     }
                 }
             }

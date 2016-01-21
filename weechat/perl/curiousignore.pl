@@ -24,6 +24,7 @@
 #
 # this scripts needs weechat 0.3.2 or higher
 #
+# v0.4  : add: option tags, ignore_tags
 # v0.3  : add: option cloaked_text_reply (suggested by dAnjou)
 #       : add: option rapid_fire
 #       : add: description for options
@@ -36,7 +37,7 @@ use strict;
 use POSIX qw(strftime);
 
 my $SCRIPT_NAME         = "curiousignore";
-my $SCRIPT_VERSION      = "0.3";
+my $SCRIPT_VERSION      = "0.4";
 my $SCRIPT_DESC         = "suppresses messages from specified nick and only prints his nickname in channel";
 
 my $save_to_log = "on";
@@ -50,13 +51,34 @@ my %options_default = ('blacklist'              => ['','comma separated list of 
                        'cloaked_text'           => ['text cloaked','text that will be displayed in buffer. if no text is given, the message will be discard'],
                        'cloaked_text_reply'     => ['reply to cloaked text','text that will be displayed in buffer for an reply of a cloaked nick. if no text is given, the message will be discard. Own written messages will be displayed'],
                        'rapid_fire'             => ['on','displays cloaked text only once, even nick sends several messages'],
+                       'tags'                   => ['irc_privmsg,irc_notice','Comma-separated list of message tags that you want to be cloaked'],
+                       'ignore_tags'            => ['',"Comma-separated list of message tags that you don't want to be cloaked"],
 );
 
 my %options = ();
 
+my @tags_array;
+my @ignore_tags_array;
+
 # program starts here
-sub colorize_cb {
+sub colorize_cb
+{
     my ( $data, $modifier, $modifier_data, $string ) = @_;
+
+    # quit if an ignore_tag is found
+    if (@ignore_tags_array)
+    {
+        my $combined_search = join("|",@ignore_tags_array);
+        my @ignore_tags_found = ($modifier_data =~ /($combined_search)/);
+        return $string if (@ignore_tags_found);
+    }
+    # quit if tag isn't in the cloak list
+    if (@tags_array)
+    {
+        my $combined_search = join("|",@tags_array);
+        my @tags_found = ($modifier_data =~ /($combined_search)/);
+        return $string unless (@tags_found);
+    }
 
     $string =~ m/^(.*)\t(.*)/;                                                                          # get the nick & message: nick[tab]message
     my $nick = $1;
@@ -191,11 +213,23 @@ sub get_logfile_name
     return weechat::WEECHAT_RC_OK;
 }
 
+sub ignore_tags
+{
+    @ignore_tags_array = split(",",$options{ignore_tags});
+}
+
+sub tags
+{
+    @tags_array = split(",",$options{tags});
+}
+
 sub toggle_config_by_set
 {
     my ($pointer, $name, $value) = @_;
     $name = substr($name, length("plugins.var.perl.".$SCRIPT_NAME."."), length($name));
     $options{$name} = $value;
+    ignore_tags() if ($name eq "ignore_tags");
+    tags() if ($name eq "tags");
     return weechat::WEECHAT_RC_OK;
 }
 
@@ -218,6 +252,8 @@ sub init_config
             weechat::config_set_desc_plugin($option, $options_default{$option}[1]." (default: \"".$options_default{$option}[0]."\")");
         }
     }
+    tags();
+    ignore_tags();
 }
 
 # first function called by a WeeChat-script.
