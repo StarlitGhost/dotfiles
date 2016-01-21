@@ -106,10 +106,17 @@ mkcp () {
     cp ${arr[1,-2]} ${arr[-1]}
 }
 
+# prepend _rm_ to file/dir name then rm it (to allow the old name to be used immediately)
+mvrm () {
+    mv $@ _rm_$@
+    rm -rf _rm_$@
+}
+
 # sed replace on the current dir and go to the result
 switchdir () {
     cd `pwd | sed 's|'$1'|_mhc_switchdir|;s|'$2'|'$1'|' | sed 's|_mhc_switchdir|'$2'|'`
 }
+alias swdir='switchdir'
 
 # make which also look at aliases
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
