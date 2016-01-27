@@ -121,6 +121,17 @@ alias swdir='switchdir'
 # make which also look at aliases
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
 
+# wrap xargs to automatically expand aliases
+xargs () {
+    local expandalias
+    if [[ "$(type -w $1)" =~ "alias" ]]; then
+        expandalias=$aliases[$1]
+    else
+        expandalias=$1
+    fi
+    command xargs ${(z)expandalias} "${(z)@[2,-1]}"
+}
+
 # fancy formatted git log
 # format placeholders: http://git-scm.com/docs/pretty-formats
 alias glog='git log --oneline --decorate --graph --color --date=relative \
@@ -134,6 +145,7 @@ alias killbg='kill ${${(v)jobstates#*:*:}%=*}'
 function killjob()
 {
     emulate -L zsh
+    local jobnum
     for jobnum in $@ ; do
         kill ${${jobstates[$jobnum]#*:*:}%=*}
     done
@@ -157,6 +169,8 @@ p4grep() {
 # sync all directories under the current one that have a .p4config file
 p4syncall() {
     local -a p4confs
+    local p4conf
+    local p4dir
     p4confs=($(find -name ".p4config"))
     for p4conf in $p4confs ; do
         p4dir=$(dirname $(realpath $p4conf)) ;
@@ -186,6 +200,7 @@ fi
 # which is linked from--
 # http://virtualenvwrapper.readthedocs.org/en/latest/tips.html#automatically-run-workon-when-entering-a-directory
 check_virtualenv() {
+    local venv
     if [ -e .venv ]; then
 	venv=`cat .venv`
         if [ "$venv" != "${VIRTUAL_ENV##*/}" ]; then
