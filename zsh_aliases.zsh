@@ -154,6 +154,16 @@ p4grep() {
      -e "s|^--$|\x1B[36m--\x1B[0m|" \
     | grep -E ${*[1,-2]}
 }
+# sync all directories under the current one that have a .p4config file
+p4syncall() {
+    local -a p4confs
+    p4confs=($(find -name ".p4config"))
+    for p4conf in $p4confs ; do
+        p4dir=$(dirname $(realpath $p4conf)) ;
+        echo -e "\x1B[35m$p4dir\x1B[0m" ;
+        pushd $p4dir 1>/dev/null && p4 sync ; popd 1>/dev/null ;
+    done
+}
 
 # man for python modules
 alias pyman='$REALHOME/.dotfiles/ignored/commands/pyman.py'
