@@ -10,15 +10,22 @@ if [[ -e $REALHOME/.zshenv_ut ]]; then
     source $REALHOME/.zshenv_ut
 fi
 
-export PATH=$REALHOME/.tmuxifier/bin:$PATH
-export PATH=$REALHOME/bin:$PATH
-export PATH=$REALHOME/.local/bin:$PATH
-export PATH=$REALHOME/scripts:$PATH
-export PATH=$REALHOME/.dotfiles/ignored/commands:$PATH
-typeset -U PATH
+path=(
+    "$REALHOME/.dotfiles/ignored/commands"
+    "$REALHOME/scripts"
+    "$REALHOME/.tmuxifier/bin"
+    "$REALHOME/.local/bin"
+    "$REALHOME/bin"
+    "$path[@]"
+)
+export PATH
+typeset -U path
 
-export LD_LIBRARY_PATH=$REALHOME/lib:/usr/local/lib:$LD_LIBRARY_PATH
-typeset -U LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$REALHOME/.local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$REALHOME/lib:$LD_LIBRARY_PATH
+typeset -T LD_LIBRARY_PATH ld_library_path
+typeset -U ld_library_path
 
 case $USER in
 	*felix* | *sim* | *simvideo* )	export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER ;;
