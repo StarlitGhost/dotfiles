@@ -2,10 +2,10 @@
 alias cls='clear'
 
 # ls
-alias la='ls -la'
-alias lh='ls -ld .??*'
-alias lt='ls -latr'
-alias lr='ls -lat'
+alias la='ls -lah'
+alias lh='ls -ldh .??*'
+alias lt='ls -latrh'
+alias lr='ls -lath'
 
 lass () {
     la "$@" --color=always | less
@@ -52,7 +52,7 @@ alias ta='tmux attach -t'
 alias td='tmux detach -t'
 alias tn='tmux has -t $1 &> /dev/null && tmux attach -t $1 || tmux new -s $1'
 
-alias htop='TERM=xterm-color htop'
+#alias htop='TERM=xterm-color htop'
 
 # vim
 alias vim='vim -u $REALHOME/.vimrc'
@@ -117,6 +117,11 @@ switchdir () {
     cd `pwd | sed 's|'$1'|_mhc_switchdir|;s|'$2'|'$1'|' | sed 's|_mhc_switchdir|'$2'|'`
 }
 alias swdir='switchdir'
+
+# lists files that are common between all given directories
+commonfiles () {
+    find "$@" -maxdepth 1 -type f -name "*" -printf '%f\n' | sort | uniq -c | sed -n "s/^ *$# //p"
+}
 
 # make which also look at aliases
 alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
