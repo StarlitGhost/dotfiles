@@ -120,6 +120,7 @@ highlight Visual ctermbg=238
 highlight NonText ctermfg=237
 highlight SpecialKey ctermfg=237
 highlight MatchParen cterm=Bold ctermbg=33 ctermfg=17
+highlight Search ctermbg=202 ctermfg=0
 
 " Plugin Settings
 """"""""""""""""""
