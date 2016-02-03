@@ -27,6 +27,30 @@ export LD_LIBRARY_PATH=$REALHOME/lib:$LD_LIBRARY_PATH
 typeset -T LD_LIBRARY_PATH ld_library_path
 typeset -U ld_library_path
 
+if whence manpath >/dev/null 2>&1; then
+    MANPATH="`manpath`"
+    manpath=(
+        "$REALHOME/.local/man"
+        "$REALHOME/.local/share/man"
+        "$REALHOME/man"
+        "$manpath[@]"
+    )
+else
+    manpath=(
+        "$REALHOME/.local/man"
+        "$REALHOME/.local/share/man"
+        "$REALHOME/man"
+        "/usr/local/man"
+        "/usr/local/share/man"
+        "/usr/share/man/en"
+        "/usr/share/man"
+        "/user/rcs/man"
+        "/vl/seg/man"
+    )
+fi
+typeset -U manpath
+export MANPATH
+
 case $USER in
 	*felix* | *sim* | *simvideo* )	export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER ;;
 	* )				export HISTFILE=$REALHOME/.zsh_history_$USER
