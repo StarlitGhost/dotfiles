@@ -305,14 +305,24 @@ PROMPT='%{%f%b%k%}$(build_prompt) '
 
 ZLE_RPROMPT_INDENT=0
 
+rprompt_date() {
+  rprompt_segment black default
+  echo -n "%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d}"
+}
+
 rprompt_time() {
+  rprompt_segment black default
+  echo -n "%{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}"
+}
+
+rprompt_datetime() {
   rprompt_segment black default
   echo -n "%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}"
 }
 
 ## Right prompt
 build_rprompt() {
-  rprompt_time
+  rprompt_date
   rprompt_end
 }
 
