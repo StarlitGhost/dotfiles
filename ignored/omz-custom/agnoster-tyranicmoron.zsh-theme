@@ -50,9 +50,9 @@ prompt_segment() {
   else
     if [[ $1 == $CURRENT_BG ]]; then
       if [[ $CURRENT_BG != "black" ]]; then
-        echo -n " %{$bg%}%F{black}$SAME_COL_SEG_SEP%{$fg%} "
+        echo -n " %{$bg%}%{%F{black}%}$SAME_COL_SEG_SEP%{$fg%} "
       else
-        echo -n " %{$bg%}%F{white}$SAME_COL_SEG_SEP%{$fg%} "
+        echo -n " %{$bg%}%{%F{white}%}$SAME_COL_SEG_SEP%{$fg%} "
       fi
     else
       echo -n "%{$bg%}%{$fg%} "
@@ -84,9 +84,9 @@ rprompt_segment() {
   else
     if [[ $1 == $CURRENT_BG ]]; then
       if [[ $CURRENT_BG != "black" ]]; then
-        echo -n " %{$fg%}%F{black}$RSAME_COL_SEG_SEP%{$bg%} "
+        echo -n " %{$fg%}%{%F{black}%}$RSAME_COL_SEG_SEP%{$bg%} "
       else
-        echo -n " %{$fg%}%F{white}$RSAME_COL_SEG_SEP%{$bg%} "
+        echo -n " %{$fg%}%{%F{white}%}$RSAME_COL_SEG_SEP%{$bg%} "
       fi
     else
       echo -n "%{%F{$1}%}$RSEGMENT_SEPARATOR%{$fg%}%{$bg%} "
@@ -280,9 +280,9 @@ prompt_marker() {
 ## Main prompt
 build_preprompt() {
   RETVAL=$?
-  prompt_timer
+  #prompt_timer
+  prompt_time
   prompt_status
-  #prompt_datetime
   prompt_virtualenv
   #prompt_context
   prompt_dir
@@ -316,5 +316,6 @@ build_rprompt() {
   rprompt_end
 }
 
-# Don't bother for now, there are some cursor position issues
-#RPROMPT='%{$(echotc UP 1)%}$(build_rprompt)%{$(echotc DO 1)%}'
+# Don't bother putting it on the line above for now, there are some cursor position issues
+#RPROMPT='%{$(echotc UP 1)%}$(build_rprompt)%{$(echotc DOWN 1)%}'
+RPROMPT='$(build_rprompt)'
