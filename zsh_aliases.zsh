@@ -32,6 +32,10 @@ alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
     popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
 
+# a bit more polite
+# 'fuck' attempts to automatically fix the previously command
+alias oops='fuck'
+
 # fancy syntax-highlighted cat
 alias pyg='pygmentize -g'
 pyglet () {
