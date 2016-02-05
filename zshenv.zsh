@@ -1,8 +1,11 @@
 skip_global_compinit=1
 
 case $USER in
-	 *felix* | *sim* | *simvideo* )	export REALHOME=/user/mhc ;;
-	 * )			export REALHOME=${HOME}
+	 felix|sim|simvideo)
+         export REALHOME=/user/mhc
+         ;;
+	 *)
+         export REALHOME=${HOME}
 esac
 
 # source untracked machine specific environment variables, if they exist
@@ -52,8 +55,11 @@ typeset -U manpath
 export MANPATH
 
 case $USER in
-	*felix* | *sim* | *simvideo* )	export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER ;;
-	* )				export HISTFILE=$REALHOME/.zsh_history_$USER
+	felix|sim|simvideo)
+        export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER
+        ;;
+	*)
+        export HISTFILE=$REALHOME/.zsh_history_$USER
 esac
 
 export LANG=en_GB.UTF-8

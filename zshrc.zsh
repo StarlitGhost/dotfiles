@@ -85,9 +85,6 @@ source $REALHOME/.zsh_aliases
 # my keybindings
 source $REALHOME/.zsh_keybinds
 
-# per-user history file in my actual home
-export HISTFILE=$REALHOME/.zsh_history_$USER
-
 setopt interactivecomments
 
 ###########################
