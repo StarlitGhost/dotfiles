@@ -36,6 +36,8 @@ alias u.='update_dotfiles'
 # 'fuck' attempts to automatically fix the previously command
 alias oops='fuck'
 
+alias pwd='pwd -P'
+
 # fancy syntax-highlighted cat
 alias pyg='pygmentize -g'
 pyglet () {
