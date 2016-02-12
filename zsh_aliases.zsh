@@ -196,6 +196,10 @@ alias pyman='$REALHOME/.dotfiles/ignored/commands/pyman.py'
 # clean out all cmake generated files from the current directory
 alias cmake-clean='$REALHOME/.dotfiles/ignored/commands/cmake-clean.py'
 
+# generate completion for commands that follow standard gnu --help output,
+# but for some reason don't already have completions
+compdef _gnu_generic watch progress
+
 # test colour theme with some tables and ascii art
 alias ansi-colours='$REALHOME/.dotfiles/ignored/commands/ansi-colours.sh ;\
     $REALHOME/.dotfiles/ignored/commands/ansi-table.sh ;\

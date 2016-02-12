@@ -85,10 +85,6 @@ else
     print "virtualenvwrapper.sh is missing, have you installed virtualenvwrapper?"
 fi
 
-# generate completion for commands that follow standard gnu --help output,
-# but for some reason don't already have completions
-compdef _gnu_generic watch progress
-
 # if environment variables need to be modified for this machine, source a file that does that
 if [[ -e $REALHOME/.zshenv_ut_post ]]; then
     source $REALHOME/.zshenv_ut_post
