@@ -33,7 +33,7 @@ alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
 alias u.='update_dotfiles'
 
 # a bit more polite
-# 'fuck' attempts to automatically fix the previously command
+# 'fuck' attempts to automatically fix the previously entered command
 alias oops='fuck'
 
 alias pwd='pwd -P'

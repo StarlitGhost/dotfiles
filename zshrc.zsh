@@ -4,9 +4,10 @@ if ! is-at-least 4.3.9; then
     if [ -e $REALHOME/bin/zsh ]; then
         exec $REALHOME/bin/zsh -l
     else
+        if [[ -o interactive ]]; then
+            echo "zsh is too old ($ZSH_VERSION, 4.3.9+ required), aborting zshrc"
+        fi
         return # abort if there's no newer zsh for us to use, as a lot will be incompatible
-        # I'd really like to print a message here, but we can't if this isn't an interactive shell
-        # TODO: add a check for that and print a message if we're interactive
     fi
 fi
 
@@ -136,4 +137,6 @@ ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 export SKIPZSH=1
 
 # the classic shell introduction
-fortune | cowsay
+if [[ -o interactive ]]; then
+    fortune | cowsay
+fi
