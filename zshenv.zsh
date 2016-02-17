@@ -24,9 +24,7 @@ path=(
 export PATH
 typeset -U path
 
-export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$REALHOME/.local/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$REALHOME/lib:$LD_LIBRARY_PATH
 typeset -T LD_LIBRARY_PATH ld_library_path
 typeset -U ld_library_path
 
