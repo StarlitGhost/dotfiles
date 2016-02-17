@@ -246,13 +246,19 @@ prompt_datetime() {
   prompt_segment black default "%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}"
 }
 
+convert_secs() {
+  ((h=(${1}/1000)/3600))
+  ((m=((${1}/1000)%3600)/60))
+  ((s=(${1}/1000)%60))
+  ((ms=${1}%1000))
+  printf "%02d:%02d:%02d.%03d" $h $m $s $ms
+}
 prompt_timer() {
   local fg
-  fg=default
-  if [[ $timer_show -gt 10000 ]]; then
-    fg=red
+  fg=red
+  if [[ $timer_show -gt 60000 ]]; then
+    prompt_segment black $fg "◷ $(convert_secs $timer_show)"
   fi
-  prompt_segment black $fg "◷ `printf '%.0f' $timer_show`ms"
 }
 
 prompt_marker() {
@@ -280,7 +286,7 @@ prompt_marker() {
 ## Main prompt
 build_preprompt() {
   RETVAL=$?
-  #prompt_timer
+  prompt_timer
   prompt_time
   prompt_status
   prompt_virtualenv
@@ -320,8 +326,19 @@ rprompt_datetime() {
   echo -n "%{$FG[040]%}%D{%y}%{$FG[034]%}%D{%m}%{$FG[028]%}%D{%d} %{$FG[081]%}%D{%H}%{$FG[075]%}%D{%M}%{$FG[069]%}%D{%S}"
 }
 
+rprompt_timer() {
+  local fg
+  fg=default
+  if [[ $timer_show -gt 60000 ]]; then
+    fg=red
+  fi
+  rprompt_segment black $fg "◷ $(convert_secs $timer_show)"
+}
+
+
 ## Right prompt
 build_rprompt() {
+  rprompt_timer
   rprompt_date
   rprompt_end
 }
