@@ -14,6 +14,7 @@ Plug 'luochen1990/rainbow'
 Plug 'guns/xterm-color-table.vim'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 Plug 'terryma/vim-multiple-cursors'
+Plug 'nfvs/vim-perforce'
 call plug#end()
 
 " Basic vim options
