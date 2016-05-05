@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+
+from apiclient.discovery import build
+
+import argparse, re
+from urllib import quote
+
+
+parser = argparse.ArgumentParser(description='Searches Google for your query and returns the first result')
+parser.add_argument('query', nargs='+', help='your search query')
+args = parser.parse_args()
+
+
+def reduceWhitespace(text):
+    return re.sub(r'\s+', ' ', text)
+
+def search():
+    query = ' '.join(args.query)
+    
+    service = build('customsearch', 'v1', developerKey='AIzaSyAxqiDU1U9ARVtxPrK1H6QeLuEJWoYGPLo')
+    res = service.cse().list(
+        q = quote(query),
+        cx = '002603151577378558984:ax7qv-f5zos'
+    ).execute()
+
+    first = res[u'items'][0]
+    title = first[u'title']
+    snippet = first[u'snippet']
+    link = first[u'link']
+
+    title = reduceWhitespace(title)
+    snippet = reduceWhitespace(snippet)
+
+    return u'{} | {} | {}'.format(title, snippet, link)
+
+if __name__ == '__main__':
+    print search()
