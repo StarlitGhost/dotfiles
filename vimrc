@@ -12,7 +12,8 @@ Plug 'bling/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'luochen1990/rainbow'
 Plug 'guns/xterm-color-table.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'ervandew/supertab'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'nfvs/vim-perforce'
 call plug#end()
@@ -122,6 +123,7 @@ highlight NonText ctermfg=237
 highlight SpecialKey ctermfg=237
 highlight MatchParen cterm=Bold ctermbg=33 ctermfg=17
 highlight Search ctermbg=202 ctermfg=0
+highlight Folded ctermbg=NONE
 
 " Plugin Settings
 """"""""""""""""""
