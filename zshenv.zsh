@@ -1,5 +1,7 @@
 skip_global_compinit=1
 
+export SHELL=`which zsh`
+
 case $USER in
 	 felix|sim|simvideo)
          export REALHOME=/user/mhc
@@ -86,4 +88,13 @@ fi
 # if environment variables need to be modified for this machine, source a file that does that
 if [[ -e $REALHOME/.zshenv_ut_post ]]; then
     source $REALHOME/.zshenv_ut_post
+fi
+
+# override $TERM with 256color support if running via ssh on Linux
+if test -n "$SSH_CLIENT"; then
+    if test "$(uname -s)=Linux"; then
+        if [[ "$TERM" = xterm* ]]; then
+            export TERM=xterm-256color
+        fi
+    fi
 fi
