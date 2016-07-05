@@ -13,6 +13,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'luochen1990/rainbow'
 Plug 'guns/xterm-color-table.vim'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'nfvs/vim-perforce'
