@@ -151,6 +151,16 @@ alias glogd='glog --date=short'
 alias gd='git diff --color'
 alias gds='git diffs --color'
 
+# wait for a process to finish before executing something else
+# usage: waitfor <process id>; other-command
+function waitfor()
+{
+    echo "Waiting for \"$(ps -p $1 -o cmd=)\" (PID $1)..."
+    while ps -p $1 > /dev/null; do
+        sleep 5
+    done
+}
+
 # kill a background job
 alias killbg='kill ${${(v)jobstates#*:*:}%=*}'
 function killjob()
