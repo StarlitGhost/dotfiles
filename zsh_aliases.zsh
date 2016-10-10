@@ -49,6 +49,7 @@ alias unexport='unset'
 
 # make .csh files source-able, for setting up environment variables
 source_csh () {
+    unset LS_COLORS
     exec csh -c "source $@; exec zsh"
 }
 
