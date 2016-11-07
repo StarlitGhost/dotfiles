@@ -129,8 +129,9 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 # root
 ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 
-# override 'fixed' oh-my-zsh tab completion (oh-my-zsh #5435) with the old behaviour
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# override 'fixed' oh-my-zsh tab completion (oh-my-zsh #5435) with that proposed in
+# https://github.com/robbyrussell/oh-my-zsh/issues/#1398#issuecomment-255581289
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|=*' '+ r:|[._-]=* l:|=*'
 
 ###########################
 ## Last few things...
