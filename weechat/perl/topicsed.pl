@@ -148,9 +148,9 @@ my ($getargs) = ($_[2]);
 
 my @args=split(/ /, $getargs);
 
-$args[0] = lc ($args[0]);
-
-
+if ( defined $args[0]){
+    $args[0] = lc ($args[0]);
+}
 if ( not defined $args[0] or $args[0] eq "-e"  or $args[0] eq "-edit" or $args[0] eq ""){
   if ( not defined $Hooks{modifier} ){
     hook_all();
