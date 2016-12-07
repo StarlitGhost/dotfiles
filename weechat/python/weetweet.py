@@ -333,8 +333,8 @@ def stream_message(buffer,tweet):
                 extra_str = "'s tweet " + arrow_col +  "<" + reset_col + dict_id + arrow_col + "> " + reset_col
 
         #TODO make the event printing better
-        weechat.prnt(buffer, "%s%s" % (weechat.prefix("network"),
-        tweet['source']['screen_name'] + " " + event_str + " " + tweet['target']['screen_name'] + extra_str))
+        weechat.prnt_date_tags(buffer, 0, "no_highlight", "%s%s" % (weechat.prefix("network"),
+            tweet['source']['screen_name'] + " " + event_str + " " + tweet['target']['screen_name'] + extra_str))
     else:
         #weechat.prnt(buffer, "%s%s" % (weechat.prefix("network"),
         #"recv stream data: " + str(tweet)))
@@ -840,6 +840,13 @@ def get_twitter_data(cmd_args):
                 tweet_data = twitter.statuses.home_timeline(exclude_replies = no_home_replies)
         else:
             return "Invalid command: " + cmd_args[3]
+    except TwitterHTTPError as err:
+        #See if we can print a pretty error message first
+        data = err.response_data
+        if "errors" in data and "message" in data["errors"][0]:
+            return "Error: " + data["errors"][0]["message"]
+        else:
+            return "Unexpected error in get_twitter_data:%s\n Call: %s" % (sys.exc_info(), cmd_args[3])
     except:
         return "Unexpected error in get_twitter_data:%s\n Call: %s" % (sys.exc_info(), cmd_args[3])
 
@@ -880,7 +887,7 @@ def buffer_input_cb(data, buffer, input_data):
         elif command == 're' and tweet_dict.get(input_args[1]):
             end_message = "id"
             len_id = len(tweet_dict['cur_index'])
-            input_data = 're ' + tweet_dict[input_args[1]] + " '" + html_escape(input_data[(2+1+len_id+1):]) + "'"
+            input_data = "re {} '{}'".format(tweet_dict[input_args[1]], html_escape(input_data[(2+1+len_id+1):]))
         elif command == 'new':
             end_message = "id"
             if script_options['last_id'] != "":
@@ -1236,7 +1243,7 @@ def finish_init():
                          "friends")
 
 if __name__ == "__main__" and weechat_call:
-    weechat.register( SCRIPT_NAME , "DarkDefender", "1.2.2", "GPL3", "Weechat twitter client", "", "")
+    weechat.register( SCRIPT_NAME , "DarkDefender", "1.2.3", "GPL3", "Weechat twitter client", "", "")
 
     if not import_ok:
         weechat.prnt("", "Can't load twitter python lib >= " + required_twitter_version)
