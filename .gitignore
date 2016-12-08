@@ -13,5 +13,7 @@ vim/plugged/*
 vim/undodir/*
 vim/syntax/vhc.vim
 vim/syntax/tgn.vim
+vim/syntax/out2.vim
 vim/ftdetect/vhc.vim
 vim/ftdetect/tgn.vim
+vim/ftdetect/out2.vim
