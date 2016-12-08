@@ -1,6 +1,7 @@
 *.pem
 .nfs*
 *.swp
+*.pyc
 weechat/logs/*
 weechat/*.log
 weechat/weechat_fifo_*
