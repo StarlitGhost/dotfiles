@@ -1,6 +1,8 @@
 skip_global_compinit=1
 
 export SHELL=`which zsh`
+stty -ixon
+stty ixany
 
 case $USER in
 	 felix|sim|simvideo)
