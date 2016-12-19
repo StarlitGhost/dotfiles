@@ -32,13 +32,11 @@ export LD_LIBRARY_PATH=$REALHOME/.local/lib:$LD_LIBRARY_PATH
 typeset -T LD_LIBRARY_PATH ld_library_path
 typeset -U ld_library_path
 
-if whence manpath >/dev/null 2>&1; then
-    MANPATH="`manpath`"
+if type manpath > /dev/null; then
     manpath=(
         "$REALHOME/.local/man"
         "$REALHOME/.local/share/man"
-        "$REALHOME/man"
-        "$manpath[@]"
+        "$REALHOME/man:"
     )
 else
     manpath=(
