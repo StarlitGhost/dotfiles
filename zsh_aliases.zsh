@@ -217,6 +217,9 @@ alias cmake-clean='$REALHOME/.dotfiles/ignored/commands/cmake-clean.py'
 # but for some reason don't already have completions
 compdef _gnu_generic watch progress
 
+# generate completions for some scripts that wrap other commands and pass on all args
+compdef _valgrind colour-valgrind
+
 # test colour theme with some tables and ascii art
 alias ansi-colours='$REALHOME/.dotfiles/ignored/commands/ansi-colours.sh ;\
     $REALHOME/.dotfiles/ignored/commands/ansi-table.sh ;\
