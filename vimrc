@@ -141,3 +141,6 @@ set updatetime=2000         " vim default of 4000ms is way too long
 
 " Rainbow Brackets options
 let g:rainbow_active = 0
+
+" jedi options
+let g:jedi#show_call_signatures = "2"
