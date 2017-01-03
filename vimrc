@@ -84,6 +84,10 @@ autocmd BufWritePost .vimrc source $MYVIMRC
 " Automatically cd into the directory that the file is in
 autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 
+" Filetype mappings for unrecognised extensions
+""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufRead,BufNewFile *.cshrc setfiletype csh
+
 " Key mappings
 """""""""""""""
 " Exit insert mode with jj 
@@ -107,7 +111,7 @@ autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shelle
 " Toggle word wrapping
 nnoremap <silent> cow :set wrap!<CR>
 " Toggle visible whitespace characters
-nnoremap <silent> col :set list!<CR>
+nnoremap <silent> cos :set list!<CR>
 " Toggle line numbering
 nnoremap <silent> con :set number! relativenumber!<CR>
 " Toggle relative line numbering (cor & con don't play well, remembering state would be cool)
