@@ -25,13 +25,15 @@
 #
 # History:
 #
+#   2017-01-16, Matthew Cox <matthewcpcox@gmail.com>:
+#       v0.2: Ignore Unicode errors from cut-off emoji
 #   2016-03-15, Wil Clouser <clouserw@micropipes.com>:
 #       v0.1: Initial release, based on Mike Reinhardt's BSD
 #             licensed emoji_aliases.py
 
 SCRIPT_NAME    = "emoji2alias"
 SCRIPT_AUTHOR  = "Wil Clouser <clouserw@micropipes.com>"
-SCRIPT_VERSION = "0.1"
+SCRIPT_VERSION = "0.2"
 SCRIPT_LICENSE = "MIT"
 SCRIPT_DESC    = "Replaces emoji characters with their aliases"
 
@@ -1484,7 +1486,7 @@ except re.error:
                           re.DOTALL | re.UNICODE)
 
 def convert_emoji_to_aliases(data, modifier, modifier_data, string):
-    string = unicode(string, "utf-8")
+    string = unicode(string, "utf-8", errors='ignore')
     emoji_found = ALIAS_RE.findall(string)
     for emoji in emoji_found:
         if emoji in EMOJI_ALIASES:

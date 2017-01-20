@@ -4,6 +4,9 @@
 [submodule "ignored/omz-custom/plugins/zsh-syntax-highlighting"]
 	path = ignored/omz-custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "ignored/omz-custom/plugins/zsh-autosuggestions"]
+    path = ignored/omz-custom/plugins/zsh-autosuggestions
+    url = git://github.com/zsh-users/zsh-autosuggestions
 [submodule "tmuxifier"]
 	path = tmuxifier
 	url = https://github.com/jimeh/tmuxifier.git

@@ -60,6 +60,7 @@ plugins=(
     time-commands
     tmux
     virtualenv
+    zsh-autosuggestions
     zsh-syntax-highlighting
 )
 
