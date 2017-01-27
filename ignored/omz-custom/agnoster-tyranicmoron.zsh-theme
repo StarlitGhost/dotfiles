@@ -345,4 +345,4 @@ build_rprompt() {
 
 # Don't bother putting it on the line above for now, there are some cursor position issues
 #RPROMPT='%{$(echotc UP 1)%}$(build_rprompt)%{$(echotc DOWN 1)%}'
-RPROMPT='$(build_rprompt)'
+#RPROMPT='$(build_rprompt)'
