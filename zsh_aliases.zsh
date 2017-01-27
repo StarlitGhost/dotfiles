@@ -161,6 +161,7 @@ function waitforpid()
         sleep 5
     done
 }
+# search for a process by name then wait on its pid
 function waitfor()
 {
     local pid
