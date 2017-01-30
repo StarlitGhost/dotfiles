@@ -1,0 +1,49 @@
+# vim: ft=dosini :
+[options]
+    font = DejaVu Sans Mono for Powerline 10
+
+    scrollback_lines = 10000
+
+    cursor_blink = system
+    cursor_shape = block
+
+[colors]
+    foreground = #C8C8C8
+    background = #22282A
+    #cursor = #FD9D4F
+
+# Normal
+#  Black
+    color0 = #111415
+#  Red
+    color1 = #DB6464
+#  Green
+    color2 = #91C860
+#  Yellow
+    color3 = #FFCD22
+#  Blue
+    color4 = #648CAF
+#  Magenta
+    color5 = #8E75CA
+#  Cyan
+    color6 = #38D1D1
+#  White
+    color7 = #C8C8C8
+
+# Bright
+#  Black
+    color8 = #7F7F7F
+#  Red
+    color9 = #FF8080
+#  Green
+    color10 = #8EFF28
+#  Yellow
+    color11 = #FFFF7C
+#  Blue
+    color12 = #8AC2F4
+#  Magenta
+    color13 = #D8A0DC
+#  Cyan
+    color14 = #8AF4F4
+#  White
+    color15 = #F2F2F2
