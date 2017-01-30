@@ -207,6 +207,10 @@ p4syncall() {
     done
 }
 
+# sed to color zgrep output like grep --colour=auto
+# to use just pipe zgrep into it
+alias color-zgrep='sed -e "s|^\([^:]*\)\(:\)\([0-9]*\)\(:\)|\x1B[35m\1\x1B[36m\2\x1B[32m\3\x1B[36m\4\x1B[0m|"'
+
 # man for python modules
 alias pyman='$REALHOME/.dotfiles/ignored/commands/pyman.py'
 
