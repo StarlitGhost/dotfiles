@@ -2,11 +2,12 @@
 alias cls='clear'
 
 # ls
-alias la='ls -lah'
-alias lh='ls -ldh .??*'
-alias lt='ls -latrh'
-alias lr='ls -lath'
+alias la='ls -lah' # all info + dotfiles
+alias lh='ls -ldh .??*' # just dotfiles
+alias lt='ls -latrh' # all info + dotfiles, sorted newest to oldest
+alias lr='ls -lath' # all info + dotfiles, sorted oldest to newest
 
+# pipe la into less
 lass () {
     la "$@" --color=always | less
 }
@@ -31,6 +32,9 @@ alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
     sz ; \
     popd > /dev/null 2>&1'
 alias u.='update_dotfiles'
+
+# priviledge aliases
+alias pacman='sudo pacman'
 
 # a bit more polite
 # 'fuck' attempts to automatically fix the previously entered command
@@ -226,52 +230,6 @@ alias ansi-colours='$REALHOME/.dotfiles/ignored/commands/ansi-colours.sh ;\
     $REALHOME/.dotfiles/ignored/commands/ansi-table.sh ;\
     $REALHOME/.dotfiles/ignored/commands/ansi-pacman.sh ;\
     $REALHOME/.dotfiles/ignored/commands/ansi-invaders.sh'
-
-if [[ `uname -o` == Cygwin ]]; then
-	alias cyg-ports='cyg-apt --no-verify --mirror="ftp://ftp.cygwinports.org/pub/cygwinports/"'
-fi
-
-# Call virtualenvwrapper's "workon" if .venv exists.  This is modified from--
-# http://justinlilly.com/python/virtualenv_wrapper_helper.html
-# which is linked from--
-# http://virtualenvwrapper.readthedocs.org/en/latest/tips.html#automatically-run-workon-when-entering-a-directory
-check_virtualenv() {
-    local venv
-    if [ -e .venv ]; then
-	venv=`cat .venv`
-        if [ "$venv" != "${VIRTUAL_ENV##*/}" ]; then
-            unset SKIPZSH
-            echo "Found .venv in directory. Calling: workon ${venv}"
-            workon $venv
-        fi
-    fi
-}
-venv_cd () {
-    builtin cd "$@" && check_virtualenv
-}
-# Call check_virtualenv in case opening directly into a directory (e.g
-# when opening a new tab in Terminal.app).
-check_virtualenv
-
-alias cd="venv_cd"
-
-# screen
-alias sl='screen -ls'
-alias sls='screen -ls'
-alias sr='screen -r'
-alias swipe='screen -wipe'
-
-sshs () {
-	screen -RR $1 ssh $1
-}
-
-ruge() {
-    compinit
-    local f
-    f=($REALHOME/.dotfiles/ignored/omz-custom/plugins/uge/*(.))
-    unfunction $f:t 2> /dev/null
-    autoload -U $f:t
-}
 
 # source untracked environment or machine specific aliases, if they exist
 if [[ -e $REALHOME/.zsh_aliases_ut ]]; then
