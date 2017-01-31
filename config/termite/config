@@ -8,6 +8,7 @@
     cursor_shape = block
 
 [colors]
+# Obsidian color scheme
     foreground = #C8C8C8
     background = #22282A
     #cursor = #FD9D4F
