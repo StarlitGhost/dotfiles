@@ -88,6 +88,17 @@ autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 """"""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufRead,BufNewFile *.cshrc setfiletype csh
 
+" Change the cursor shape for insertion and replacement mode,
+" if the terminal supports that
+"if &term =~ '^(xterm\\|screen\\|rxvt)'
+    " Insert mode
+    let &t_SI .= "\<Esc>[5 q" " blinking vertical bar
+    " Replacement mode
+    let &t_SR .= "\<Esc>[3 q" " blinking underscore
+    " Normal mode
+    let &t_EI .= "\<Esc>[2 q" " solid block
+"endif
+
 " Key mappings
 """""""""""""""
 " Exit insert mode with jj 
