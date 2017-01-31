@@ -166,6 +166,7 @@ colors:
 key_bindings:
   - { key: V,        mods: Command, action: Paste                        }
   - { key: C,        mods: Command, action: Copy                         }
+  - { key: Insert,   mods: Shift,   action: PasteSelection               }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: Home,                    chars: "\x1b[1~",  mode: AppCursor   }
   - { key: End,                     chars: "\x1b[F",   mode: ~AppCursor  }
@@ -224,8 +225,8 @@ key_bindings:
 # - Paste
 # - PasteSelection
 # - Copy (TODO)
-mouse_bindings:
-  - { mouse: Middle, action: PasteSelection }
+#mouse_bindings:
+#  - { mouse: Middle, action: PasteSelection }
 
 
 # Shell
