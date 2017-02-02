@@ -71,6 +71,11 @@ set $workspace8  8 
 set $workspace9  9 
 set $workspace10 10 
 
+workspace "$workspace1" output HDMI2
+workspace "$workspace2" output VGA1
+workspace "$workspace9" output HDMI1
+workspace "$workspace10" output HDMI1
+
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
 bindsym $mod+2 workspace $workspace2
@@ -104,7 +109,7 @@ bindsym $mod+Shift+r restart
 set $mode_exit " (E)xit  (L)ock  (P)oweroff  (R)eboot"
 mode $mode_exit {
     bindsym e exec i3-msg exit; mode "default"
-    bindsym l exec i3lock -c "$bg-color"; mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh; mode "default"
     bindsym p exec systemctl poweroff; mode "default"
     bindsym r exec systemctl reboot; mode "default"
 
@@ -189,8 +194,8 @@ bar {
 	}
 }
 
-bindsym $mod+shift+x exec i3lock -c "$bg-color"
-bindsym $mod+l exec ~/.config/i3/i3lock-blur/lock.sh
+bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
+bindsym $mod+l exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
 
 # keybinds
 #  pulse audio
@@ -214,20 +219,30 @@ bindsym $mod+r exec --no-startup-id \
 
 # startup
 #  monitor layout
-exec_always xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI1 --mode 1280x1024 --pos 1920x0 --rotate normal --output VGA1 --primary --mode 1920x1080 --pos 3200x0 --rotate normal
-#  fancy transitions
-exec compton -f
+exec_always --no-startup-id xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI1 --mode 1280x1024 --pos 1920x0 --rotate normal --output VGA1 --primary --mode 1920x1080 --pos 3200x0 --rotate normal
+#  window compositor; fancy transitions, transparency, blur, shadows, all that jazz
+exec --no-startup-id compton -f
 #  time-based colour temperature
-exec redshift
+exec --no-startup-id redshift
 #  music player daemon
-exec mpd
+exec --no-startup-id mpd
 #  wallpaper
 exec --no-startup-id "nitrogen --set-zoom-fill --random /run/media/tyranic-moron/8A9871DC9871C76B/Documents\ and\ Settings/Tyranic-Moron/Documents/My\ Pictures/Wallpapers/"
 
-# music workspace
-exec --no-startup-id i3-msg 'workspace number 10; append_layout ~/.config/i3/workspaces/workspace-10-music.json'
-exec termite -t ncmpcpp -e "/bin/zsh -c 'echo Starting ncmpcpp...; sleep 8; ncmpcpp'"
-
-# visible programs
-exec termite
-exec chromium
+# Workspaces
+#  terminals
+exec "i3-msg 'workspace $workspace1'; termite"
+#exec termite
+#  chromium
+exec "i3-msg 'workspace $workspace2'; chromium"
+#exec chromium
+#  irc
+exec "i3-msg 'workspace $workspace9'"
+exec termite -e \
+    "ssh -t tyranicmoron.uk \\"zsh -l -c 'tmux select-window -t irc \; attach'\\""
+#  music
+exec "i3-msg 'workspace $workspace10; \
+    append_layout ~/.config/i3/workspaces/workspace-10-music.json'"
+exec termite -t ncmpcpp \
+    -e "/bin/zsh -c 'echo Starting ncmpcpp...; sleep 2; ncmpcpp'"
+exec termite -t vis -e vis
