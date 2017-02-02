@@ -120,6 +120,8 @@ mode $mode_exit {
 bindsym $mod+Shift+e mode $mode_exit
 
 # Gaps
+#  disable title bars since they are unfortunately drawn in a way that gaps can't support
+for_window [class="^.*"] border pixel 0
 smart_gaps on
 gaps inner 10
 
@@ -227,7 +229,7 @@ exec --no-startup-id redshift
 #  music player daemon
 exec --no-startup-id mpd
 #  wallpaper
-exec --no-startup-id "nitrogen --set-zoom-fill --random /run/media/tyranic-moron/8A9871DC9871C76B/Documents\ and\ Settings/Tyranic-Moron/Documents/My\ Pictures/Wallpapers/"
+exec --no-startup-id "nitrogen --set-zoom-fill --random /home/tyranic-moron/Pictures/Wallpapers/"
 
 # Workspaces
 #  terminals
