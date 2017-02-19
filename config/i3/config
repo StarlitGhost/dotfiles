@@ -2,66 +2,18 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+## Variables
+# Modifier key (Mod1 = Alt, Mod4 = Win key)
 set $mod Mod4
+# Alt key
+set $alt Mod1
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:System San Francisco Display 10
+# Programs
+set $terminal termite
+set $browser chromium
+set $editor subl3
 
-# Colour Scheme
-set $bg-col              #2f343f
-set $inactive-bg-col     #2f343f
-set $border-col          #8af4f4
-set $inactive-border-col #27a5a5
-set $text-col            #f3f4f5
-set $inactive-text-col   #676e7d
-set $urgent-bg-col       #e53935
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-# start a terminal
-bindsym $mod+Return exec termite
-
-# kill focused window
-bindsym $mod+Shift+q kill
-
-# change focus
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
-bindsym $mod+h split h
-
-# split in vertical orientation
-bindsym $mod+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# workspace names
+# Workspace names
 set $ws1  1 
 set $ws2  2 
 set $ws3  3 
@@ -73,39 +25,100 @@ set $ws8  8 
 set $ws9  9 
 set $ws10 10 
 
+# Colour Scheme
+set $bg-col              #2f343f
+set $inactive-bg-col     #2f343f
+set $border-col          #8af4f4
+set $inactive-border-col #27a5a5
+set $text-col            #f3f4f5
+set $inactive-text-col   #676e7d
+set $urgent-bg-col       #e53935
+
+# Border
+set $border-width 5
+
+# Wallpapers
+set $wallpapers /home/tyranic-moron/Pictures/Wallpapers
+
+
+
+
+## Assign workspaces to monitors
 workspace "$ws1" output DP-1
+workspace "$ws3" output DP-1
 workspace "$ws2" output DVI-I-0
 workspace "$ws9" output DVI-D-0
 workspace "$ws10" output DVI-D-0
 
-# switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
 
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
 
-# reload the configuration file
+
+## Appearance Settings
+# System font
+font pango:System San Francisco Display 10
+
+# Window colours
+# window state          border           background           text               indicator
+client.focused          $bg-col          $border-col          $text-col          $border-col
+client.unfocused        $inactive-bg-col $inactive-border-col $inactive-text-col $inactive-border-col
+client.focused_inactive $inactive-bg-col $inactive-border-col $inactive-text-col $inactive-border-col
+client.urgent           $urgent-bg-col   $urgent-bg-col       $text-col          $inactive-border-col
+
+# Window border, and disable title bars since gaps doesn't support them
+for_window [class="^.*"] border pixel $border-width
+
+# Hide borders for single or fullscreen windows
+smart_borders on
+hide_edge_borders both
+
+# Gaps
+gaps inner 20
+smart_gaps on
+
+# Workspace bar
+bar {
+    position top
+    mode hide
+
+    # Command for showing status info
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+
+    colors {
+        background $bg-col
+            separator #757575
+        #                  border           background       text
+        focused_workspace  $bg-col          $bg-col          $text-col
+        inactive_workspace $inactive-bg-col $inactive-bg-col $inactive-text-col
+        urgent_workspace   $urgent-bg-col   $urgent-bg-col   $text-col
+    }
+}
+
+
+
+
+### Keybinds
+## System
+# Program launcher
+bindsym $mod+r exec --no-startup-id \
+"rofi -show run -lines 5 -eh 2 -width 100 -padding 500 -opacity 85 -bw 0 \
+-color-window \\"$bg-col,$bg-col,$bg-col\\" \
+-color-normal \\"$bg-col,$inactive-text-col,$bg-col,$bg-col,$text-col\\" \
+-font \\"System San Francisco Display 15\\""
+
+# Reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
+# Screenshots
+#  Desktop
+bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh
+#  Window
+bindsym $alt+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
+
+# Lock screen
+bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
+bindsym $mod+l exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
 
 # Exit menu as a mode
 set $mode_exit " (E)xit  (L)ock  (P)oweroff  (R)eboot"
@@ -121,19 +134,110 @@ mode $mode_exit {
 }
 bindsym $mod+Shift+e mode $mode_exit
 
-# Gaps
-#  disable title bars since they are unfortunately drawn in a way that gaps can't support
-for_window [class="^.*"] border pixel 5
-smart_gaps on
-smart_borders on
-gaps inner 20
 
-#  gap adjustment mode
+## Program launch shortcuts
+# Start a terminal | browser | pycharm
+bindsym $mod+Return exec $terminal
+bindsym $mod+b exec $browser
+bindsym $mod+p exec pycharm
+
+
+## Audio
+# Pulse audio
+set $sink alsa_output.pci-0000_00_1b.0.analog-stereo
+# Volume
+#  Increase
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $sink +2.5%
+#  Decrease
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $sink -2.5%
+#  Mute
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $sink toggle 
+
+# Media player controls
+bindsym XF86AudioPlay exec mpc toggle
+bindsym XF86AudioStop exec mpc stop
+bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec mpc prev
+
+
+## Workspace
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Split in horizontal | vertical orientation
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+
+## Window
+# Change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Resize window (you can also use the mouse)
+bindsym $mod+ctrl+Left resize shrink width 10 px or 10 ppt
+bindsym $mod+ctrl+Down resize grow height 10 px or 10 ppt
+bindsym $mod+ctrl+Up resize shrink height 10 px or 10 ppt
+bindsym $mod+ctrl+Right resize grow width 10 px or 10 ppt
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# Toggle fullscreen for focused container
+bindsym $mod+f fullscreen toggle
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+
+## Gaps
+# Gap adjustment mode
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
-
 mode "$mode_gaps" {
     bindsym o      mode "$mode_gaps_outer"
     bindsym i      mode "$mode_gaps_inner"
@@ -141,7 +245,6 @@ mode "$mode_gaps" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 mode "$mode_gaps_inner" {
     bindsym plus  gaps inner current plus 5
     bindsym minus gaps inner current minus 5
@@ -169,92 +272,41 @@ mode "$mode_gaps_outer" {
     bindsym Escape mode "default"
 }
 
-# resize window (you can also use the mouse)
-bindsym $mod+ctrl+Left resize shrink width 10 px or 10 ppt
-bindsym $mod+ctrl+Down resize grow height 10 px or 10 ppt
-bindsym $mod+ctrl+Up resize shrink height 10 px or 10 ppt
-bindsym $mod+ctrl+Right resize grow width 10 px or 10 ppt
 
-# window colours
-#                       border           background           text               indicator
-client.focused          $bg-col          $border-col          $text-col          $border-col
-client.unfocused        $inactive-bg-col $inactive-border-col $inactive-text-col $inactive-border-col
-client.focused_inactive $inactive-bg-col $inactive-border-col $inactive-text-col $inactive-border-col
-client.urgent           $urgent-bg-col   $urgent-bg-col       $text-col          $inactive-border-col
 
-hide_edge_borders both
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-	status_command i3blocks -c ~/.config/i3/i3blocks.conf
-    tray_output primary
-    mode hide
-	colors {
-	    background $bg-col
-	        separator #757575
-	    #                  border           background       text
-	    focused_workspace  $bg-col          $bg-col          $text-col
-	    inactive_workspace $inactive-bg-col $inactive-bg-col $inactive-text-col
-	    urgent_workspace   $urgent-bg-col   $urgent-bg-col   $text-col
-	}
-}
+## Assign programs to workspaces
+assign [class="Chromium"] $ws2
+assign [class="Vlc"] $ws3
 
-bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
-bindsym $mod+l exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
 
-# keybinds
-#  pulse audio
-set $sink alsa_output.pci-0000_00_1b.0.analog-stereo
-#   increase volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $sink +2.5%
-#   decrease volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $sink -2.5%
-#   mute
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $sink toggle 
-#  media player controls
-bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioStop exec mpc stop
-bindsym XF86AudioNext exec mpc next
-bindsym XF86AudioPrev exec mpc prev
-#  program launcher
-bindsym $mod+r exec --no-startup-id \
-"rofi -show run -lines 5 -eh 2 -width 100 -padding 500 -opacity 85 -bw 0 \
--color-window \\"$bg-col,$bg-col,$bg-col\\" \
--color-normal \\"$bg-col,$inactive-text-col,$bg-col,$bg-col,$text-col\\" \
--font \\"System San Francisco Display 15\\""
-#  screenshots
-#   desktop
-bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh
-#   window
-bindsym Mod1+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
 
-# startup
-#  monitor layout
+
+## Startup
+# Monitor layout
 exec_always --no-startup-id xrandr --output DVI-D-0 --mode 1280x1024 --pos 1920x0 --rotate normal --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --mode 1920x1080 --pos 3200x0 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --off
-#  window compositor; fancy transitions, transparency, blur, shadows, all that jazz
+# Window compositor; fancy transitions, transparency, blur, shadows, all that jazz
 exec --no-startup-id compton -fb
-#  time-based colour temperature
+# Time-based colour temperature
 exec --no-startup-id redshift
-#  music player daemon
+# Music player daemon
 exec --no-startup-id mpd
-#  wallpaper
-exec --no-startup-id "nitrogen --set-zoom-fill --random /home/tyranic-moron/Pictures/Wallpapers/"
+# Wallpaper
+exec --no-startup-id "nitrogen --set-zoom-fill --random $wallpapers"
+
 
 # Workspaces
 #  terminals
-exec "i3-msg 'workspace $ws1'; termite"
-#exec termite
+exec "i3-msg 'workspace $ws1'; $terminal"
 #  chromium
-exec "i3-msg 'workspace $ws2'; chromium"
-#exec chromium
+exec "i3-msg 'workspace $ws2'; $browser"
 #  irc
 exec "i3-msg 'workspace $ws9'"
-exec termite -e \
+exec $terminal -e \
     "ssh -t tyranicmoron.uk \\"zsh -l -c 'tmux select-window -t irc \; attach'\\""
 #  music
 exec "i3-msg 'workspace $ws10; \
     append_layout ~/.config/i3/workspaces/workspace-10-music.json'"
-exec termite -t ncmpcpp \
+exec $terminal -t ncmpcpp \
     -e "/bin/zsh -c 'echo Starting ncmpcpp...; sleep 2; ncmpcpp'"
-exec termite -t vis -e vis
+exec $terminal -t vis -e vis
