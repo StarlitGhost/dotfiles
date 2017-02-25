@@ -147,11 +147,11 @@ bindsym $mod+p exec pycharm
 set $sink alsa_output.pci-0000_00_1b.0.analog-stereo
 # Volume
 #  Increase
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $sink +2.5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/volume.sh $sink up
 #  Decrease
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $sink -2.5%
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/volume.sh $sink down
 #  Mute
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $sink toggle 
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/volume.sh $sink mute
 
 # Media player controls
 bindsym XF86AudioPlay exec mpc toggle
@@ -278,6 +278,7 @@ mode "$mode_gaps_outer" {
 ## Assign programs to workspaces
 assign [class="Chromium"] $ws2
 assign [class="Vlc"] $ws3
+assign [class="Gnome-mplayer"] $ws3
 
 
 
@@ -289,10 +290,12 @@ exec_always --no-startup-id xrandr --output DVI-D-0 --mode 1280x1024 --pos 1920x
 exec --no-startup-id compton -fb
 # Time-based colour temperature
 exec --no-startup-id redshift
+# Wallpaper
+exec --no-startup-id "nitrogen --set-zoom-fill --random $wallpapers --save"
+# Notification system
+exec --no-startup-id dunst
 # Music player daemon
 exec --no-startup-id mpd
-# Wallpaper
-exec --no-startup-id "nitrogen --set-zoom-fill --random $wallpapers"
 
 
 # Workspaces
