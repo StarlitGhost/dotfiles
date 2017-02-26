@@ -28,6 +28,7 @@ set $ws10 10 
 # Colour Scheme
 set $bg-col              #2f343f
 set $inactive-bg-col     #2f343f
+set $active-bg-col       #181b20
 set $border-col          #8af4f4
 set $inactive-border-col #27a5a5
 set $text-col            #f3f4f5
@@ -79,6 +80,7 @@ smart_gaps on
 bar {
     position top
     mode hide
+    strip_workspace_numbers yes
 
     # Command for showing status info
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
@@ -87,7 +89,8 @@ bar {
         background $bg-col
             separator #757575
         #                  border           background       text
-        focused_workspace  $bg-col          $bg-col          $text-col
+        focused_workspace  $active-bg-col   $active-bg-col   $border-col
+        active_workspace   $active-bg-col   $active-bg-col   $text-col
         inactive_workspace $inactive-bg-col $inactive-bg-col $inactive-text-col
         urgent_workspace   $urgent-bg-col   $urgent-bg-col   $text-col
     }
