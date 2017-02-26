@@ -1,31 +1,8 @@
 // vim:ts=4:sw=4:et
 {
-    "border": "normal",
-    "current_border_width": 2,
-    "floating": "auto_off",
-    "geometry": {
-       "height": 362,
-       "width": 642,
-       "x": 0,
-       "y": 0
-    },
-    "name": "vis",
-    "percent": 0.3,
-    "swallows": [
-       {
-          "class": "^Termite$",
-          "title": "^vis$"
-       }
-    ],
-    "type": "con"
-}
-
-{
-    // splith split container with 1 children
-    "border": "normal",
-    "floating": "auto_off",
-    "layout": "splith",
-    "percent": 0.7,
+    // this is a manually added container to restore vertical split
+    "layout": "splitv",
+    "percent": 1.0,
     "type": "con",
     "nodes": [
         {
@@ -38,15 +15,45 @@
                "x": 0,
                "y": 0
             },
-            "name": "ncmpcpp 0.7.7",
-            "percent": 1,
+            "name": "vis",
+            "percent": 0.3,
             "swallows": [
                {
                   "class": "^Termite$",
-                  "title": "^ncmpcpp$"
+                  "title": "^vis$"
                }
             ],
             "type": "con"
+        },
+        {
+            // splitv split container with 1 children
+            "border": "normal",
+            "floating": "auto_off",
+            "layout": "splitv",
+            "percent": 0.7,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "normal",
+                    "current_border_width": 2,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 362,
+                       "width": 642,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "name": "ncmpcpp 0.7.7",
+                    "percent": 1,
+                    "swallows": [
+                       {
+                          "class": "^Termite$",
+                          "title": "^ncmpcpp$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
         }
     ]
 }
