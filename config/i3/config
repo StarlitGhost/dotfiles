@@ -35,7 +35,7 @@ set $inactive-text-col   #676e7d
 set $urgent-bg-col       #e53935
 
 # Border
-set $border-width 5
+set $border-width 2
 
 # Wallpapers
 set $wallpapers /home/tyranic-moron/Pictures/Wallpapers
@@ -115,6 +115,9 @@ bindsym $mod+Shift+r restart
 bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh
 #  Window
 bindsym $alt+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
+
+# Change wallpaper
+bindsym XF86HomePage exec --no-startup-id "nitrogen --set-zoom-fill --random $wallpapers --save"
 
 # Lock screen
 bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
