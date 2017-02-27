@@ -94,7 +94,9 @@ autocmd BufRead,BufNewFile *.cshrc setfiletype csh
     " Insert mode
     let &t_SI .= "\<Esc>[5 q" " blinking vertical bar
     " Replacement mode
-    let &t_SR .= "\<Esc>[3 q" " blinking underscore
+    if v:version > 704 || v:version == 704 && has('patch687')
+        let &t_SR .= "\<Esc>[3 q" " blinking underscore
+    end
     " Normal mode
     let &t_EI .= "\<Esc>[2 q" " solid block
 "endif
