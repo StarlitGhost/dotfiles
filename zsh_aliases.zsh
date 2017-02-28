@@ -135,7 +135,9 @@ commonfiles () {
 }
 
 # make which also look at aliases
-alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
+if which --version &> /dev/null; then
+    alias which='alias | /usr/bin/env which --tty-only --read-alias --show-dot --show-tilde'
+fi
 
 # wrap xargs to automatically expand aliases
 xargs () {

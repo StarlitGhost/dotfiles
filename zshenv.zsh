@@ -1,6 +1,6 @@
 skip_global_compinit=1
 
-export SHELL=`which zsh`
+export SHELL=$(command -v zsh)
 stty -ixon
 stty ixany
 
