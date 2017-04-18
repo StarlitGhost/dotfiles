@@ -9,7 +9,7 @@ function notify_vol_change()
     if [ "$(pamixer --get-mute)" == "true" ]; then
         vol="  "
     fi
-    notify-send -u low "$vol  $(pamixer --get-volume)%"
+    notify-send -u low -h "int:value:$(pamixer --get-volume)" "$vol"
 }
 
 if [ "$cmd" == "up" ]; then
