@@ -18,6 +18,7 @@ Plug 'ervandew/supertab'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'nfvs/vim-perforce'
 Plug 'vim-scripts/supp.vim'
+Plug 'PotatoesMaster/i3-vim-syntax'
 call plug#end()
 
 " Basic vim options
