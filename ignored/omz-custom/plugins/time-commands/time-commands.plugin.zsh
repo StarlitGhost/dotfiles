@@ -1,1 +1,1 @@
-time-commands.zsh
+# times every com
