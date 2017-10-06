@@ -123,6 +123,11 @@ mvrm () {
     rm -rf _rm_$@
 }
 
+# rm with progress bar, using pv
+rmp () {
+    rm -rfv $@ | pv -l -s `find $@ | wc -l` > /dev/null
+}
+
 # sed replace on the current dir and go to the result
 switchdir () {
     cd `pwd | sed 's|'$1'|_mhc_switchdir|;s|'$2'|'$1'|' | sed 's|_mhc_switchdir|'$2'|'`
