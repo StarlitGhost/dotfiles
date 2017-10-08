@@ -11,7 +11,7 @@ set $alt Mod1
 # Programs
 set $terminal termite
 set $browser chromium
-set $editor subl3
+set $editor subl
 
 # Workspace names
 set $ws1  1 
