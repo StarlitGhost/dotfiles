@@ -39,7 +39,7 @@ set $urgent-bg-col       #e53935
 set $border-width 2
 
 # Wallpapers
-set $wallpapers /home/tyranic-moron/Pictures/Wallpapers
+set $wallpapers /media/sf_Wallpapers/
 
 
 
