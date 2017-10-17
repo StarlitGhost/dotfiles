@@ -1,6 +1,6 @@
 # vim: ft=dosini :
 [options]
-    font = DejaVu Sans Mono for Powerline 10
+font = DejaVu Sans Mono for Powerline 10
 
     scrollback_lines = 10000
 
@@ -10,7 +10,8 @@
 [colors]
 # Obsidian color scheme
     foreground = #C8C8C8
-    background = #22282A
+    #background = #22282A
+    background = rgba(34, 40, 42, 0.9)
     #cursor = #FD9D4F
 
 # Normal
