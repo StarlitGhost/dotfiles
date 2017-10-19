@@ -22,6 +22,15 @@ alias ezeup='$EDITOR $REALHOME/.zshenv_ut_post'
 alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
 alias szc='sz ; clear'
 
+# vim
+alias vim='vim -u $REALHOME/.vimrc'
+alias vimrc='$EDITOR $REALHOME/.vimrc'
+alias v='vim'
+alias e='$EDITOR'
+
+# i3
+alias vi3='$EDITOR $REALHOME/.config/i3/config'
+
 alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
     git pull && \
     git submodule update --init --recursive && \
@@ -64,12 +73,6 @@ alias td='tmux detach -t'
 alias tn='tmux has -t $1 &> /dev/null && tmux attach -t $1 || tmux new -s $1'
 
 #alias htop='TERM=xterm-color htop'
-
-# vim
-alias vim='vim -u $REALHOME/.vimrc'
-alias vimrc='$EDITOR $REALHOME/.vimrc'
-alias v='vim'
-alias e='$EDITOR'
 
 # find an executable file (or symlinked executable file) in the PATH
 pathfind () {
