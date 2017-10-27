@@ -299,8 +299,7 @@ for_window [title="Page Unresponsive"] floating enable
 # Monitor layout
 exec_always --no-startup-id xrandr --output DVI-D-0 --mode 1280x1024 --pos 1920x0 --rotate normal --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --mode 1920x1080 --pos 3200x0 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --off
 # Window compositor; fancy transitions, transparency, blur, shadows, all that jazz
-#disabled for work arch vm, too expensive
-#exec --no-startup-id compton -fb
+exec --no-startup-id compton -fb
 # Time-based colour temperature
 exec --no-startup-id redshift
 # Wallpaper
