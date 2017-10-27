@@ -120,7 +120,7 @@ bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh
 bindsym $alt+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
 
 # Change wallpaper
-bindsym XF86HomePage exec --no-startup-id "nitrogen --set-zoom-fill --random $wallpapers --save"
+bindsym $mod+p exec --no-startup-id "nitrogen --set-zoom-fill --random $wallpapers --save"
 
 # Lock screen
 bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
@@ -145,7 +145,6 @@ bindsym $mod+Shift+e mode $mode_exit
 # Start a terminal | browser | pycharm
 bindsym $mod+Return exec $terminal
 bindsym $mod+b exec $browser
-bindsym $mod+p exec pycharm
 
 
 ## Audio
