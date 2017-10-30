@@ -3,9 +3,7 @@
 My system-independent dotfiles.
 Only directly useful to myself, but feel free to scavenge from them!
 
-## New system instructions
-
-### Debian-based
+## Debian-based setup
 ```
 sudo apt-get --yes install automake build-essential cmake git \
 python-dev python-pip ruby ssh tmux vim zsh
@@ -24,7 +22,7 @@ git submodule foreach git checkout master && git submodule foreach git pull
 ./install
 chsh -s /bin/zsh ; exec zsh -l
 ```
-#### Additional GUI steps
+### Additional GUI steps
 ```
 sudo apt-get --yes install guake
 sudo ln -s /usr/share/applications/guake.desktop /etc/xdg/autostart/
@@ -34,7 +32,7 @@ git clone https://github.com/powerline/fonts.git ~/powerline-fonts
 ~/.dotfiles/ignored/guake-obsidian.sh
 ```
 
-### Arch Linux
+## Arch Linux setup
 ```
 sudo pacman -Syu
 sudo pacman -S --needed base-devel
@@ -53,7 +51,7 @@ git submodule foreach git checkout master && git submodule foreach git pull
 ./install
 chsh -s /bin/zsh ; exec zsh -l
 ```
-#### Additional GUI steps
+### Additional GUI steps
 ```
 sudo pacman -S arc-gtk-theme arc-icon-theme compton dunst i3 lxappearance lxqt-policykit nitrogen redshift rofi termite thunar ttf-font-awesome
 sudo pacaur -S i3-gaps neofetch # need to install pacaur first, obviously
