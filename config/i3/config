@@ -298,6 +298,10 @@ for_window [title="Page Unresponsive"] floating enable
 ## Startup
 # Monitor layout
 exec_always --no-startup-id xrandr --output DVI-D-0 --mode 1280x1024 --pos 1920x0 --rotate normal --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --mode 1920x1080 --pos 3200x0 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --off
+# Screen power timeout
+exec --no-startup-id xset dpms 0 0 900
+# Disable screensaver/blanking
+exec --no-startup-id xset s off
 # Window compositor; fancy transitions, transparency, blur, shadows, all that jazz
 exec --no-startup-id compton -fb
 # Time-based colour temperature
