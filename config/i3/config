@@ -73,7 +73,7 @@ smart_borders on
 hide_edge_borders both
 
 # Gaps
-gaps inner 20
+gaps inner 10
 smart_gaps on
 
 # Workspace bar
