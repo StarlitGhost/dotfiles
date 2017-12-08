@@ -1,0 +1,57 @@
+! XTerm
+XTerm.termName: xterm-256color
+XTerm.vt100.metaSendsEscape: true
+XTerm.vt100.backarrowKey: false
+XTerm.ttyModes: erase ^?
+XTerm.vt100.saveLines: 8192
+
+XTerm.vt100.faceName: DejaVu Sans Mono for Powerline:size=10
+
+XTerm.vt100.foreground: rgb:c8/c8/c8
+XTerm.vt100.background: rgb:22/28/2a
+XTerm.vt100.color0: rgb:11/14/15
+XTerm.vt100.color1: rgb:db/64/64
+XTerm.vt100.color2: rgb:91/c8/60
+XTerm.vt100.color3: rgb:ff/cd/22
+XTerm.vt100.color4: rgb:64/8c/af
+XTerm.vt100.color5: rgb:8e/75/ca
+XTerm.vt100.color6: rgb:38/d1/d1
+XTerm.vt100.color7: rgb:c8/c8/c8
+
+XTerm.vt100.color8: rgb:7f/7f/7f
+XTerm.vt100.color9: rgb:ff/80/80
+XTerm.vt100.color10: rgb:8e/ff/28
+XTerm.vt100.color11: rgb:ff/ff/7c
+XTerm.vt100.color12: rgb:8a/c2/f4
+XTerm.vt100.color13: rgb:d8/a0/dc
+XTerm.vt100.color14: rgb:8a/f4/f4
+XTerm.vt100.color15: rgb:f2/f2/f2
+
+! URxvt
+URxvt*scrollBar: false
+URxvt*saveLines: 8192
+
+URxvt*font: xft:DejaVu Sans Mono for Powerline:size=10
+URxvt*letterSpace: -1
+
+URxvt*depth: 32
+URxvt*foreground: rgb:c8/c8/c8
+URxvt*background: rgba:2200/2800/2a00/e600
+URxvt*color0: rgb:11/14/15
+URxvt*color1: rgb:db/64/64
+URxvt*color2: rgb:91/c8/60
+URxvt*color3: rgb:ff/cd/22
+URxvt*color4: rgb:64/8c/af
+URxvt*color5: rgb:8e/75/ca
+URxvt*color6: rgb:38/d1/d1
+URxvt*color7: rgb:c8/c8/c8
+
+URxvt*color8: rgb:7f/7f/7f
+URxvt*color9: rgb:ff/80/80
+URxvt*color10: rgb:8e/ff/28
+URxvt*color11: rgb:ff/ff/7c
+URxvt*color12: rgb:8a/c2/f4
+URxvt*color13: rgb:d8/a0/dc
+URxvt*color14: rgb:8a/f4/f4
+URxvt*color15: rgb:f2/f2/f2
+
