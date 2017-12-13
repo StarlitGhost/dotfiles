@@ -1,1 +1,0 @@
-../curiousignore.pl
