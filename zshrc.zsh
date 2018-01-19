@@ -141,6 +141,8 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|=*' '+ r:|[._-]=* l:
 # (for machines on which I don't have chsh or ypchsh rights, so have to have another shell launch zsh for me)
 export SKIPZSH=1
 
+(cat ~/.cache/wal/sequences &)
+
 # the classic shell introduction
 if [[ -o interactive ]]; then
     fortune | cowsay
