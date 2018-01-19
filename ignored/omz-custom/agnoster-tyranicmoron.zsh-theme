@@ -293,7 +293,7 @@ build_preprompt() {
   #prompt_context
   prompt_dir
   prompt_git
-  prompt_p4
+  #prompt_p4
   prompt_end
 }
 
