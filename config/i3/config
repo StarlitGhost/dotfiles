@@ -26,14 +26,14 @@ set $ws9  9 
 set $ws10 10 
 
 # Colour Scheme
-set $bg-col              #2f343f
-set $inactive-bg-col     #2f343f
-set $active-bg-col       #181b20
-set $border-col          #8af4f4
-set $inactive-border-col #27a5a5
-set $text-col            #f3f4f5
-set $inactive-text-col   #676e7d
-set $urgent-bg-col       #e53935
+set_from_resource $bg-col              i3wm.color2 #2f343f
+set_from_resource $inactive-bg-col     i3wm.color2 #2f343f
+set_from_resource $active-bg-col       i3wm.color2 #181b20
+set_from_resource $border-col          i3wm.color7 #8af4f4
+set_from_resource $inactive-border-col i3wm.color8 #27a5a5
+set_from_resource $text-col            i3wm.color7 #f3f4f5
+set_from_resource $inactive-text-col   i3wm.color8 #676e7d
+set_from_resource $urgent-bg-col       i3wm.color4 #e53935
 
 # Border
 set $border-width 2
@@ -77,24 +77,26 @@ gaps inner 10
 smart_gaps on
 
 # Workspace bar
-bar {
-    position top
-    mode hide
-    strip_workspace_numbers yes
+#bar {
+#    position top
+#    mode hide
+#    strip_workspace_numbers yes
+#
+#    # Command for showing status info
+#    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+#
+#    colors {
+#        background $bg-col
+#            separator #757575
+#        #                  border           background       text
+#        focused_workspace  $active-bg-col   $active-bg-col   $border-col
+#        active_workspace   $active-bg-col   $active-bg-col   $text-col
+#        inactive_workspace $inactive-bg-col $inactive-bg-col $inactive-text-col
+#        urgent_workspace   $urgent-bg-col   $urgent-bg-col   $text-col
+#    }
+#}
 
-    # Command for showing status info
-    status_command i3blocks -c ~/.config/i3/i3blocks.conf
-
-    colors {
-        background $bg-col
-            separator #757575
-        #                  border           background       text
-        focused_workspace  $active-bg-col   $active-bg-col   $border-col
-        active_workspace   $active-bg-col   $active-bg-col   $text-col
-        inactive_workspace $inactive-bg-col $inactive-bg-col $inactive-text-col
-        urgent_workspace   $urgent-bg-col   $urgent-bg-col   $text-col
-    }
-}
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 
 
@@ -120,7 +122,8 @@ bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh
 bindsym $alt+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
 
 # Change wallpaper
-bindsym $mod+p exec --no-startup-id "nitrogen --set-zoom-fill --random $wallpapers --save"
+#bindsym XF86HomePage exec --no-startup-id "wal -i $wallpapers"
+bindsym $mod+p exec --no-startup-id "wal -i $wallpapers"
 
 # Lock screen
 bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
@@ -307,7 +310,7 @@ exec --no-startup-id compton -fb
 # Time-based colour temperature
 exec --no-startup-id redshift
 # Wallpaper
-exec --no-startup-id "nitrogen --set-zoom-fill --random $wallpapers --save"
+exec --no-startup-id "wal -i $wallpapers"
 # Notification system
 exec --no-startup-id dunst
 # Sudo permissions dialogue for GUI apps
