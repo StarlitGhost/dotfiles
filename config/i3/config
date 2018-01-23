@@ -122,8 +122,8 @@ bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh
 bindsym $alt+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
 
 # Change wallpaper
-#bindsym XF86HomePage exec --no-startup-id "wal -i $wallpapers"
-bindsym $mod+p exec --no-startup-id "wal -i $wallpapers"
+#bindsym XF86HomePage exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
+bindsym $mod+p exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
 
 # Lock screen
 bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
@@ -311,7 +311,7 @@ exec --no-startup-id compton -fb
 # Time-based colour temperature
 exec --no-startup-id redshift
 # Wallpaper
-exec --no-startup-id "wal -i $wallpapers"
+exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
 # Notification system
 exec --no-startup-id dunst
 # Sudo permissions dialogue for GUI apps
