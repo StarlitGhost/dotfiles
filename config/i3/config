@@ -322,6 +322,8 @@ exec --no-startup-id mpd ~/.config/mpd/mpd.conf
 exec --no-startup-id VBoxClient-all
 # Clipboard manager
 exec --no-startup-id parcellite
+# Cache some environment variables so they can be used from cron
+exec --no-startup-id ~/.dotfiles/ignored/scripts/cache.sh
 
 
 # Workspaces
