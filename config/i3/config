@@ -29,7 +29,7 @@ set $ws10 10 
 set_from_resource $bg-col              i3wm.color2 #2f343f
 set_from_resource $inactive-bg-col     i3wm.color2 #2f343f
 set_from_resource $active-bg-col       i3wm.color2 #181b20
-set_from_resource $border-col          i3wm.color7 #8af4f4
+set_from_resource $border-col          i3wm.color2 #8af4f4
 set_from_resource $inactive-border-col i3wm.color8 #27a5a5
 set_from_resource $text-col            i3wm.color7 #f3f4f5
 set_from_resource $inactive-text-col   i3wm.color8 #676e7d
@@ -295,6 +295,7 @@ assign [class="Gnome-mplayer"] $ws3
 ## Set windows as floating
 for_window [title="Steam Guard - Computer Authorization Required"] floating enable
 for_window [title="Page Unresponsive"] floating enable
+for_window [class="feh"] floating enable
 
 
 
@@ -318,6 +319,8 @@ exec --no-startup-id dunst
 exec --no-startup-id lxqt-policykit-agent
 # Music player daemon
 exec --no-startup-id mpd ~/.config/mpd/mpd.conf
+# Clipboard manager
+exec --no-startup-id parcellite
 
 
 # Workspaces
