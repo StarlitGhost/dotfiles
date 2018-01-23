@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS=$(cat ${HOME}/.cache/dbusaddr)
+
 . "${HOME}/.cache/wal/colors.sh"
 
 reload_dunst() {
