@@ -176,14 +176,16 @@
     max_icon_size = 32
 
     # Paths to default icons.
-    icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
     # Always run rule-defined scripts, even if the notification is suppressed
     always_run_script = true
 
-[frame]
-    width = 2
-    color = "#8af4f4"
+    # Width of the notification border
+    frame_width = 2
+
+    # Color of the notification border
+    frame_color = "#8af4f4"
 
 [shortcuts]
 
