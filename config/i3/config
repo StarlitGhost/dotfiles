@@ -39,7 +39,7 @@ set_from_resource $urgent-bg-col       i3wm.color4 #e53935
 set $border-width 2
 
 # Wallpapers
-set $wallpapers /media/sf_Wallpapers/
+set $wallpapers /media/sf_Wallpapers/wal/
 
 
 
@@ -317,6 +317,8 @@ exec --no-startup-id dunst
 exec --no-startup-id lxqt-policykit-agent
 # Music player daemon
 exec --no-startup-id mpd ~/.config/mpd/mpd.conf
+# VBox Guest Additions
+exec --no-startup-id VBoxClient-all
 
 
 # Workspaces
