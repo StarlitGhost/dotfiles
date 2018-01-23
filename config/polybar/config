@@ -10,12 +10,12 @@
 [colors]
 background = ${xrdb:color2:#ca2f343f}
 ;background = #ca2f343f
-background-alt = #ca181b20
+background-alt = ${xrdb:color0:#ca181b20}
 ;foreground = ${xrdb:color7:#f3f4f5}
 foreground = #f3f4f5
 ;foreground-alt = ${xrdb:color8:#676e7d}
 foreground-alt = #676e7d
-primary = #8af4f4
+primary = ${xrdb:color7:#8af4f4}
 secondary = #27a5a5
 alert = #e53935
 
@@ -44,12 +44,13 @@ module-margin-left = 1
 module-margin-right = 2
 
 font-0 = FontAwesome:style=Regular:size=10;2
-font-1 = SF Pro Display:size=10;2
-font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-1 = SF Pro Display:size=10;3
+font-2 = unifont:fontformat=truetype:size=8:antialias=false;3
+font-3 = DejaVu Sans Mono:size=10;3
 
 modules-left = i3
 modules-center = mpd 
-modules-right = filesystem volume memory cpu eth date powermenu
+modules-right = volume filesystem memory cpu eth date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -96,8 +97,9 @@ interval = 25
 
 mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
+label-mounted =  %percentage_used%%
+label-mounted-underline = ${xrdb:color6:colors.primary}
+label-unmounted =  %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/bspwm]
@@ -167,7 +169,7 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <label-song> ├<bar-progress>┤ <label-time>  <icon-prev> <icon-stop> <toggle> <icon-next>
 
 icon-prev = 
 icon-stop = 
@@ -175,8 +177,18 @@ icon-play = 
 icon-pause = 
 icon-next = 
 
-label-song-maxlen = 25
+bar-progress-width = 25
+bar-progress-indicator = ═
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+label-song =  %title% - %artist%
+label-song-maxlen = 50
 label-song-ellipsis = true
+
+label-time = %{T3}%elapsed%/%total%%{T-}
+
+label-offline =  mpd is offline
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -203,17 +215,17 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
+format-underline = ${xrdb:color1:#f90000}
 label = %percentage:2%%
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+format-underline = ${xrdb:color3:#4bffdc}
 label = %percentage_used%%
 
 [module/wlan]
@@ -231,11 +243,11 @@ format-disconnected =
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
 ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
@@ -243,8 +255,8 @@ type = internal/network
 interface = enp0s3
 interval = 3.0
 
-format-connected-underline = #55aa55
-format-connected-prefix = " "
+format-connected-underline = ${xrdb:color4:#55aa55}
+format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
@@ -264,9 +276,9 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
+format-prefix =  
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+format-underline = ${xrdb:color5:#0a6cf5}
 
 label = %date% %time%
 
@@ -274,10 +286,10 @@ label = %date% %time%
 type = internal/volume
 
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL
+label-volume = 
 label-volume-foreground = ${root.foreground}
 
-format-muted-prefix = " "
+format-muted-prefix = " "
 format-muted-foreground = ${colors.foreground-alt}
 label-muted = sound muted
 
@@ -310,18 +322,18 @@ format-charging-underline = #ffb52a
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = " "
+format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
@@ -339,9 +351,9 @@ label = %temperature%
 label-warn = %temperature%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
@@ -351,26 +363,26 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+label-open = 
 label-open-foreground = ${colors.secondary}
-label-close =  cancel
+label-close =  cancel
 label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = reboot
+menu-0-0 =  reboot
 menu-0-0-exec = menu-open-1
-menu-0-1 = power off
+menu-0-1 =  power off
 menu-0-1-exec = menu-open-2
 
-menu-1-0 = cancel
+menu-1-0 =  cancel
 menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
+menu-1-1 =  reboot
 menu-1-1-exec = sudo reboot
 
-menu-2-0 = power off
+menu-2-0 =  power off
 menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
+menu-2-1 =  cancel
 menu-2-1-exec = menu-open-0
 
 [settings]
