@@ -105,11 +105,18 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 ### Keybinds
 ## System
 # Program launcher
-bindsym $mod+r exec --no-startup-id \
-"rofi -show run -lines 5 -eh 2 -width 100 -padding 500 -opacity 85 -bw 0 \
--color-window \\"$bg-col,$bg-col,$bg-col\\" \
--color-normal \\"$bg-col,$inactive-text-col,$bg-col,$bg-col,$bar-col\\" \
--font \\"System San Francisco Display 15\\""
+bindsym $mod+r exec --no-startup-id rofi -show drun
+#bindsym $mod+r exec --no-startup-id \
+#"rofi -show drun -lines 5 -eh 2 -width 100 -padding 500 -opacity 85 -bw 0 \
+#-color-window \\"$bg-col,$bg-col,$bg-col\\" \
+#-color-normal \\"$bg-col,$inactive-text-col,$bg-col,$bg-col,$bar-col\\" \
+#-font \\"System San Francisco Display 15\\""
+
+# Window switcher
+bindsym $alt+Tab exec --no-startup-id rofi -show window
+
+# Clipboard manager
+bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -321,7 +328,7 @@ exec --no-startup-id lxqt-policykit-agent
 # Music player daemon
 exec --no-startup-id mpd ~/.config/mpd/mpd.conf
 # Clipboard manager
-exec --no-startup-id parcellite
+exec --no-startup-id greenclip daemon
 # Cache some environment variables so they can be used from cron
 exec --no-startup-id ~/.dotfiles/ignored/scripts/cache.sh
 
