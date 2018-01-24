@@ -26,7 +26,8 @@ set $ws9  9 
 set $ws10 10 
 
 # Colour Scheme
-set_from_resource $bg-col              i3wm.color2 #2f343f
+set_from_resource $bar-col             i3wm.color2 #2f343f
+set_from_resource $bg-col              i3wm.color0 #2f343f
 set_from_resource $inactive-bg-col     i3wm.color2 #2f343f
 set_from_resource $active-bg-col       i3wm.color2 #181b20
 set_from_resource $border-col          i3wm.color2 #8af4f4
@@ -107,7 +108,7 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 bindsym $mod+r exec --no-startup-id \
 "rofi -show run -lines 5 -eh 2 -width 100 -padding 500 -opacity 85 -bw 0 \
 -color-window \\"$bg-col,$bg-col,$bg-col\\" \
--color-normal \\"$bg-col,$inactive-text-col,$bg-col,$bg-col,$text-col\\" \
+-color-normal \\"$bg-col,$inactive-text-col,$bg-col,$bg-col,$bar-col\\" \
 -font \\"System San Francisco Display 15\\""
 
 # Reload the configuration file
