@@ -20,6 +20,8 @@ Plug 'nfvs/vim-perforce'
 Plug 'vim-scripts/supp.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'bogado/file-line'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-reload'
 call plug#end()
 
 " Basic vim options
