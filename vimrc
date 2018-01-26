@@ -56,8 +56,10 @@ set showcmd                 " show (partial) command in status line
 set cursorline              " highlight the current line
 "set cursorcolumn            " highlight the current column
 set autoread                " automatically refresh unchanged files if they have edits on disk
-autocmd FocusGained,BufEnter * :silent! !
-set clipboard=exclude:.*    " disable system clipboard integration, too slow when X isn't running
+autocmd FocusGained,BufEnter * :checktime
+if has('unnamedplus')
+    set clipboard=unnamedplus " disable system clipboard integration, too slow when X isn't running
+endif
 set pastetoggle=<F2>        " toggle paste-mode with F2 - disables autoindent, among other things
 
 " Make undo history persistent
