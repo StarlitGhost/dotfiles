@@ -128,6 +128,8 @@ bindsym $mod+Shift+r restart
 bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh
 #  Window
 bindsym $alt+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
+#  Menu-based
+bindsym Ctrl+Print exec --no-startup-id teiler
 
 # Change wallpaper
 bindsym $mod+p exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
