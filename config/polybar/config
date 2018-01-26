@@ -50,7 +50,7 @@ font-3 = DejaVu Sans Mono:size=10;3
 
 modules-left = i3
 modules-center = mpd 
-modules-right = volume filesystem memory cpu eth date powermenu
+modules-right = volume filesystem memory cpu wlan eth backlight-acpi battery date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -230,17 +230,17 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = net1
+interface = wlp2s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
 label-connected = %essid%
 
-format-disconnected =
-;format-disconnected = <label-disconnected>
+;format-disconnected =
+format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
+label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
 ramp-signal-0 = 
@@ -312,8 +312,8 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/battery]
 type = internal/battery
-battery = BAT0
-adapter = AC
+battery = BAT1
+adapter = ADP1
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
