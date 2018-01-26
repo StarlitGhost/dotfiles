@@ -130,8 +130,7 @@ bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh
 bindsym $alt+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
 
 # Change wallpaper
-bindsym XF86HomePage exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
-#bindsym $mod+p exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
+bindsym $mod+p exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
 
 # Lock screen
 bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
@@ -156,7 +155,6 @@ bindsym $mod+Shift+e mode $mode_exit
 # Start a terminal | browser | pycharm
 bindsym $mod+Return exec $terminal
 bindsym $mod+b exec $browser
-bindsym $mod+p exec pycharm
 
 
 ## Audio
@@ -175,6 +173,11 @@ bindsym XF86AudioPlay exec mpc toggle
 bindsym XF86AudioStop exec mpc stop
 bindsym XF86AudioNext exec mpc next
 bindsym XF86AudioPrev exec mpc prev
+
+
+# Backlight controls
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 
 ## Workspace
