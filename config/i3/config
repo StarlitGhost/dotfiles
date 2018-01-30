@@ -132,7 +132,6 @@ bindsym $alt+Sys_Req exec --no-startup-id ~/.config/i3/screenshot.sh window
 bindsym Ctrl+Print exec --no-startup-id teiler
 
 # Change wallpaper
-#bindsym XF86HomePage exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
 bindsym $mod+p exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
 
 # Lock screen
@@ -176,6 +175,11 @@ bindsym Ctrl+$alt+space exec mpc toggle
 #bindsym XF86AudioStop exec mpc stop
 bindsym Ctrl+$alt+Right exec mpc next
 bindsym Ctrl+$alt+Left exec mpc prev
+
+
+# Backlight controls
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 
 ## Workspace

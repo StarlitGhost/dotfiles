@@ -5,6 +5,33 @@ export DBUS_SESSION_BUS_ADDRESS=$(cat ${HOME}/.cache/dbusaddr)
 
 . "${HOME}/.cache/wal/colors.sh"
 
+hex2rgb() {
+    printf "%d %d %d\n" 0x${1:1:2} 0x${1:3:2} 0x${1:5:2}
+}
+
+saturatergb() {
+    python -c "import colorsys
+hls = colorsys.rgb_to_hls($1/255.0, $2/255.0, $3/255.0)
+rgb = colorsys.hls_to_rgb(hls[0], hls[1], max(min(hls[2]*2.0, 1.0), 0.0))
+rgb = tuple(int(i*255) for i in rgb)
+print('{} {} {}'.format(*rgb))"
+}
+
+printrgb() {
+    printf "%d,%d,%d\n" $1 $2 $3
+}
+
+color2keyboard() {
+    printrgb $(saturatergb $(hex2rgb $1))
+}
+
+set_keyboard() {
+    msi-keyboard -m normal \
+        -r left,$(color2keyboard "$color2") \
+        -r middle,$(color2keyboard "$color6") \
+        -r right,$(color2keyboard "$color4") &
+}
+
 reload_dunst() {
     pkill dunst
     dunst \
@@ -20,6 +47,7 @@ reload_dunst() {
 
 main() {
     reload_dunst &
+    set_keyboard &
 }
 
 main
