@@ -1,26 +1,43 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env python
 
-# modified from http://errtheblog.com/posts/89-huba-huba
+# converted and modified from http://errtheblog.com/posts/89-huba-huba
 
-if ENV['REALHOME']
-  home = File.expand_path(ENV['REALHOME'])
-else
-  home = File.expand_path('~')
-end
+import os
+import errno
+import stat
 
-dotfiles_dir = File.expand_path(File.dirname(__FILE__))
-Dir.chdir(dotfiles_dir)
+home = os.getenv('REALHOME', '~')
+home = os.path.abspath(home)
 
-Dir['*'].each do |file|
-  next if file =~ /install/
-  next if file =~ /README.md/
-  next if file =~ /LICENSE.txt/
-  next if file =~ /ignored/
+dotfiles_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(dotfiles_dir)
 
-  target = File.join(home, ".#{file.sub(/\.zsh$/, '')}")
-  `ln -sn #{File.expand_path file} #{target} > /dev/null 2>&1`
-end
+for fname in os.listdir(dotfiles_dir):
+    if fname == 'install': continue
+    if fname == 'README.md': continue
+    if fname == 'LICENSE.txt': continue
+    if fname == 'ignored': continue
+    if fname.startswith('.'): continue
+
+    target, ext = os.path.splitext(fname)
+    if ext != '.zsh':
+        target = fname
+
+    target = os.path.join(home, '.{}'.format(target))
+
+    fpath = os.path.abspath(fname)
+
+    try:
+        os.symlink(fpath, target)
+        print('{} symlink created'.format(target))
+    except OSError as e:
+        if e.errno == errno.EEXIST:
+            pass # I don't care if the file/dir already exists
+        else:
+            raise e
 
 # git push on commit
-`echo 'git push' > .git/hooks/post-commit`
-`chmod 755 .git/hooks/post-commit`
+post_commit = os.path.join(dotfiles_dir, '.git/hooks/post-commit')
+with open(post_commit, mode='w') as f:
+    f.write('git push')
+os.chmod(post_commit, 0o755)
