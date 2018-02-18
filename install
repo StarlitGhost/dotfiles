@@ -6,8 +6,7 @@ import os
 import errno
 import stat
 
-home = os.getenv('REALHOME', '~')
-home = os.path.abspath(home)
+home = os.getenv('REALHOME', os.path.expanduser('~'))
 
 dotfiles_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(dotfiles_dir)
