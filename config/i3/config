@@ -105,7 +105,7 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 ### Keybinds
 ## System
 # Program launcher
-bindsym $mod+r exec --no-startup-id rofi -show drun
+bindsym $mod+r exec --no-startup-id rofi -show run
 #bindsym $mod+r exec --no-startup-id \
 #"rofi -show drun -lines 5 -eh 2 -width 100 -padding 500 -opacity 85 -bw 0 \
 #-color-window \\"$bg-col,$bg-col,$bg-col\\" \
@@ -135,14 +135,14 @@ bindsym Ctrl+Print exec --no-startup-id teiler
 bindsym $mod+p exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
 
 # Lock screen
-bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
-bindsym $mod+l exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh
+bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/lock.sh
+bindsym $mod+l exec --no-startup-id ~/.config/i3/lock.sh
 
 # Exit menu as a mode
 set $mode_exit " (E)xit  (L)ock  (P)oweroff  (R)eboot"
 mode $mode_exit {
     bindsym e exec i3-msg exit; mode "default"
-    bindsym l exec --no-startup-id ~/.config/i3/i3lock-blur/lock.sh; mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/lock.sh; mode "default"
     bindsym p exec systemctl poweroff; mode "default"
     bindsym r exec systemctl reboot; mode "default"
 
@@ -301,6 +301,10 @@ mode "$mode_gaps_outer" {
 assign [class="Chromium"] $ws2
 assign [class="Vlc"] $ws3
 assign [class="Gnome-mplayer"] $ws3
+assign [instance="termite-ws1"] $ws1
+assign [instance="termite-irc"] $ws9
+assign [instance="termite-vis"] $ws10
+assign [instance="termite-ncmpcpp"] $ws10
 
 
 
@@ -338,20 +342,21 @@ exec --no-startup-id VBoxClient-all
 exec --no-startup-id greenclip daemon
 # Cache some environment variables so they can be used from cron
 exec --no-startup-id ~/.dotfiles/ignored/scripts/cache.sh
+# DropBox
+exec --no-startup-id dropbox
 
 
 # Workspaces
 #  terminals
-exec "i3-msg 'workspace $ws1'; $terminal"
+exec $terminal --name=termite-ws1
 #  chromium
-exec "i3-msg 'workspace $ws2'; $browser"
+exec $browser
 #  irc
-exec "i3-msg 'workspace $ws9'"
-exec $terminal -e \
-    "mosh tyranic-moron@tyranicmoron.uk -- \\"zsh -l -c 'tmux select-window -t irc \; attach'\\""
+exec $terminal --name=termite-irc -e \
+    "mosh tyranic-moron@tyranicmoron.uk -- zsh -l -c 'tmux select-window irc; tmux attach'"
 #  music
-exec "i3-msg 'workspace $ws10; \
-    append_layout ~/.config/i3/workspaces/workspace-10-music.json'"
-exec $terminal -t ncmpcpp \
-    -e "/bin/zsh -c 'echo Starting ncmpcpp...; sleep 2; ncmpcpp'"
-exec $terminal -t vis -e vis
+exec $terminal --name=termite-ncmpcpp -e \
+    "/bin/zsh -c 'echo Starting ncmpcpp...; sleep 2; ncmpcpp'"
+exec $terminal --name=termite-vis -e vis
+
+exec i3-msg "workspace $ws1"

@@ -22,6 +22,7 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'bogado/file-line'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-reload'
+Plug 'yuratomo/w3m.vim'
 call plug#end()
 
 " Basic vim options
@@ -156,8 +157,16 @@ highlight Folded ctermbg=NONE
 """"""""""""""""""
 " Powerline/airline options
 let g:airline_powerline_fonts = 1   " enable powerline symbols for airline
+let g:airline#extensions#tabline#enabled = 1 " enable tab line
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 set laststatus=2            " always show statusline
 set noshowmode              " disable the default mode display
+
+" ctrlp.vim options
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 
 " GitGutter options
 set updatetime=2000         " vim default of 4000ms is way too long
