@@ -2,6 +2,14 @@
 .nfs*
 *.swp
 *.pyc
+*.log
+config/Kitware
+config/QtProject.conf
+config/htop
+config/mpd/log
+config/mpd/sticker.sql
+config/neofetch
+config/thefuck
 weechat/logs/*
 weechat/*.log
 weechat/weechat_fifo_*
@@ -11,6 +19,7 @@ weechat/sec.conf
 weechat/urlserver_list.txt
 weechat/grep*
 weechat/script/plugins.xml.gz
+vim/autoload/plug.vim.old
 vim/plugged/*
 vim/undodir/*
 vim/syntax/vhc.vim
