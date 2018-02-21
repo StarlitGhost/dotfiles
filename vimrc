@@ -13,7 +13,18 @@ Plug 'airblade/vim-gitgutter'
 Plug 'luochen1990/rainbow'
 Plug 'guns/xterm-color-table.vim'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+Plug 'sebastianmarkow/deoplete-rust'
+let g:deoplete#sources#rust#racer_binary = '/home/mhc/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path = '/home/mhc/.local/download/rust/src'
 Plug 'ervandew/supertab'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'nfvs/vim-perforce'
