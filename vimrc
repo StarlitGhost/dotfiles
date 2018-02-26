@@ -6,15 +6,13 @@ let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim'), &runtimepath)
 
 " Plugin system
 call plug#begin(expand($REALHOME . '/.vim/plugged'))
-Plug 'vim-scripts/Conque-Shell'
-Plug 'kien/ctrlp.vim'
-Plug 'bling/vim-airline'
-Plug 'airblade/vim-gitgutter'
-Plug 'luochen1990/rainbow'
-Plug 'guns/xterm-color-table.vim'
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'ctrlpvim/ctrlp.vim'   " Fuzzy file, buffer, etc finder (ctrl+p)
+Plug 'bling/vim-airline'    " Fancy status and tablines
+Plug 'airblade/vim-gitgutter' " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
+Plug 'luochen1990/rainbow'  " rainbow parentheses
+"Plug 'guns/xterm-color-table.vim' " xterm colors with rgb equivalents (:XtermColorTable)
 "Plug 'davidhalter/jedi-vim'
-if has('nvim')
+if has('nvim') " completion engine
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
     Plug 'Shougo/deoplete.nvim'
@@ -22,18 +20,21 @@ else
     Plug 'roxma/vim-hug-neovim-rpc'
 endif
 let g:deoplete#enable_at_startup = 1
-Plug 'sebastianmarkow/deoplete-rust'
+Plug 'sebastianmarkow/deoplete-rust' " Rust completion for deoplete
 let g:deoplete#sources#rust#racer_binary = '/home/mhc/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path = '/home/mhc/.local/download/rust/src'
-Plug 'ervandew/supertab'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'nfvs/vim-perforce'
-Plug 'vim-scripts/supp.vim'
-Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'bogado/file-line'
+Plug 'zchee/deoplete-jedi'  " Python completion for deoplete
+Plug 'ervandew/supertab'    " Makes Tab the insert-mode completion key for everything
+Plug 'terryma/vim-multiple-cursors' " Multiple cursors like Sublime Text. ctrl+n
+Plug 'nfvs/vim-perforce'    " Perforce integration
+Plug 'vim-scripts/supp.vim' " valgrind suppression file syntax highlighting
+Plug 'PotatoesMaster/i3-vim-syntax' " i3 config syntax highlighting
+Plug 'bogado/file-line'     " Enables 'vim file:20' to open file scrolled to line 20
 Plug 'xolox/vim-misc'
-Plug 'xolox/vim-reload'
-Plug 'yuratomo/w3m.vim'
+Plug 'xolox/vim-reload'     " Auto-reload various types of vim scripts when edited
+Plug 'yuratomo/w3m.vim'     " Web Browser (:W3m [url])
+Plug 'Shougo/vinarise.vim'  " Hex Editor  (:Vinarise [options] [path])
+let g:vinarise_enable_auto_detect = 1
 call plug#end()
 
 " Basic vim options
@@ -183,7 +184,7 @@ let g:ctrlp_prompt_mappings = {
 set updatetime=2000         " vim default of 4000ms is way too long
 
 " Rainbow Brackets options
-let g:rainbow_active = 0
+let g:rainbow_active = 1
 
 " jedi options
 let g:jedi#show_call_signatures = "2"
