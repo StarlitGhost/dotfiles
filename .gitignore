@@ -3,6 +3,7 @@
 *.swp
 *.pyc
 *.log
+
 config/Kitware
 config/QtProject.conf
 config/htop
@@ -10,6 +11,7 @@ config/mpd/log
 config/mpd/sticker.sql
 config/neofetch
 config/thefuck
+
 weechat/logs/*
 weechat/*.log
 weechat/weechat_fifo_*
@@ -19,8 +21,16 @@ weechat/sec.conf
 weechat/urlserver_list.txt
 weechat/grep*
 weechat/script/plugins.xml.gz
-vim/autoload/plug.vim.old
-vim/plugged/*
+
+vim/bundles/*
+!vim/bundles/repos
+vim/bundles/repos/*
+!vim/bundles/repos/github.com
+vim/bundles/repos/github.com/*
+!vim/bundles/repos/github.com/Shougo
+vim/bundles/repos/github.com/Shougo/*
+!vim/bundles/repos/github.com/Shougo/dein.vim
+
 vim/undodir/*
 vim/syntax/vhc.vim
 vim/syntax/tgn.vim
