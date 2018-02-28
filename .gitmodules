@@ -1,15 +1,18 @@
 [submodule "oh-my-zsh"]
-	path = oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
+    path = oh-my-zsh
+    url = git@github.com:robbyrussell/oh-my-zsh.git
 [submodule "ignored/omz-custom/plugins/zsh-syntax-highlighting"]
-	path = ignored/omz-custom/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+    path = ignored/omz-custom/plugins/zsh-syntax-highlighting
+    url = git@github.com:zsh-users/zsh-syntax-highlighting.git
 [submodule "ignored/omz-custom/plugins/zsh-autosuggestions"]
     path = ignored/omz-custom/plugins/zsh-autosuggestions
-    url = git://github.com/zsh-users/zsh-autosuggestions
+    url = git@github.com:zsh-users/zsh-autosuggestions
 [submodule "tmuxifier"]
-	path = tmuxifier
-	url = https://github.com/jimeh/tmuxifier.git
+    path = tmuxifier
+    url = git@github.com:jimeh/tmuxifier.git
 [submodule "tmux/plugins/tpm"]
-	path = tmux/plugins/tpm
-	url = git@github.com:tmux-plugins/tpm.git
+    path = tmux/plugins/tpm
+    url = git@github.com:tmux-plugins/tpm.git
+[submodule "vim/bundles/repos/github.com/Shougo/dein.vim"]
+    path = vim/bundles/repos/github.com/Shougo/dein.vim
+    url = git@github.com:Shougo/dein.vim

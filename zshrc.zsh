@@ -59,7 +59,7 @@ plugins=(
     themes
     time-commands
     tmux
-    virtualenv
+    virtualenvwrapper
     zsh-autosuggestions
     zsh-syntax-highlighting
 )

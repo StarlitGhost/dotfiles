@@ -20,7 +20,7 @@
 
 use strict;
 my $PRGNAME     = "topicsed";
-my $VERSION     = "0.1";
+my $VERSION     = "0.2";
 my $AUTHOR      = "Nils Görs <weechatter\@arcor.de>";
 my $LICENCE     = "GPL3";
 my $DESCR       = "Edit channel topics by perl regular expressions or in input-line";
