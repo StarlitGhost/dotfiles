@@ -7,12 +7,12 @@
 [submodule "ignored/omz-custom/plugins/zsh-autosuggestions"]
     path = ignored/omz-custom/plugins/zsh-autosuggestions
     url = git@github.com:zsh-users/zsh-autosuggestions
-[submodule "tmuxifier"]
-    path = tmuxifier
-    url = git@github.com:jimeh/tmuxifier.git
-[submodule "tmux/plugins/tpm"]
-    path = tmux/plugins/tpm
-    url = git@github.com:tmux-plugins/tpm.git
+[submodule "ignored/tpm"]
+	path = ignored/tpm
+	url = git@github.com:tmux-plugins/tpm.git
 [submodule "vim/bundles/repos/github.com/Shougo/dein.vim"]
     path = vim/bundles/repos/github.com/Shougo/dein.vim
     url = git@github.com:Shougo/dein.vim
+[submodule "ignored/oh-my-tmux"]
+	path = ignored/oh-my-tmux
+	url = git@github.com:gpakosz/.tmux.git
