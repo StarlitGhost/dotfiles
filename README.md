@@ -15,7 +15,7 @@ ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
 Add key to GitHub account, then...
 ```
 ssh-keyscan github.com >> ~/.ssh/known_hosts
-git clone git@github.com:TyranicMoron/dotfiles.git ~/.dotfiles
+git clone git@github.com:StarlitGhost/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 git pull && git submodule update --init --recursive && \
 git submodule foreach git checkout master && git submodule foreach git pull
@@ -43,7 +43,7 @@ ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
 Add key to GitHub account, then...
 ```
 ssh-keyscan github.com >> ~/.ssh/known_hosts
-git clone git@github.com:TyranicMoron/dotfiles.git ~/.dotfiles
+git clone git@github.com:StarlitGhost/dotfiles.git ~/.dotfiles
 mv ~/.config/* ~/.dotfiles/config # should be fine assuming completely fresh system, but check for possible overwrites first!
 cd ~/.dotfiles
 git pull && git submodule update --init --recursive && \
