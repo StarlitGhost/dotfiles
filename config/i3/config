@@ -325,7 +325,7 @@ exec --no-startup-id xset dpms 0 0 900
 # Disable screensaver/blanking
 exec --no-startup-id xset s off
 # Window compositor; fancy transitions, transparency, blur, shadows, all that jazz
-exec --no-startup-id compton -fb
+exec --no-startup-id allow_rgb10_configs=false compton -fb --backend glx
 # Time-based colour temperature
 exec --no-startup-id redshift
 # Wallpaper
