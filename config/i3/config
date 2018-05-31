@@ -351,7 +351,7 @@ exec $terminal --name=termite-ws1
 exec $browser
 #  irc
 exec $terminal --name=termite-irc -e \
-    "mosh tyranic-moron@tyranicmoron.uk -- zsh -l -c 'tmux select-window irc; tmux attach'"
+    "mosh starlitghost@starlitghost.xyz -- zsh -l -c 'tmux select-window irc; tmux attach'"
 #  music
 exec $terminal --name=termite-ncmpcpp -e \
     "/bin/zsh -c 'echo Starting ncmpcpp...; sleep 2; ncmpcpp'"
