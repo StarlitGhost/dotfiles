@@ -14,19 +14,22 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     call dein#add('bling/vim-airline')    " Fancy status and tablines
     call dein#add('airblade/vim-gitgutter') " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
     call dein#add('luochen1990/rainbow')  " rainbow parentheses
+    call dein#add('vim-syntastic/syntastic') " Syntax checking via external programs
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
     "call dein#add('guns/xterm-color-table.vim') " xterm colors with rgb equivalents (:XtermColorTable)
-    "call dein#add('davidhalter/jedi-vim')
-    call dein#add('Shougo/deoplete.nvim') " completion engine
+    call dein#add('roxma/nvim-completion-manager')
     if !has('nvim')
         call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
     endif
-    let g:deoplete#enable_at_startup = 1
-    call dein#add('sebastianmarkow/deoplete-rust') " Rust completion for deoplete
-    let g:deoplete#sources#rust#racer_binary = expand($REALHOME . '/.cargo/bin/racer')
-    let g:deoplete#sources#rust#rust_source_path = expand($REALHOME . '/.local/download/rust/src')
-    call dein#add('zchee/deoplete-jedi')  " Python completion for deoplete
-    call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
+    call dein#add('rust-lang/rust.vim')   " All kinds of rust stuff
+    call dein#add('racer-rust/vim-racer')
+    let g:racer_cmd = expand($REALHOME . '/.cargo/bin/racer')
+    call dein#add('roxma/nvim-cm-racer')
+"    call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
     call dein#add('terryma/vim-multiple-cursors') " Multiple cursors like Sublime Text. ctrl+n
     call dein#add('nfvs/vim-perforce')    " Perforce integration
     call dein#add('vim-scripts/supp.vim') " valgrind suppression file syntax highlighting
@@ -35,8 +38,8 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     call dein#add('xolox/vim-misc')
     call dein#add('xolox/vim-reload')     " Auto-reload various types of vim scripts when edited
     call dein#add('yuratomo/w3m.vim')     " Web Browser (:W3m [url])
-    call dein#add('Shougo/vinarise.vim')  " Hex Editor  (:Vinarise [options] [path])
-    let g:vinarise_enable_auto_detect = 1
+"    call dein#add('Shougo/vinarise.vim')  " Hex Editor  (:Vinarise [options] [path])
+"    let g:vinarise_enable_auto_detect = 1
 
     call dein#end()
     call dein#save_state()
@@ -46,6 +49,10 @@ if !has('vim_starting') && dein#check_install()
     " Installation check.
     call dein#install()
 endif
+
+"let g:deoplete#enable_profile = 1
+"call deoplete#enable_logging('DEBUG', 'deoplete.log')
+"call deoplete#custom#set('jedi', 'debug_enabled', 1)
 
 " Basic vim options
 syntax on                   " turn on syntax highlighting
@@ -84,6 +91,7 @@ if has('unnamedplus')
     set clipboard=unnamedplus " disable system clipboard integration, too slow when X isn't running
 endif
 set pastetoggle=<F2>        " toggle paste-mode with F2 - disables autoindent, among other things
+set timeoutlen=200          " reduce timeout for command sequences (default 1000)
 
 " Make undo history persistent
 if has('persistent_undo')
@@ -111,11 +119,13 @@ endif
 autocmd BufWritePost .vimrc source $MYVIMRC
 
 " Automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+"autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 
 " Filetype mappings for unrecognised extensions
 """"""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufRead,BufNewFile *.cshrc setfiletype csh
+
+autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
 
 " Change the cursor shape for insertion and replacement mode,
 " if the terminal supports that
@@ -136,6 +146,9 @@ autocmd BufRead,BufNewFile *.cshrc setfiletype csh
 inoremap jj <Esc>
 " Not really sure? It accompanied the jj bind online
 nnoremap JJJJ <Nop>
+" Insert newlines without going into insert mode
+nnoremap oo m`o<Esc>``
+nnoremap OO m`O<Esc>``
 " Swap ; & : in normal and visual modes, for shift-less commands
 nnoremap ; :
 nnoremap : ;
@@ -145,6 +158,9 @@ vnoremap : ;
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
 " Esc twice to clear the last search
 nnoremap <silent> <Esc><Esc> :let @/=""<CR>
+" Use tab for completion
+inoremap <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<Tab>")
+inoremap <expr> <S-Tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
 " F5 to save & execute the current python buffer
 autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 

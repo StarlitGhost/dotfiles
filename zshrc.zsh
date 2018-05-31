@@ -78,9 +78,6 @@ source $ZSH/oh-my-zsh.sh
 # appear if there are more options than would fit in the current terminal
 LISTMAX=0
 
-# tmuxifier initialisation
-eval "$(tmuxifier init - zsh)"
-
 # my aliases
 source $REALHOME/.zsh_aliases
 
