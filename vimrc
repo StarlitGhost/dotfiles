@@ -29,6 +29,7 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     call dein#add('racer-rust/vim-racer')
     let g:racer_cmd = expand($REALHOME . '/.cargo/bin/racer')
     call dein#add('roxma/nvim-cm-racer')
+    call dein#add('vim-scripts/Conque-GDB') " GDB within vim
 "    call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
     call dein#add('terryma/vim-multiple-cursors') " Multiple cursors like Sublime Text. ctrl+n
     call dein#add('nfvs/vim-perforce')    " Perforce integration
