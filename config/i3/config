@@ -133,6 +133,8 @@ bindsym Ctrl+Print exec --no-startup-id teiler
 
 # Change wallpaper
 bindsym $mod+p exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
+# Set keyboard backlight based on wallpaper
+bindsym $mod+k exec --no-startup-id ~/.dotfiles/ignored/scripts/wal-set.sh
 
 # Lock screen
 bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/lock.sh
