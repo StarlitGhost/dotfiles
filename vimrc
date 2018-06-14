@@ -74,6 +74,9 @@ set expandtab               " convert tab keypresses to spaces, obeying softtabs
 set ignorecase smartcase    " case-insensitive search, except when using capital letters
 set autoindent              " auto-indent even if the filetype doesn't have indent settings
 set hlsearch incsearch      " highlight search matches, incrementally
+if exists('&inccommand')    " option only exists in neovim 1.7+
+    set inccommand=nosplit  " highlight and live preview substitutions
+endif
 set showmatch               " highlight matching brackets
 set scrolloff=5             " keep 5 lines above/below the current line
 set sidescrolloff=5         " ...and cols on the left/right (if wrap is off)
