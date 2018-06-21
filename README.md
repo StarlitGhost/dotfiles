@@ -6,7 +6,7 @@ Only directly useful to myself, but feel free to scavenge from them!
 ## Debian-based setup
 ```
 sudo apt-get --yes install automake build-essential cmake git \
-python-dev python-pip ssh tmux vim zsh
+mosh python-dev python-pip ssh tmux vim zsh
 sudo pip install virtualenv virtualenvwrapper
 source /usr/local/bin/virtualenvwrapper.sh ; mkvirtualenv home
 pip install powerline-status
@@ -36,8 +36,9 @@ git clone https://github.com/powerline/fonts.git ~/powerline-fonts
 ```
 sudo pacman -Syu
 sudo pacman -S --needed base-devel
-sudo pacman -S cmake cowsay fortune-mod git openssh python-pip python2-pip \
-python-powerline python-pygments python-virtualenvwrapper ranger tmux vim zsh
+sudo pacman -S cmake cowsay fortune-mod git mosh openssh python-neovim python2-neovim \
+python-pip python2-pip python-powerline python-pygments python-virtualenvwrapper \
+ranger tmux neovim zsh
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
 ```
 Add key to GitHub account, then...
