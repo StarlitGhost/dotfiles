@@ -145,5 +145,5 @@ fi
 
 # the classic shell introduction
 if [[ -o interactive ]]; then
-    fortune | cowsay
+    fortune | cowsay | lolcat
 fi
