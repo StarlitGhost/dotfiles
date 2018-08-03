@@ -11,6 +11,7 @@ config/mpd/log
 config/mpd/sticker.sql
 config/neofetch
 config/thefuck
+config/yay
 
 weechat/logs/*
 weechat/*.log

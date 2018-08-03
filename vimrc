@@ -11,6 +11,7 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     call dein#add('$REALHOME/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
     call dein#add('ctrlpvim/ctrlp.vim')   " Fuzzy file, buffer, etc finder (ctrl+p)
+    call dein#add('scrooloose/nerdtree')  " Tree file browser
     call dein#add('bling/vim-airline')    " Fancy status and tablines
     call dein#add('airblade/vim-gitgutter') " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
     call dein#add('luochen1990/rainbow')  " rainbow parentheses
@@ -180,6 +181,8 @@ nnoremap <silent> con :set number! relativenumber!<CR>
 nnoremap <silent> cor :set relativenumber!<CR>
 " Toggle the GitGutter
 nnoremap <silent> cog :GitGutterToggle<CR>
+" Toggle NerdTree
+nnoremap <silent> cot :NERDTreeToggle<CR>
 
 " Colour settings
 """"""""""""""""""
