@@ -140,7 +140,7 @@ export SKIPZSH=1
 
 # wallpaper-based colour theming
 if [[ -e $REALHOME/.cache/wal/sequences ]]; then
-    (cat ~/.cache/wal/sequences &)
+    (command cat ~/.cache/wal/sequences &)
 fi
 
 # the classic shell introduction

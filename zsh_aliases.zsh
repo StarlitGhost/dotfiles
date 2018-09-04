@@ -52,10 +52,16 @@ alias oops='fuck'
 alias pwd='pwd -P'
 
 # fancy syntax-highlighted cat
-alias pyg='pygmentize -g'
-pyglet () {
-    pyg "$@" | less
-}
+if type "bat" > /dev/null; then
+    alias cat='bat'
+elif type "pygmentize" > /dev/null; then
+    alias cat='pygmentize -g'
+    pyglet () {
+        pygmentize "$@" | less
+    }
+else
+    echo "Neither bat nor pygmentize is installed for fancy cat"
+fi
 
 # more obvious opposite of export
 alias unexport='unset'
