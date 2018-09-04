@@ -3,7 +3,7 @@
 My system-independent dotfiles.
 Only directly useful to myself, but feel free to scavenge from them!
 
-## Debian-based setup
+## Debian-based setup (outdated, I fully migrated to Arch)
 ```
 sudo apt-get --yes install automake build-essential cmake git \
 mosh python-dev python-pip ssh tmux vim zsh
@@ -36,9 +36,10 @@ git clone https://github.com/powerline/fonts.git ~/powerline-fonts
 ```
 sudo pacman -Syu
 sudo pacman -S --needed base-devel
-sudo pacman -S bat cmake cowsay fortune-mod git lolcat mosh neofetch openssh \
-python-neovim python2-neovim python-pip python2-pip python-powerline \
-python-pygments python-virtualenvwrapper ranger tmux neovim zsh
+sudo pacman -S bat cmake cowsay diff-so-fancy fortune-mod git lolcat mosh \
+neofetch openssh python-neovim python2-neovim python-pip python2-pip \
+python-powerline python-pygments python-virtualenvwrapper ranger tmux neovim \
+zsh
 sudo yay -S prettyping # need to install yay first, obviously
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
 ```
