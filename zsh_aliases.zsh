@@ -68,6 +68,10 @@ if type "prettyping" > /dev/null; then
     alias ping='prettyping --nolegend'
 fi
 
+# fancy du
+if type "ncdu" > /dev/null; then
+    alias du='ncdu --color dark -x --exclude .git'
+
 # more obvious opposite of export
 alias unexport='unset'
 
