@@ -52,9 +52,9 @@ alias oops='fuck'
 alias pwd='pwd -P'
 
 # fancy syntax-highlighted cat
-if type "bat" > /dev/null; then
+if type "bat" > /dev/null 2>&1; then
     alias cat='bat'
-elif type "pygmentize" > /dev/null; then
+elif type "pygmentize" > /dev/null 2>&1; then
     alias cat='pygmentize -g'
     pyglet () {
         pygmentize "$@" | less
@@ -64,13 +64,14 @@ else
 fi
 
 # fancy ping
-if type "prettyping" > /dev/null; then
+if type "prettyping" > /dev/null 2>&1; then
     alias ping='prettyping --nolegend'
 fi
 
 # fancy du
-if type "ncdu" > /dev/null; then
+if type "ncdu" > /dev/null 2>&1; then
     alias du='ncdu --color dark -x --exclude .git'
+fi
 
 # more obvious opposite of export
 alias unexport='unset'
