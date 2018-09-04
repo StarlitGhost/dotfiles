@@ -37,7 +37,7 @@ git clone https://github.com/powerline/fonts.git ~/powerline-fonts
 sudo pacman -Syu
 sudo pacman -S --needed base-devel
 sudo pacman -S bat cmake cowsay diff-so-fancy fortune-mod git lolcat mosh \
-neofetch openssh python-neovim python2-neovim python-pip python2-pip \
+ncdu neofetch openssh python-neovim python2-neovim python-pip python2-pip \
 python-powerline python-pygments python-virtualenvwrapper ranger tmux neovim \
 zsh
 sudo yay -S prettyping # need to install yay first, obviously
