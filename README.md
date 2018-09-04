@@ -36,7 +36,7 @@ git clone https://github.com/powerline/fonts.git ~/powerline-fonts
 ```
 sudo pacman -Syu
 sudo pacman -S --needed base-devel
-sudo pacman -S cmake cowsay fortune-mod git lolcat mosh openssh python-neovim \
+sudo pacman -S bat cmake cowsay fortune-mod git lolcat mosh openssh python-neovim \
 python2-neovim python-pip python2-pip python-powerline python-pygments \
 python-virtualenvwrapper ranger tmux neovim zsh
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
