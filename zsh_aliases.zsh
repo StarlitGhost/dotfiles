@@ -63,6 +63,11 @@ else
     echo "Neither bat nor pygmentize is installed for fancy cat"
 fi
 
+# fancy ping
+if type "prettyping" > /dev/null; then
+    alias ping='prettyping --nolegend'
+fi
+
 # more obvious opposite of export
 alias unexport='unset'
 

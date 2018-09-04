@@ -36,9 +36,10 @@ git clone https://github.com/powerline/fonts.git ~/powerline-fonts
 ```
 sudo pacman -Syu
 sudo pacman -S --needed base-devel
-sudo pacman -S bat cmake cowsay fortune-mod git lolcat mosh openssh python-neovim \
-python2-neovim python-pip python2-pip python-powerline python-pygments \
-python-virtualenvwrapper ranger tmux neovim zsh
+sudo pacman -S bat cmake cowsay fortune-mod git lolcat mosh neofetch openssh \
+python-neovim python2-neovim python-pip python2-pip python-powerline \
+python-pygments python-virtualenvwrapper ranger tmux neovim zsh
+sudo yay -S prettyping # need to install yay first, obviously
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
 ```
 Add key to GitHub account, then...
@@ -54,6 +55,5 @@ chsh -s /bin/zsh ; exec zsh -l
 ```
 ### Additional GUI steps
 ```
-sudo pacman -S arc-gtk-theme arc-icon-theme compton dunst i3 lxappearance lxqt-policykit nitrogen redshift rofi termite thunar ttf-font-awesome
-sudo pacaur -S i3-gaps neofetch # need to install pacaur first, obviously
+sudo pacman -S arc-gtk-theme arc-icon-theme compton dunst i3-gaps lxappearance lxqt-policykit nitrogen redshift rofi termite thunar ttf-font-awesome
 ```
