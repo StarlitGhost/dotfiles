@@ -55,22 +55,27 @@ alias pwd='pwd -P'
 if type "bat" > /dev/null 2>&1; then
     alias cat='bat'
 elif type "pygmentize" > /dev/null 2>&1; then
+    echo "cat: bat not available, falling back to pygmentize"
     alias cat='pygmentize -g'
     pyglet () {
         pygmentize "$@" | less
     }
 else
-    echo "Neither bat nor pygmentize is installed for fancy cat"
+    echo "cat: neither bat nor pygmentize are available, falling back to cat"
 fi
 
 # fancy ping
 if type "prettyping" > /dev/null 2>&1; then
     alias ping='prettyping --nolegend'
+else
+    echo "ping: PrettyPing not available, falling back to ping"
 fi
 
 # fancy du
 if type "ncdu" > /dev/null 2>&1; then
     alias du='ncdu --color dark -x --exclude .git'
+else
+    echo "du: ncdu not available, falling back to du"
 fi
 
 # more obvious opposite of export
