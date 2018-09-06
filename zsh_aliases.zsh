@@ -73,7 +73,7 @@ fi
 
 # fancy du
 if type "ncdu" > /dev/null 2>&1; then
-    alias du='ncdu --color dark -x --exclude .git'
+    alias du='ncdu -x --exclude .git'
 else
     echo "du: ncdu not available, falling back to du"
 fi
