@@ -64,6 +64,8 @@ plugins=(
     zsh-syntax-highlighting
 )
 
+source $REALHOME/.dotfiles/ignored/omz-custom/plugins/zsh-autoenv/autoenv.zsh
+
 # Work plugins
 if [[ $USER == mhc || $USER == sim || $USER == simvideo ]]; then
     plugins+=(uge)
