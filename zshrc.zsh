@@ -130,7 +130,7 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 
 # override 'fixed' oh-my-zsh tab completion (oh-my-zsh #5435) with that proposed in
-# https://github.com/robbyrussell/oh-my-zsh/issues/#1398#issuecomment-255581289
+# https://github.com/robbyrussell/oh-my-zsh/issues/1398#issuecomment-255581289
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|=*' '+ r:|[._-]=* l:|=*'
 
 ###########################
@@ -147,5 +147,18 @@ fi
 
 # the classic shell introduction
 if [[ -o interactive ]]; then
-    fortune | cowsay | lolcat
+    if type "fortune" > /dev/null 2>&1; then
+        # on systems where I don't have system install rights, fortunes will be under ~/.local
+        (fortune 2> /dev/null || fortune $REALHOME/.local/share/games/fortune) |
+            cowsay |
+            # pipe to lolcat if it exists, otherwise just cat to output
+            if type "lolcat" > /dev/null 2>&1; then
+                lolcat
+            else
+                command cat
+                echo "(lolcat wasn't found, no rainbows for you)"
+            fi
+    else
+        echo "fortune not installed :("
+    fi
 fi
