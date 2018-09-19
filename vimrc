@@ -1,6 +1,10 @@
 " We're not using Vi, so don't pretend we are
 set nocompatible
 
+if has('nvim')
+    let g:python3_host_prog=expand($REALHOME . '/.virtualenvs/neovim/bin/python')
+endif
+
 " Set the runtime path (where .vim dir is) to include my $REALHOME var
 let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim'), &runtimepath)
 let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim/bundles/repos/github.com/Shougo/dein.vim'), &runtimepath)
@@ -36,6 +40,7 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     call dein#add('nfvs/vim-perforce')    " Perforce integration
     call dein#add('vim-scripts/supp.vim') " valgrind suppression file syntax highlighting
     call dein#add('PotatoesMaster/i3-vim-syntax') " i3 config syntax highlighting
+    call dein#add('cespare/vim-toml')     " TOML syntax highlighting
     call dein#add('bogado/file-line')     " Enables 'vim file:20' to open file scrolled to line 20
     call dein#add('xolox/vim-misc')
     call dein#add('xolox/vim-reload')     " Auto-reload various types of vim scripts when edited
@@ -116,7 +121,7 @@ if exists('+colorcolumn')
 endif
 
 " Enable mouse resizing of vim windows inside tmux/screen
-if &term =~ '^screen'
+if !has('nvim') && &term =~ '^screen'
     set ttymouse=xterm2
 endif
 
