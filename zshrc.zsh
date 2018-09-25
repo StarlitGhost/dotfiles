@@ -50,6 +50,8 @@ plugins=(
     colorize
     command-not-found
     cp
+    docker
+    docker-compose
     extract
     gitfast
     history
@@ -132,6 +134,16 @@ ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 # override 'fixed' oh-my-zsh tab completion (oh-my-zsh #5435) with that proposed in
 # https://github.com/robbyrussell/oh-my-zsh/issues/1398#issuecomment-255581289
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|=*' '+ r:|[._-]=* l:|=*'
+
+# time how long it takes to render the prompt
+#typeset -F SECONDS start
+#precmd () {
+#    start=$SECONDS
+#}
+#zle-line-init () {
+#    PREDISPLAY="[$(( $SECONDS - $start ))] "
+#}
+#zle -N zle-line-init
 
 ###########################
 ## Last few things...
