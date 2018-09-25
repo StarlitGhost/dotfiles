@@ -25,6 +25,8 @@ import time
 import calendar
 import socket
 import getpass
+import string
+import itertools
 
 # This twitter plugin can be extended even more. Just look at the twitter api
 # doc here: https://dev.twitter.com/docs/api/1.1
@@ -80,19 +82,22 @@ CONSUMER_SECRET = 'ivx3oxxkSOAOofRuhmGXQK4nkLFNXD94wbJiRUBhN1g'
 CONSUMER_KEY = 'NVkYe8DAeaw6YRcjw662ZQ'
 
 script_options = {
-    "oauth_token" : "",
-    "oauth_secret" : "",
-    "auth_complete" : False,
-    "screen_name" : "",
-    "last_id" : "",
-    "print_id" : True,
-    "alt_rt_style" : False,
-    "home_replies" : False,
-    "tweet_nicks" : True,
+    "oauth_token" : ("", "your twitter oauth token"),
+    "oauth_secret" : ("", "your twitter oath secret"),
+    "auth_complete" : (False, "whether you've finished the auth process or not"),
+    "screen_name" : ("", "your twitter username"),
+    "last_id" : ("", "the ID of the most recent tweet"),
+    "print_id" : (True, "display short tweet indexes"),
+    "alt_rt_style" : (False, "use alternate retweet display style"),
+    "home_replies" : (False, "show replies on the home timeline"),
+    "tweet_nicks" : (True, "add twitter usernames to the nicklist"),
+    "index_pattern": ("an", "a pattern of character groups to build "
+                            "short tweet indexes from. the default 'an' generates "
+                            "looping indexes from a0 to z9. a = [a-z], n = [0-9]"),
 }
 
 #TODO have a dict for each buffer
-tweet_dict = {'cur_index': "aa0"}
+tweet_dict = {'cur_index': None}
 #Mega command dict
 command_dict = dict(
     user="u", replies="r", view_tweet="v", thread="th", link="l",
@@ -184,20 +189,29 @@ def html_escape(text):
     """Produce entities within text."""
     return "".join(html_escape_table.get(c, c) for c in text)
 
+def index_gen():
+    #Generates indexes starting from a0 going up to z9, then repeating
+    #index_pattern is a pattern of character groups to use for each part of the index
+    # a = [a-z]
+    # n = [0-9]
+    #This setting needs a script reload to take effect
+    index_parts = []
+    for p in script_options['index_pattern']:
+        if p == 'a':
+            index_parts.append(string.ascii_lowercase)
+        elif p == 'n':
+            index_parts.append(string.digits)
+
+    while True:
+        for index in itertools.product(*index_parts):
+            yield "".join(index)
+#Create our index generator
+index_generator = index_gen()
+
 def dict_tweet(tweet_id):
     cur_index = tweet_dict['cur_index']
     if not tweet_id in tweet_dict.values():
-        if cur_index == 'zz9':
-            cur_index = 'aa0'
-
-        if cur_index[-1] == '9':
-            if cur_index[1] == 'z':
-                cur_index = chr(ord(cur_index[0]) + 1) + 'a0'
-            else:
-                cur_index = cur_index[0] + chr(ord(cur_index[1]) + 1) + '0'
-        else:
-            cur_index = cur_index[:-1] + chr(ord(cur_index[-1]) + 1)
-
+        cur_index = index_generator.next()
         tweet_dict[cur_index] = tweet_id
         tweet_dict['cur_index'] = cur_index
         return cur_index
@@ -378,9 +392,8 @@ def stream_message(buffer, tweet):
         #Get latest tweets from timeline
         my_command_cb("silent", buffer, "new")
     else:
-        #weechat.prnt(buffer, "%s%s" % (weechat.prefix("network"),
-        #"recv stream data: " + str(tweet)))
-        pass # actually, I don't want a wall of junk every time I fav a tweet
+        weechat.prnt(buffer, "%s%s" % (weechat.prefix("network"),
+                                       "recv stream data: " + str(tweet)))
 
 def twitter_stream_cb(buffer, fd):
 
@@ -663,9 +676,8 @@ def my_process_cb(data, command, rc, out, err):
 
     if rc == weechat.WEECHAT_HOOK_PROCESS_ERROR:
         weechat.prnt("", "Error with command '%s'" %
-                command.replace(script_options["oauth_token"],
-                                "<token>").replace(script_options["oauth_secret"],"<secret>"))
-
+                     command.replace(script_options["oauth_token"],
+                                     "<token>").replace(script_options["oauth_secret"], "<secret>"))
         if err != "":
             weechat.prnt("", "stderr: %s" % err)
 
@@ -740,7 +752,10 @@ def my_process_cb(data, command, rc, out, err):
 
         if end_mes != "id" and end_mes != "":
             weechat.prnt(buffer, "%s%s" % (weechat.prefix("network"), end_mes))
-            
+
+    if err != "":
+        weechat.prnt("", "stderr: %s" % err)
+
     return weechat.WEECHAT_RC_OK
 
 def get_twitter_data(cmd_args):
@@ -1016,7 +1031,8 @@ def buffer_input_cb(data, buffer, input_data):
         elif command == 're' and tweet_dict.get(input_args[1]):
             end_message = "id"
             len_id = len(tweet_dict['cur_index'])
-            input_data = "re {} '{}'".format(tweet_dict[input_args[1]], html_escape(input_data[(2+1+len_id+1):]))
+            input_data = 're ' + tweet_dict[input_args[1]] \
+                    + " '" + html_escape(input_data[(2+1+len_id+1):]) + "'"
         elif command == 'new':
             end_message = "id"
             if script_options['last_id'] != "":
@@ -1254,8 +1270,8 @@ def oauth_proc_cb(data, command, rc, out, err):
 
     if rc == weechat.WEECHAT_HOOK_PROCESS_ERROR:
         weechat.prnt("", "Error with command '%s'" %
-                command.replace(script_options["oauth_token"],
-                                "<token>").replace(script_options["oauth_secret"],"<secret>"))
+                     command.replace(script_options["oauth_token"], "<token>").replace(
+                         script_options["oauth_secret"], "<secret>"))
         return weechat.WEECHAT_RC_OK
 
     if len(out) > 16 and out[:16] == "Unexpected error":
@@ -1372,7 +1388,7 @@ def finish_init():
                          "oauth_proc_cb", "friends")
 
 if __name__ == "__main__" and weechat_call:
-    weechat.register(SCRIPT_NAME, "DarkDefender", "1.2.7", "GPL3", "Weechat twitter client", "", "")
+    weechat.register(SCRIPT_NAME, "DarkDefender", "1.2.8", "GPL3", "Weechat twitter client", "", "")
 
     if not import_ok:
         weechat.prnt("", "Can't load twitter python lib >= " + required_twitter_version)
@@ -1383,14 +1399,19 @@ if __name__ == "__main__" and weechat_call:
 
         #Set register script options if not available
 
-        for option, default_value in script_options.items():
+        for option, value in list(script_options.items()):
+            default_value = value[0]
+            description = value[1]
+            if isinstance(default_value, bool):
+                if default_value:
+                    default_value = "on"
+                else:
+                    default_value = "off"
+            weechat.config_set_desc_plugin(option,
+                                           description + ' (default: "' + default_value + '")')
             if not weechat.config_is_set_plugin(option):
-                if isinstance(default_value, bool):
-                    if default_value:
-                        default_value = "on"
-                    else:
-                        default_value = "off"
                 weechat.config_set_plugin(option, default_value)
+                script_options[option] = default_value
 
         read_config()
         #Hook for config changes
