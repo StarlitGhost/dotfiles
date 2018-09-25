@@ -25,15 +25,19 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
     "call dein#add('guns/xterm-color-table.vim') " xterm colors with rgb equivalents (:XtermColorTable)
-    call dein#add('roxma/nvim-completion-manager')
+    call dein#add('ncm2/ncm2')
+    call dein#add('ncm2/ncm2-bufword')
+    call dein#add('ncm2/ncm2-tmux')
+    call dein#add('ncm2/ncm2-path')
+    call dein#add('ncm2/ncm2-github')
+    call dein#add('ncm2/ncm2-jedi')
+    call dein#add('ncm2/ncm2-racer')
+
+    call dein#add('roxma/nvim-yarp')
     if !has('nvim')
-        call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
     endif
     call dein#add('rust-lang/rust.vim')   " All kinds of rust stuff
-    call dein#add('racer-rust/vim-racer')
-    let g:racer_cmd = expand($REALHOME . '/.cargo/bin/racer')
-    call dein#add('roxma/nvim-cm-racer')
     call dein#add('vim-scripts/Conque-GDB') " GDB within vim
 "    call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
     call dein#add('terryma/vim-multiple-cursors') " Multiple cursors like Sublime Text. ctrl+n
@@ -56,6 +60,9 @@ if !has('vim_starting') && dein#check_install()
     " Installation check.
     call dein#install()
 endif
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
 
 "let g:deoplete#enable_profile = 1
 "call deoplete#enable_logging('DEBUG', 'deoplete.log')
