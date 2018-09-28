@@ -40,7 +40,7 @@ sudo pacman -S bat cmake cowsay diff-so-fancy fortune-mod git lolcat mosh \
 ncdu neofetch openssh python-neovim python2-neovim python-pip python2-pip \
 python-powerline python-pygments python-virtualenvwrapper ranger tmux neovim \
 zsh
-sudo yay -S prettyping # need to install yay first, obviously
+yay -S prettyping # need to install yay first, obviously
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa ; cat ~/.ssh/id_rsa.pub
 ```
 Add key to GitHub account, then...
@@ -56,5 +56,6 @@ chsh -s /bin/zsh ; exec zsh -l
 ```
 ### Additional GUI steps
 ```
-sudo pacman -S arc-gtk-theme arc-icon-theme compton dunst i3-gaps lxappearance lxqt-policykit nitrogen redshift rofi termite thunar ttf-font-awesome
+sudo pacman -S arc-gtk-theme arc-icon-theme compton dunst i3-gaps kitty lxappearance lxqt-policykit nitrogen redshift rofi thunar ttf-font-awesome
+yay -S polybar powerline-fonts-git
 ```
