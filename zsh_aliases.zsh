@@ -31,7 +31,8 @@ alias e='$EDITOR'
 # i3
 alias vi3='$EDITOR $REALHOME/.config/i3/config'
 
-alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
+alias update_dotfiles='unsetopt pushd_ignore_dups ; \
+    pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
     git pull && \
     git submodule update --init --recursive && \
     git submodule foreach git checkout master > /dev/null 2>&1 && \
@@ -39,7 +40,8 @@ alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
     ./install ; \
     echo "" ; \
     sz ; \
-    popd > /dev/null 2>&1'
+    popd > /dev/null 2>&1 ; \
+    setopt pushd_ignore_dups'
 alias u.='update_dotfiles'
 
 # priviledge aliases
