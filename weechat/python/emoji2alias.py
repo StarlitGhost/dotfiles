@@ -25,7 +25,7 @@
 #
 # History:
 #
-#   2017-01-16, Matthew Cox <matthewcpcox@gmail.com>:
+#   2017-01-16, StarlitGhost <starlitwraith@gmail.com>:
 #       v0.2: Ignore Unicode errors from cut-off emoji
 #   2016-03-15, Wil Clouser <clouserw@micropipes.com>:
 #       v0.1: Initial release, based on Mike Reinhardt's BSD
@@ -42,7 +42,7 @@ import_ok = True
 try:
    import weechat as w
 except:
-   print "Script must be run under weechat. http://www.weechat.org"
+   print("Script must be run under weechat. http://www.weechat.org")
    import_ok = False
 
 import re
