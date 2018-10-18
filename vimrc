@@ -1,6 +1,10 @@
 " We're not using Vi, so don't pretend we are
 set nocompatible
 
+if has('nvim')
+    let g:python3_host_prog=expand($REALHOME . '/.virtualenvs/neovim/bin/python')
+endif
+
 " Set the runtime path (where .vim dir is) to include my $REALHOME var
 let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim'), &runtimepath)
 let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim/bundles/repos/github.com/Shougo/dein.vim'), &runtimepath)
@@ -11,6 +15,7 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     call dein#add('$REALHOME/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
     call dein#add('ctrlpvim/ctrlp.vim')   " Fuzzy file, buffer, etc finder (ctrl+p)
+    call dein#add('scrooloose/nerdtree')  " Tree file browser
     call dein#add('bling/vim-airline')    " Fancy status and tablines
     call dein#add('airblade/vim-gitgutter') " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
     call dein#add('luochen1990/rainbow')  " rainbow parentheses
@@ -20,20 +25,26 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
     "call dein#add('guns/xterm-color-table.vim') " xterm colors with rgb equivalents (:XtermColorTable)
-    call dein#add('roxma/nvim-completion-manager')
+    call dein#add('ncm2/ncm2')
+    call dein#add('ncm2/ncm2-bufword')
+    call dein#add('ncm2/ncm2-tmux')
+    call dein#add('ncm2/ncm2-path')
+    call dein#add('ncm2/ncm2-github')
+    call dein#add('ncm2/ncm2-jedi')
+    call dein#add('ncm2/ncm2-racer')
+
+    call dein#add('roxma/nvim-yarp')
     if !has('nvim')
-        call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
     endif
     call dein#add('rust-lang/rust.vim')   " All kinds of rust stuff
-    call dein#add('racer-rust/vim-racer')
-    let g:racer_cmd = expand($REALHOME . '/.cargo/bin/racer')
-    call dein#add('roxma/nvim-cm-racer')
+    call dein#add('vim-scripts/Conque-GDB') " GDB within vim
 "    call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
     call dein#add('terryma/vim-multiple-cursors') " Multiple cursors like Sublime Text. ctrl+n
     call dein#add('nfvs/vim-perforce')    " Perforce integration
     call dein#add('vim-scripts/supp.vim') " valgrind suppression file syntax highlighting
     call dein#add('PotatoesMaster/i3-vim-syntax') " i3 config syntax highlighting
+    call dein#add('cespare/vim-toml')     " TOML syntax highlighting
     call dein#add('bogado/file-line')     " Enables 'vim file:20' to open file scrolled to line 20
     call dein#add('xolox/vim-misc')
     call dein#add('xolox/vim-reload')     " Auto-reload various types of vim scripts when edited
@@ -49,6 +60,9 @@ if !has('vim_starting') && dein#check_install()
     " Installation check.
     call dein#install()
 endif
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
 
 "let g:deoplete#enable_profile = 1
 "call deoplete#enable_logging('DEBUG', 'deoplete.log')
@@ -73,6 +87,9 @@ set expandtab               " convert tab keypresses to spaces, obeying softtabs
 set ignorecase smartcase    " case-insensitive search, except when using capital letters
 set autoindent              " auto-indent even if the filetype doesn't have indent settings
 set hlsearch incsearch      " highlight search matches, incrementally
+if exists('&inccommand')    " option only exists in neovim 1.7+
+    set inccommand=nosplit  " highlight and live preview substitutions
+endif
 set showmatch               " highlight matching brackets
 set scrolloff=5             " keep 5 lines above/below the current line
 set sidescrolloff=5         " ...and cols on the left/right (if wrap is off)
@@ -111,7 +128,7 @@ if exists('+colorcolumn')
 endif
 
 " Enable mouse resizing of vim windows inside tmux/screen
-if &term =~ '^screen'
+if !has('nvim') && &term =~ '^screen'
     set ttymouse=xterm2
 endif
 
@@ -176,6 +193,8 @@ nnoremap <silent> con :set number! relativenumber!<CR>
 nnoremap <silent> cor :set relativenumber!<CR>
 " Toggle the GitGutter
 nnoremap <silent> cog :GitGutterToggle<CR>
+" Toggle NerdTree
+nnoremap <silent> cot :NERDTreeToggle<CR>
 
 " Colour settings
 """"""""""""""""""

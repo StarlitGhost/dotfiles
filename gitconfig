@@ -25,3 +25,7 @@
 	unstage = reset HEAD --
 [push]
 	default = current
+[core]
+	pager = $REALHOME/.dotfiles/ignored/scripts/diff-fallback.sh
+[pull]
+	ff = only

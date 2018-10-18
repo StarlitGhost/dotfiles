@@ -11,13 +11,11 @@ config/mpd/log
 config/mpd/sticker.sql
 config/neofetch
 config/thefuck
+config/yay
 
 weechat/logs/*
 weechat/*.log
 weechat/weechat_fifo_*
-weechat/irc.conf
-weechat/relay.conf
-weechat/sec.conf
 weechat/urlserver_list.txt
 weechat/grep*
 weechat/script/plugins.xml.gz

@@ -9,8 +9,8 @@ set $mod Mod4
 set $alt Mod1
 
 # Programs
-set $terminal termite
-set $browser chromium
+set $terminal kitty
+set $browser vivaldi-snapshot
 set $editor subl
 
 # Workspace names
@@ -133,6 +133,8 @@ bindsym Ctrl+Print exec --no-startup-id teiler
 
 # Change wallpaper
 bindsym $mod+p exec --no-startup-id "wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh"
+# Set keyboard backlight based on wallpaper
+bindsym $mod+k exec --no-startup-id ~/.dotfiles/ignored/scripts/wal-set.sh
 
 # Lock screen
 bindsym $mod+shift+x exec --no-startup-id ~/.config/i3/lock.sh
@@ -301,10 +303,10 @@ mode "$mode_gaps_outer" {
 assign [class="Chromium"] $ws2
 assign [class="Vlc"] $ws3
 assign [class="Gnome-mplayer"] $ws3
-assign [instance="termite-ws1"] $ws1
-assign [instance="termite-irc"] $ws9
-assign [instance="termite-vis"] $ws10
-assign [instance="termite-ncmpcpp"] $ws10
+assign [instance="term-ws1"] $ws1
+assign [instance="term-irc"] $ws9
+assign [instance="term-vis"] $ws10
+assign [instance="term-ncmpcpp"] $ws10
 
 
 
@@ -348,15 +350,15 @@ exec --no-startup-id dropbox
 
 # Workspaces
 #  terminals
-exec $terminal --name=termite-ws1
+exec $terminal --name=term-ws1
 #  chromium
 exec $browser
 #  irc
-exec $terminal --name=termite-irc -e \
+exec $terminal --name=term-irc -e \
     "mosh starlitghost@starlitghost.xyz -- zsh -l -c 'tmux select-window irc; tmux attach'"
 #  music
-exec $terminal --name=termite-ncmpcpp -e \
+exec $terminal --name=term-ncmpcpp -e \
     "/bin/zsh -c 'echo Starting ncmpcpp...; sleep 2; ncmpcpp'"
-exec $terminal --name=termite-vis -e vis
+exec $terminal --name=term-vis -e vis
 
 exec i3-msg "workspace $ws1"

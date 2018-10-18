@@ -31,7 +31,8 @@ alias e='$EDITOR'
 # i3
 alias vi3='$EDITOR $REALHOME/.config/i3/config'
 
-alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
+alias update_dotfiles='unsetopt pushd_ignore_dups ; \
+    pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
     git pull && \
     git submodule update --init --recursive && \
     git submodule foreach git checkout master > /dev/null 2>&1 && \
@@ -39,7 +40,8 @@ alias update_dotfiles='pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
     ./install ; \
     echo "" ; \
     sz ; \
-    popd > /dev/null 2>&1'
+    popd > /dev/null 2>&1 ; \
+    setopt pushd_ignore_dups'
 alias u.='update_dotfiles'
 
 # priviledge aliases
@@ -52,10 +54,31 @@ alias oops='fuck'
 alias pwd='pwd -P'
 
 # fancy syntax-highlighted cat
-alias pyg='pygmentize -g'
-pyglet () {
-    pyg "$@" | less
-}
+if type "bat" > /dev/null 2>&1; then
+    alias cat='bat'
+elif type "pygmentize" > /dev/null 2>&1; then
+    echo "cat: bat not available, falling back to pygmentize"
+    alias cat='pygmentize -g'
+    pyglet () {
+        pygmentize "$@" | less
+    }
+else
+    echo "cat: neither bat nor pygmentize are available, falling back to cat"
+fi
+
+# fancy ping
+if type "prettyping" > /dev/null 2>&1; then
+    alias ping='prettyping --nolegend'
+else
+    echo "ping: PrettyPing not available, falling back to ping"
+fi
+
+# fancy du
+if type "ncdu" > /dev/null 2>&1; then
+    alias du='ncdu -x --exclude .git'
+else
+    echo "du: ncdu not available, falling back to du"
+fi
 
 # more obvious opposite of export
 alias unexport='unset'

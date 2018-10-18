@@ -37,7 +37,7 @@ ZSH_THEME="agnoster-tyranicmoron"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
@@ -50,6 +50,8 @@ plugins=(
     colorize
     command-not-found
     cp
+    docker
+    docker-compose
     extract
     gitfast
     history
@@ -63,6 +65,8 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
+
+source $REALHOME/.dotfiles/ignored/omz-custom/plugins/zsh-autoenv/autoenv.zsh
 
 # Work plugins
 if [[ $USER == mhc || $USER == sim || $USER == simvideo ]]; then
@@ -128,8 +132,18 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 
 # override 'fixed' oh-my-zsh tab completion (oh-my-zsh #5435) with that proposed in
-# https://github.com/robbyrussell/oh-my-zsh/issues/#1398#issuecomment-255581289
+# https://github.com/robbyrussell/oh-my-zsh/issues/1398#issuecomment-255581289
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|=*' '+ r:|[._-]=* l:|=*'
+
+# time how long it takes to render the prompt
+#typeset -F SECONDS start
+#precmd () {
+#    start=$SECONDS
+#}
+#zle-line-init () {
+#    PREDISPLAY="[$(( $SECONDS - $start ))] "
+#}
+#zle -N zle-line-init
 
 ###########################
 ## Last few things...
@@ -140,10 +154,23 @@ export SKIPZSH=1
 
 # wallpaper-based colour theming
 if [[ -e $REALHOME/.cache/wal/sequences ]]; then
-    (cat ~/.cache/wal/sequences &)
+    (command cat ~/.cache/wal/sequences &)
 fi
 
 # the classic shell introduction
 if [[ -o interactive ]]; then
-    fortune | cowsay
+    if type "fortune" > /dev/null 2>&1; then
+        # on systems where I don't have system install rights, fortunes will be under ~/.local
+        (fortune 2> /dev/null || fortune $REALHOME/.local/share/games/fortune) |
+            cowsay |
+            # pipe to lolcat if it exists, otherwise just cat to output
+            if type "lolcat" > /dev/null 2>&1; then
+                lolcat
+            else
+                command cat
+                echo "(lolcat wasn't found, no rainbows for you)"
+            fi
+    else
+        echo "fortune not installed :("
+    fi
 fi

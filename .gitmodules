@@ -16,3 +16,6 @@
 [submodule "ignored/oh-my-tmux"]
 	path = ignored/oh-my-tmux
 	url = git@github.com:gpakosz/.tmux.git
+[submodule "ignored/omz-custom/plugins/zsh-autoenv"]
+	path = ignored/omz-custom/plugins/zsh-autoenv
+	url = git@github.com:Tarrasch/zsh-autoenv.git
