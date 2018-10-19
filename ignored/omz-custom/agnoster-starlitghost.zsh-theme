@@ -338,7 +338,7 @@ prompt_marker() {
 build_preprompt() {
   RETVAL=$?
   prompt_timer
-  prompt_time
+  #prompt_time
   prompt_status
   prompt_virtualenv
   #prompt_context
