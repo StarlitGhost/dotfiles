@@ -45,7 +45,16 @@ reload_dunst() {
         -cfr "${color4:-#ff0000}" &
 }
 
+set_bspwm() {
+    if type "bspc" > /dev/null 2>&1; then
+        bspc config normal_border_color "${color0:-#2f343f}"
+        bspc config active_border_color "${color0:-#2f343f}"
+        bspc config focused_border_color "${color2:-#8af4f4}"
+    fi
+}
+
 main() {
+    set_bspwm &
     reload_dunst &
     set_keyboard &
 }
