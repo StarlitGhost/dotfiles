@@ -108,7 +108,7 @@ if has('unnamedplus')
     set clipboard=unnamedplus " disable system clipboard integration, too slow when X isn't running
 endif
 set pastetoggle=<F2>        " toggle paste-mode with F2 - disables autoindent, among other things
-set timeoutlen=200          " reduce timeout for command sequences (default 1000)
+set timeoutlen=500          " reduce timeout for command sequences (default 1000)
 
 " Make undo history persistent
 if has('persistent_undo')
@@ -171,6 +171,9 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+" Make buffer switching as easy as tab switching
+nnoremap gb :bnext<CR>
+nnoremap gB :bprevious<CR>
 " Open .vimrc in a new tab
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
 " Esc twice to clear the last search
@@ -220,10 +223,6 @@ set laststatus=2            " always show statusline
 set noshowmode              " disable the default mode display
 
 " ctrlp.vim options
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<c-t>'],
-    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-    \ }
 
 " GitGutter options
 set updatetime=2000         " vim default of 4000ms is way too long
