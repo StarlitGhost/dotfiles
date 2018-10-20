@@ -172,8 +172,8 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 " Make buffer switching as easy as tab switching
-nnoremap gb :bnext<CR>
-nnoremap gB :bprevious<CR>
+nnoremap <silent> gb :bnext<CR>
+nnoremap <silent> gB :bprevious<CR>
 " Open .vimrc in a new tab
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
 " Esc twice to clear the last search
