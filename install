@@ -12,10 +12,12 @@ dotfiles_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(dotfiles_dir)
 
 for fname in os.listdir(dotfiles_dir):
-    if fname == 'install': continue
-    if fname == 'README.md': continue
-    if fname == 'LICENSE.txt': continue
-    if fname == 'ignored': continue
+    if fname in ['install',
+                 'ignored',
+                 'scripts',
+                 'README.md',
+                 'LICENSE.txt']:
+        continue
     if fname.startswith('.'): continue
 
     target, ext = os.path.splitext(fname)

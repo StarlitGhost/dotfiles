@@ -2,7 +2,7 @@
 wallpapers="/home/ghosty/Pictures/Wallpapers"
 
 sxhkd &
-wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh &
+wal -i $wallpapers -o ~/.dotfiles/scripts/wal-set.sh &
 compton -fb &
 polybar example &
 

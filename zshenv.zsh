@@ -20,6 +20,7 @@ fi
 path=(
     "$REALHOME/.dotfiles/ignored/commands"
     "$REALHOME/scripts"
+    "$REALHOME/.dotfiles/scripts"
     "$REALHOME/.tmuxifier/bin"
     "$REALHOME/.local/bin"
     "$REALHOME/bin"
