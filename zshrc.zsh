@@ -165,7 +165,7 @@ if [[ -o interactive ]]; then
             cowsay -f witch |
             # pipe to lolcat if it exists, otherwise just cat to output
             if type "lolcat" > /dev/null 2>&1; then
-                lolcat
+                lolcat -F 0.2
             else
                 command cat
                 echo "(lolcat wasn't found, no rainbows for you)"
