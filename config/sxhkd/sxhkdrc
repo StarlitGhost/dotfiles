@@ -20,7 +20,7 @@ super + c
 
 # set a new random wallpaper
 super + p
-    wal -i /home/ghosty/Pictures/Wallpapers -o /home/ghosty/.dotfiles/ignored/scripts/wal-set.sh
+    wal -i /home/ghosty/Pictures/Wallpapers -o /home/ghosty/.dotfiles/scripts/wal-set.sh
 
 # screenshots
 Print
