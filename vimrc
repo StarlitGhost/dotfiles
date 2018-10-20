@@ -38,8 +38,8 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
         call dein#add('roxma/vim-hug-neovim-rpc')
     endif
     call dein#add('rust-lang/rust.vim')   " All kinds of rust stuff
-    call dein#add('vim-scripts/Conque-GDB') " GDB within vim
-"    call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
+"   call dein#add('vim-scripts/Conque-GDB') " GDB within vim
+"   call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
     call dein#add('terryma/vim-multiple-cursors') " Multiple cursors like Sublime Text. ctrl+n
     call dein#add('nfvs/vim-perforce')    " Perforce integration
     call dein#add('vim-scripts/supp.vim') " valgrind suppression file syntax highlighting
@@ -49,8 +49,8 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
     call dein#add('xolox/vim-misc')
     call dein#add('xolox/vim-reload')     " Auto-reload various types of vim scripts when edited
     call dein#add('yuratomo/w3m.vim')     " Web Browser (:W3m [url])
-"    call dein#add('Shougo/vinarise.vim')  " Hex Editor  (:Vinarise [options] [path])
-"    let g:vinarise_enable_auto_detect = 1
+"   call dein#add('Shougo/vinarise.vim')  " Hex Editor  (:Vinarise [options] [path])
+"   let g:vinarise_enable_auto_detect = 1
 
     call dein#end()
     call dein#save_state()
