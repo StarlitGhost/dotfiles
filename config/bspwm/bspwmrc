@@ -1,0 +1,28 @@
+#! /bin/sh
+wallpapers="/home/ghosty/Pictures/Wallpapers"
+
+sxhkd &
+wal -i $wallpapers -o ~/.dotfiles/ignored/scripts/wal-set.sh &
+compton -fb &
+polybar example &
+
+greenclip daemon &
+dropbox &
+
+bspc monitor -d term web dev video games 6 7 8 chat music
+
+bspc config border_width         6
+bspc config window_gap           10
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config paddingless_monocle  true
+
+bspc rule -a Vivaldi-snapshot desktop='web'
+bspc rule -a Steam desktop='games'
+bspc rule -a irc desktop='chat'
+
+kitty --name irc mosh starlitghost@starlitghost.xyz -- \
+    zsh -c "tmux select-window -t main irc; tmux attach -t main" &
+
