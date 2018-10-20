@@ -162,7 +162,7 @@ if [[ -o interactive ]]; then
     if type "fortune" > /dev/null 2>&1; then
         # on systems where I don't have system install rights, fortunes will be under ~/.local
         (fortune 2> /dev/null || fortune $REALHOME/.local/share/games/fortune) |
-            cowsay -f small |
+            cowsay -f witch |
             # pipe to lolcat if it exists, otherwise just cat to output
             if type "lolcat" > /dev/null 2>&1; then
                 lolcat

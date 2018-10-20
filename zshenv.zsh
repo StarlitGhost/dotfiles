@@ -54,6 +54,8 @@ fi
 typeset -U manpath
 export MANPATH
 
+export COWPATH=$REALHOME/.dotfiles/ignored/cows
+
 case $USER in
 	felix|sim|simvideo)
         export HISTFILE=$REALHOME/.zsh_histories/.zsh_history_$USER
