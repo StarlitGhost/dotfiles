@@ -23,6 +23,9 @@ alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
 alias szc='sz ; clear'
 
 # vim
+if type "nvim" > /dev/null 2>&1; then
+    alias vim=nvim
+fi
 alias vim='vim -u $REALHOME/.vimrc'
 alias vimrc='$EDITOR $REALHOME/.vimrc'
 alias v='vim'
@@ -30,6 +33,14 @@ alias e='$EDITOR'
 
 # i3
 alias vi3='$EDITOR $REALHOME/.config/i3/config'
+
+# bspwm
+alias vb='$EDITOR $REALHOME/.config/bspwm/bspwmrc'
+# sxhkd
+alias vs='$EDITOR $REALHOME/.config/sxhkd/sxhkdrc'
+
+# polybar
+alias vp='$EDITOR $REALHOME/.config/polybar/config'
 
 alias update_dotfiles='unsetopt pushd_ignore_dups ; \
     pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
@@ -94,8 +105,6 @@ alias tl='tmux ls'
 alias ta='tmux attach -t'
 alias td='tmux detach -t'
 alias tn='tmux has -t $1 &> /dev/null && tmux attach -t $1 || tmux new -s $1'
-
-#alias htop='TERM=xterm-color htop'
 
 # find an executable file (or symlinked executable file) in the PATH
 pathfind () {
@@ -257,7 +266,7 @@ alias cmake-clean='$REALHOME/.dotfiles/ignored/commands/cmake-clean.py'
 
 # generate completion for commands that follow standard gnu --help output,
 # but for some reason don't already have completions
-compdef _gnu_generic watch progress
+compdef _gnu_generic watch progress bat
 
 # generate completions for some scripts that wrap other commands and pass on all args
 compdef _valgrind colour-valgrind
