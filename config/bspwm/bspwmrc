@@ -20,6 +20,12 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config paddingless_monocle  true
 
+bspc config pointer_modifer super
+bspc config pointer_action1 move
+bspc config pointer_action3 resize_side
+bspc config pointer_action2 resize_corner
+bspc config click_to_focus button1
+
 bspc rule -a Vivaldi-snapshot desktop='web'
 bspc rule -a PyCharm desktop='dev'
 bspc rule -a Steam desktop='games'
