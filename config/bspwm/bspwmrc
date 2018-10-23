@@ -28,5 +28,5 @@ bspc rule -a streamlink-twitch-gui desktop='video'
 bspc rule -a irc desktop='chat'
 
 kitty --name irc mosh starlitghost@starlitghost.xyz -- \
-    zsh -c "tmux select-window -t main irc; tmux attach -t main" &
+    zsh -c "~/.dotfiles/scripts/tmx main" &
 
