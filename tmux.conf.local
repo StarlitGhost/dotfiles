@@ -258,6 +258,10 @@ set -g mouse on
 set -g status-keys vi
 set -g mode-keys vi
 
+# constrain windows to the minimum size of client attached to that *window*,
+# rather than the minimum size of client attached to that *session*.
+setw -g aggressive-resize on
+
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
 # unbind C-a
