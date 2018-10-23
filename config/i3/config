@@ -353,7 +353,7 @@ exec $terminal --name=term-ws1
 exec $browser
 #  irc
 exec $terminal --name=term-irc -e \
-    "mosh starlitghost@starlitghost.xyz -- zsh -l -c 'tmux select-window irc; tmux attach'"
+    "mosh starlitghost@starlitghost.xyz -- zsh -l -c '~/.dotfiles/scripts/tmx main'"
 #  music
 exec $terminal --name=term-ncmpcpp -e \
     "/bin/zsh -c 'echo Starting ncmpcpp...; sleep 2; ncmpcpp'"
