@@ -41,6 +41,7 @@ if dein#load_state(expand('$REALHOME/.vim/bundles'))
 "   call dein#add('vim-scripts/Conque-GDB') " GDB within vim
 "   call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
     call dein#add('terryma/vim-multiple-cursors') " Multiple cursors like Sublime Text. ctrl+n
+    call dein#add('rjayatilleka/vim-insert-char') " insert single characters with <space>
     call dein#add('nfvs/vim-perforce')    " Perforce integration
     call dein#add('vim-scripts/supp.vim') " valgrind suppression file syntax highlighting
     call dein#add('PotatoesMaster/i3-vim-syntax') " i3 config syntax highlighting
@@ -104,8 +105,8 @@ set cursorline              " highlight the current line
 "set cursorcolumn            " highlight the current column
 set autoread                " automatically refresh unchanged files if they have edits on disk
 autocmd FocusGained,BufEnter * :checktime
-if has('unnamedplus')
-    set clipboard=unnamedplus " disable system clipboard integration, too slow when X isn't running
+if has('unnamedplus') && has('X11')
+    set clipboard=unnamedplus
 endif
 set pastetoggle=<F2>        " toggle paste-mode with F2 - disables autoindent, among other things
 set timeoutlen=500          " reduce timeout for command sequences (default 1000)
@@ -223,6 +224,8 @@ set laststatus=2            " always show statusline
 set noshowmode              " disable the default mode display
 
 " ctrlp.vim options
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
 
 " GitGutter options
 set updatetime=2000         " vim default of 4000ms is way too long
