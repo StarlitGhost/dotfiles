@@ -279,13 +279,18 @@ unbind n
 bind -r b previous-window
 bind -r n next-window
 
+# move windows left/right
 bind -r C-Left swap-window -t -1
 bind -r C-Right swap-window -t +1
 
 # use the newly freed p to switch panes
 bind -r p select-pane -t :.+
 
+# split the window into left/right panes
 bind | split-window -h
+
+# kill sessions with preview
+bind S choose-session "kill-session -t '%%'"
 
 # List of plugins
 set -g @tpm_plugins ' \
