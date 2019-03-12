@@ -83,12 +83,19 @@ if type "prettyping" > /dev/null 2>&1; then
 else
     echo "ping: PrettyPing not available, falling back to ping"
 fi
+# a much better name for ping
+alias boop='ping'
 
 # fancy du
 if type "ncdu" > /dev/null 2>&1; then
     alias du='ncdu -x --exclude .git'
 else
     echo "du: ncdu not available, falling back to du"
+fi
+
+# w3m checks $TERM for 'xterm' in order to enable mouse controls... dumb, but whatever
+if type "w3m" > /dev/null 2>&1; then
+    alias w3m='TERM=xterm-256color w3m'
 fi
 
 # more obvious opposite of export
