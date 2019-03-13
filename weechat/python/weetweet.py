@@ -211,7 +211,7 @@ index_generator = index_gen()
 def dict_tweet(tweet_id):
     cur_index = tweet_dict['cur_index']
     if not tweet_id in tweet_dict.values():
-        cur_index = index_generator.next()
+        cur_index = next(index_generator)
         tweet_dict[cur_index] = tweet_id
         tweet_dict['cur_index'] = cur_index
         return cur_index
@@ -288,7 +288,9 @@ def print_tweet_data(buffer, tweets, data):
                                "%s%s\t%s%s" % (nick, t_id, text, reply_id))
     if data == "id":
         try:
-            if script_options['last_id'] < tweets[-1][2]:
+            if( script_options['last_id'] == "" or
+                int(script_options['last_id']) < int(tweets[-1][2]) ):
+
                 script_options['last_id'] = tweets[-1][2]
                 # Save last id
                 weechat.config_set_plugin("last_id", script_options["last_id"])
@@ -400,19 +402,21 @@ def twitter_stream_cb(buffer, fd):
     #accept connection
     server = sock_fd_dict[sock_fd_dict[str(fd)]]
     conn, addr = server.accept()
-    tweet = ""
+    tweet = b""
     data = True
     while data:
         try:
-            data = conn.recv(1024).decode('utf-8')
+            data = conn.recv(1024)
             tweet += data
         except:
             break
 
     try:
+        tweet = tweet.decode('utf-8')
         tweet = ast.literal_eval(tweet)
     except:
-        weechat.prnt(buffer, "Error recv stream message")
+        weechat.prnt(buffer, "Error recv stream message:")
+        weechat.prnt(buffer, tweet)
         return weechat.WEECHAT_RC_OK
     #Is this a text message (normal tweet)?
     if isinstance(tweet, list):
@@ -464,16 +468,17 @@ def twitter_stream(cmd_args):
     client.shutdown(socket.SHUT_WR)
 
     data = True
-    options = ""
+    options = b""
 
     while data:
         try:
-            data = client.recv(1024).decode('utf-8')
+            data = client.recv(1024)
             options += data
         except:
             break
 
     try:
+        options = options.decode('utf-8')
         option_dict = ast.literal_eval(options)
     except:
         return "Did not manage to get startup arguments to stream"
@@ -1388,7 +1393,7 @@ def finish_init():
                          "oauth_proc_cb", "friends")
 
 if __name__ == "__main__" and weechat_call:
-    weechat.register(SCRIPT_NAME, "DarkDefender", "1.2.8", "GPL3", "Weechat twitter client", "", "")
+    weechat.register(SCRIPT_NAME, "DarkDefender", "1.2.9", "GPL3", "Weechat twitter client", "", "")
 
     if not import_ok:
         weechat.prnt("", "Can't load twitter python lib >= " + required_twitter_version)
