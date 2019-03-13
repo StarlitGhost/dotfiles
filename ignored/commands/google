@@ -1,12 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 from apiclient.discovery import build
 
-import argparse, re
+import argparse
+import json
+import os
+import re
 from urllib import quote
 
 
-parser = argparse.ArgumentParser(description='Searches Google for your query and returns the first result')
+parser = argparse.ArgumentParser(description='Searches Google for your query '
+                                             'and returns the first result')
 parser.add_argument('query', nargs='+', help='your search query')
 args = parser.parse_args()
 
@@ -14,13 +18,20 @@ args = parser.parse_args()
 def reduceWhitespace(text):
     return re.sub(r'\s+', ' ', text)
 
+
 def search():
     query = ' '.join(args.query)
-    
-    service = build('customsearch', 'v1', developerKey='AIzaSyAxqiDU1U9ARVtxPrK1H6QeLuEJWoYGPLo')
+
+    keyPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'apikeys.json')
+    with open(keyPath) as keyFile:
+        j = json.load(keyFile)
+        key = j['google']
+        cx = j['google-customsearch-id']
+
+    service = build('customsearch', 'v1', developerKey=key)
     res = service.cse().list(
-        q = quote(query),
-        cx = '002603151577378558984:ax7qv-f5zos'
+        q=quote(query),
+        cx=cx
     ).execute()
 
     first = res[u'items'][0]
@@ -33,5 +44,6 @@ def search():
 
     return u'{} | {} | {}'.format(title, snippet, link)
 
+
 if __name__ == '__main__':
-    print search()
+    print(search())
