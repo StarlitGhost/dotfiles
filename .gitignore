@@ -4,14 +4,22 @@
 *.pyc
 *.log
 
+config/discurses.yaml
 config/Kitware
 config/QtProject.conf
 config/htop
 config/mpd/log
 config/mpd/sticker.sql
 config/neofetch
+config/ranger/bookmarks
+config/ranger/history
+config/ranger/tagged
+config/rtv
 config/thefuck
+config/tootstream
 config/yay
+
+ignored/commands/apikeys.json
 
 weechat/logs/*
 weechat/*.log
