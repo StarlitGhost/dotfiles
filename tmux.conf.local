@@ -289,8 +289,8 @@ bind -r p select-pane -t :.+
 # split the window into left/right panes
 bind | split-window -h
 
-# kill sessions with preview
-bind S choose-session "kill-session -t '%%'"
+# kill sessions with preview - I added session width & height to the output, hence the giant -F
+bind S choose-session -F "#{session_windows} windows#{?session_grouped, (group #{session_group}),}#{?session_attached, (attached),} #{session_width}x#{session_height}" "kill-session -t '%%'"
 
 # List of plugins
 set -g @tpm_plugins ' \
