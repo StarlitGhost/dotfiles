@@ -180,6 +180,9 @@ nnoremap <silent> gB :bprevious<CR>
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
 " Esc twice to clear the last search
 nnoremap <silent> <Esc><Esc> :let @/=""<CR>
+" Yank and paste in visual mode without the pasted-over text replacing the yank
+vnoremap <leader>y "0y
+vnoremap <leader>p "0p
 " Use tab for completion
 inoremap <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<Tab>")
 inoremap <expr> <S-Tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
