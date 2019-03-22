@@ -59,7 +59,7 @@ plugins=(
     pip
     thefuck
     themes
-    time-commands
+    timer
     tmux
     virtualenvwrapper
     zsh-autosuggestions
