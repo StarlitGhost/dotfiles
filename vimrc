@@ -80,6 +80,7 @@ set shell=zsh               " use my preferred shell, csh is garbage
 set encoding=utf-8          " use the only sensible text encoding
 set t_Co=256                " use 256 colours, this isn't the 80s
 set mouse=a                 " enable mouse support
+set hidden                  " allow switching buffers without writing changes to disk first
 set backspace=2             " make backspace work like any other editor in insert mode
 set tabstop=4               " set the width of the tab character
 set softtabstop=4           " set the amount of whitespace to insert when the tab key is pressed
