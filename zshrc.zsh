@@ -53,6 +53,7 @@ plugins=(
     docker
     docker-compose
     extract
+    git
     gitfast
     history
     history-substring-search
