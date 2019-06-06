@@ -7,67 +7,53 @@ endif
 
 " Set the runtime path (where .vim dir is) to include my $REALHOME var
 let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim'), &runtimepath)
-let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim/bundles/repos/github.com/Shougo/dein.vim'), &runtimepath)
 
 " Plugin system
-if dein#load_state(expand('$REALHOME/.vim/bundles'))
-    call dein#begin(expand('$REALHOME/.vim/bundles'))
-    call dein#add('$REALHOME/.vim/bundles/repos/github.com/Shougo/dein.vim')
+call plug#begin()
 
-    call dein#add('ctrlpvim/ctrlp.vim')   " Fuzzy file, buffer, etc finder (ctrl+p)
-    call dein#add('scrooloose/nerdtree')  " Tree file browser
-    call dein#add('bling/vim-airline')    " Fancy status and tablines
-    call dein#add('airblade/vim-gitgutter') " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
-    call dein#add('luochen1990/rainbow')  " rainbow parentheses
-    call dein#add('vim-syntastic/syntastic') " Syntax checking via external programs
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-    "call dein#add('guns/xterm-color-table.vim') " xterm colors with rgb equivalents (:XtermColorTable)
-    call dein#add('ncm2/ncm2')
-    call dein#add('ncm2/ncm2-bufword')
-    call dein#add('ncm2/ncm2-tmux')
-    call dein#add('ncm2/ncm2-path')
-    call dein#add('ncm2/ncm2-github')
-    call dein#add('ncm2/ncm2-jedi')
-    call dein#add('ncm2/ncm2-racer')
-
-    call dein#add('roxma/nvim-yarp')
-    if !has('nvim')
-        call dein#add('roxma/vim-hug-neovim-rpc')
-    endif
-    call dein#add('rust-lang/rust.vim')   " All kinds of rust stuff
-"   call dein#add('vim-scripts/Conque-GDB') " GDB within vim
-"   call dein#add('ervandew/supertab')    " Makes Tab the insert-mode completion key for everything
-    call dein#add('terryma/vim-multiple-cursors') " Multiple cursors like Sublime Text. ctrl+n
-    call dein#add('rjayatilleka/vim-insert-char') " insert single characters with <space>
-    call dein#add('nfvs/vim-perforce')    " Perforce integration
-    call dein#add('vim-scripts/supp.vim') " valgrind suppression file syntax highlighting
-    call dein#add('PotatoesMaster/i3-vim-syntax') " i3 config syntax highlighting
-    call dein#add('cespare/vim-toml')     " TOML syntax highlighting
-    call dein#add('bogado/file-line')     " Enables 'vim file:20' to open file scrolled to line 20
-    call dein#add('xolox/vim-misc')
-    call dein#add('xolox/vim-reload')     " Auto-reload various types of vim scripts when edited
-    call dein#add('yuratomo/w3m.vim')     " Web Browser (:W3m [url])
-"   call dein#add('Shougo/vinarise.vim')  " Hex Editor  (:Vinarise [options] [path])
-"   let g:vinarise_enable_auto_detect = 1
-
-    call dein#end()
-    call dein#save_state()
+Plug 'ctrlpvim/ctrlp.vim'      " Fuzzy file, buffer, etc finder (ctrl+p)
+Plug 'scrooloose/nerdtree'     " Tree file browser
+Plug 'bling/vim-airline'       " Fancy status and tablines
+Plug 'airblade/vim-gitgutter'  " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
+Plug 'luochen1990/rainbow'     " rainbow parentheses
+Plug 'vim-syntastic/syntastic' " Syntax checking via external programs
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"Plug 'guns/xterm-color-table.vim' " xterm colors with rgb equivalents (:XtermColorTable)
+Plug 'roxma/nvim-yarp'          " remote plugin framework
+if !has('nvim')
+    Plug 'roxma/vim-hug-neovim-rpc' " vim compatibility layer for neovim plugins
 endif
+Plug 'ncm2/ncm2'                " Completion framework
+Plug 'ncm2/ncm2-bufword'        "  - from current buffer
+Plug 'ncm2/ncm2-tmux'           "  - from other tmux panes
+Plug 'ncm2/ncm2-path'           "  - from current buffer path, working dir, or root dirs
+Plug 'ncm2/ncm2-github'         "  - from github repos/issues/users
+Plug 'ncm2/ncm2-jedi'           "  - for python, via jedi
+Plug 'ncm2/ncm2-racer'          "  - for rust, via racer
+Plug 'ncm2/ncm2-cssomni'        "  - for css, via css omnifunc (?)
+Plug 'phpactor/ncm2-phpactor'   "  - for php, via phpactor
 
-if !has('vim_starting') && dein#check_install()
-    " Installation check.
-    call dein#install()
-endif
+Plug 'rust-lang/rust.vim'   " All kinds of rust stuff
+Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " phpactor
+"Plug 'vim-scripts/Conque-GDB' " GDB within vim
+Plug 'terryma/vim-multiple-cursors' " Multiple cursors like Sublime Text. ctrl+n
+Plug 'rjayatilleka/vim-insert-char' " insert single characters with <space>
+Plug 'nfvs/vim-perforce'    " Perforce integration
+Plug 'vim-scripts/supp.vim' " valgrind suppression file syntax highlighting
+Plug 'PotatoesMaster/i3-vim-syntax' " i3 config syntax highlighting
+Plug 'cespare/vim-toml'     " TOML syntax highlighting
+Plug 'bogado/file-line'     " Enables 'vim file:20' to open file scrolled to line 20
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-reload'     " Auto-reload various types of vim scripts when edited
+Plug 'yuratomo/w3m.vim'     " Web Browser (:W3m [url])
+
+call plug#end()
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
-
-"let g:deoplete#enable_profile = 1
-"call deoplete#enable_logging('DEBUG', 'deoplete.log')
-"call deoplete#custom#set('jedi', 'debug_enabled', 1)
 
 " Basic vim options
 syntax on                   " turn on syntax highlighting
