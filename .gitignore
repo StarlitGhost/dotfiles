@@ -28,14 +28,7 @@ weechat/urlserver_list.txt
 weechat/grep*
 weechat/script/plugins.xml.gz
 
-vim/bundles/*
-!vim/bundles/repos
-vim/bundles/repos/*
-!vim/bundles/repos/github.com
-vim/bundles/repos/github.com/*
-!vim/bundles/repos/github.com/Shougo
-vim/bundles/repos/github.com/Shougo/*
-!vim/bundles/repos/github.com/Shougo/dein.vim
+vim/plugged/*
 
 vim/undodir/*
 vim/syntax/vhc.vim
