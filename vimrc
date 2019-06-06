@@ -18,6 +18,7 @@ Plug 'bogado/file-line'             " Enables 'vim file:20' to open file scrolle
 Plug 'luochen1990/rainbow'          " rainbow parentheses
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-reload'             " Auto-reload various types of vim scripts when edited
+Plug 'easymotion/vim-easymotion'    " numberless motions using jump markers (\\<motion>)
 "Plug 'guns/xterm-color-table.vim'   " xterm colors with rgb equivalents (:XtermColorTable)
 
 "  major vim editor extensions
@@ -156,7 +157,7 @@ autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
 
 " Key mappings
 """""""""""""""
-" Exit insert mode with jj 
+" Exit insert mode with jj
 inoremap jj <Esc>
 " Not really sure? It accompanied the jj bind online
 nnoremap JJJJ <Nop>
