@@ -11,49 +11,58 @@ let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim'), &runtimepath)
 " Plugin system
 call plug#begin()
 
-Plug 'ctrlpvim/ctrlp.vim'      " Fuzzy file, buffer, etc finder (ctrl+p)
-Plug 'scrooloose/nerdtree'     " Tree file browser
-Plug 'bling/vim-airline'       " Fancy status and tablines
+"  simple vim editor extensions
+Plug 'terryma/vim-multiple-cursors' " Multiple cursors like Sublime Text. ctrl+n
+Plug 'rjayatilleka/vim-insert-char' " insert single characters with <space>
+Plug 'bogado/file-line'             " Enables 'vim file:20' to open file scrolled to line 20
+Plug 'luochen1990/rainbow'          " rainbow parentheses
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-reload'             " Auto-reload various types of vim scripts when edited
+"Plug 'guns/xterm-color-table.vim'   " xterm colors with rgb equivalents (:XtermColorTable)
+
+"  major vim editor extensions
+Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, etc finder (ctrl+p)
+Plug 'scrooloose/nerdtree' " Tree file browser
+Plug 'bling/vim-airline'   " Fancy status and tablines
+Plug 'roxma/nvim-yarp'     " remote plugin framework
+if !has('nvim')
+    Plug 'roxma/vim-hug-neovim-rpc' " vim compatibility layer for neovim plugins
+endif
+
+"  completion framework & plugins
+Plug 'ncm2/ncm2'              " Completion framework
+Plug 'ncm2/ncm2-bufword'      "  - from current buffer
+Plug 'ncm2/ncm2-tmux'         "  - from other tmux panes
+Plug 'ncm2/ncm2-path'         "  - from current buffer path, working dir, or root dirs
+Plug 'ncm2/ncm2-github'       "  - from github repos/issues/users
+Plug 'ncm2/ncm2-jedi'         "  - for python, via jedi
+Plug 'ncm2/ncm2-racer'        "  - for rust, via racer
+Plug 'ncm2/ncm2-cssomni'      "  - for css, via css omnifunc (?)
+"Plug 'phpactor/ncm2-phpactor' "  - for php, via phpactor
+"   enable for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+
+"  external tool integrations
+Plug 'rust-lang/rust.vim'      " All kinds of rust stuff
+"Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " phpactor
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' } " gdb/lldb within vim
+Plug 'nfvs/vim-perforce'       " Perforce integration
+Plug 'yuratomo/w3m.vim'        " Web Browser (:W3m [url])
 Plug 'airblade/vim-gitgutter'  " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
-Plug 'luochen1990/rainbow'     " rainbow parentheses
 Plug 'vim-syntastic/syntastic' " Syntax checking via external programs
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-"Plug 'guns/xterm-color-table.vim' " xterm colors with rgb equivalents (:XtermColorTable)
-Plug 'roxma/nvim-yarp'          " remote plugin framework
-if !has('nvim')
-    Plug 'roxma/vim-hug-neovim-rpc' " vim compatibility layer for neovim plugins
-endif
-Plug 'ncm2/ncm2'                " Completion framework
-Plug 'ncm2/ncm2-bufword'        "  - from current buffer
-Plug 'ncm2/ncm2-tmux'           "  - from other tmux panes
-Plug 'ncm2/ncm2-path'           "  - from current buffer path, working dir, or root dirs
-Plug 'ncm2/ncm2-github'         "  - from github repos/issues/users
-Plug 'ncm2/ncm2-jedi'           "  - for python, via jedi
-Plug 'ncm2/ncm2-racer'          "  - for rust, via racer
-Plug 'ncm2/ncm2-cssomni'        "  - for css, via css omnifunc (?)
-Plug 'phpactor/ncm2-phpactor'   "  - for php, via phpactor
 
-Plug 'rust-lang/rust.vim'   " All kinds of rust stuff
-Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " phpactor
-"Plug 'vim-scripts/Conque-GDB' " GDB within vim
-Plug 'terryma/vim-multiple-cursors' " Multiple cursors like Sublime Text. ctrl+n
-Plug 'rjayatilleka/vim-insert-char' " insert single characters with <space>
-Plug 'nfvs/vim-perforce'    " Perforce integration
-Plug 'vim-scripts/supp.vim' " valgrind suppression file syntax highlighting
+"  syntax highlighting
+Plug 'vim-scripts/supp.vim'         " valgrind suppression file syntax highlighting
 Plug 'PotatoesMaster/i3-vim-syntax' " i3 config syntax highlighting
-Plug 'cespare/vim-toml'     " TOML syntax highlighting
-Plug 'bogado/file-line'     " Enables 'vim file:20' to open file scrolled to line 20
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-reload'     " Auto-reload various types of vim scripts when edited
-Plug 'yuratomo/w3m.vim'     " Web Browser (:W3m [url])
+Plug 'cespare/vim-toml'             " TOML syntax highlighting
 
 call plug#end()
 
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
 
 " Basic vim options
 syntax on                   " turn on syntax highlighting
