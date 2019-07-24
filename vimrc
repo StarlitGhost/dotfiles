@@ -19,6 +19,7 @@ Plug 'luochen1990/rainbow'          " rainbow parentheses
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-reload'             " Auto-reload various types of vim scripts when edited
 Plug 'easymotion/vim-easymotion'    " numberless motions using jump markers (\\<motion>)
+Plug 'rickhowe/diffchar.vim'        " make vim's diff more granular
 "Plug 'guns/xterm-color-table.vim'   " xterm colors with rgb equivalents (:XtermColorTable)
 
 "  major vim editor extensions
@@ -173,7 +174,7 @@ vnoremap : ;
 nnoremap <silent> gb :bnext<CR>
 nnoremap <silent> gB :bprevious<CR>
 " Open .vimrc in a new tab
-nnoremap <leader>v :tabedit $MYVIMRC<CR>
+nnoremap <leader>v :edit $MYVIMRC<CR>
 " Esc twice to clear the last search
 nnoremap <silent> <Esc><Esc> :let @/=""<CR>
 " Yank and paste in visual mode without the pasted-over text replacing the yank
@@ -184,6 +185,14 @@ inoremap <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<Tab>")
 inoremap <expr> <S-Tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
 " F5 to save & execute the current python buffer
 autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
+
+"fun! ColumnSplit()
+"    let @a=';set nosol8hGI k;set sol'
+"    @a
+"endfun
+"nnoremap <silent> <leader>c :call ColumnSplit()<CR>
+nnoremap <silent> <leader>c :<C-U>set nosol<CR>8h<C-v>GI <ESC>:<C-U>set sol<CR>
+
 
 " c(hange) o(ption) _ mappings
 """""""""""""""""""""""""""""""
@@ -213,6 +222,10 @@ highlight SpecialKey ctermfg=237
 highlight MatchParen cterm=Bold ctermbg=33 ctermfg=17
 highlight Search ctermbg=202 ctermfg=0
 highlight Folded ctermbg=NONE
+highlight DiffAdd ctermbg=22 cterm=NONE
+highlight DiffChange ctermbg=52 cterm=NONE
+highlight DiffDelete ctermbg=124 cterm=bold
+highlight DiffText ctermbg=196 ctermfg=232 cterm=bold
 
 " Plugin Settings
 """"""""""""""""""
