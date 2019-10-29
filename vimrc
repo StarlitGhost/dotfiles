@@ -58,6 +58,7 @@ Plug 'dense-analysis/ale'      " Async syntax checking via external linters
 Plug 'vim-scripts/supp.vim'         " valgrind suppression file syntax highlighting
 Plug 'PotatoesMaster/i3-vim-syntax' " i3 config syntax highlighting
 Plug 'cespare/vim-toml'             " TOML syntax highlighting
+Plug 'samsaga2/vim-z80'             " z80 assembly syntax highlighting
 
 call plug#end()
 
@@ -135,7 +136,8 @@ autocmd BufWritePost .vimrc source $MYVIMRC
 
 " Filetype mappings for unrecognised extensions
 """"""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufRead,BufNewFile *.cshrc setfiletype csh
+autocmd BufRead,BufNewFile *.cshrc setlocal filetype=csh
+autocmd BufRead,BufNewFile */gboxide/*.s setlocal filetype=z80
 
 autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
 
