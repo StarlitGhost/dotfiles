@@ -25,7 +25,7 @@ Plug 'rickhowe/diffchar.vim'        " make vim's diff more granular
 "  major vim editor extensions
 Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, etc finder (ctrl+p)
 Plug 'scrooloose/nerdtree' " Tree file browser
-Plug 'bling/vim-airline'   " Fancy status and tablines
+Plug 'bling/vim-airline'   " Fancy status and buffer/tablines
 Plug 'roxma/nvim-yarp'     " remote plugin framework
 if !has('nvim')
     Plug 'roxma/vim-hug-neovim-rpc' " vim compatibility layer for neovim plugins
@@ -52,11 +52,7 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' } " gdb
 Plug 'nfvs/vim-perforce'       " Perforce integration
 Plug 'yuratomo/w3m.vim'        " Web Browser (:W3m [url])
 Plug 'airblade/vim-gitgutter'  " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
-Plug 'vim-syntastic/syntastic' " Syntax checking via external programs
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+Plug 'dense-analysis/ale'      " Async syntax checking via external linters
 
 "  syntax highlighting
 Plug 'vim-scripts/supp.vim'         " valgrind suppression file syntax highlighting
@@ -193,6 +189,23 @@ autocmd FileType python nnoremap <buffer> <F5> <ESC>:w<CR>:exec '!python' shelle
 "nnoremap <silent> <leader>c :call ColumnSplit()<CR>
 nnoremap <silent> <leader>c :<C-U>set nosol<CR>8h<C-v>GI <ESC>:<C-U>set sol<CR>
 
+" Plugin key mappings
+""""""""""""""""""""""
+" GitGutter
+let g:gitgutter_map_keys = 0 " no default bindings
+"  stage
+nmap <silent> <leader>gs <Plug>(GitGutterStageHunk)
+"  unstage
+nmap <silent> <leader>gu <Plug>(GitGutterUndoHunk)
+"  partial stage
+nmap <silent> <leader>gp <Plug>(GitGutterPreviewHunk)
+" Git next/previous change
+nmap <silent> gc <Plug>(GitGutterNextHunk)
+nmap <silent> gC <Plug>(GitGutterPrevHunk)
+" Linter next/previous
+nmap <silent> gl <Plug>(ale_next_wrap)
+nmap <silent> gL <Plug>(ale_previous_wrap)
+
 
 " c(hange) o(ption) _ mappings
 """""""""""""""""""""""""""""""
@@ -223,9 +236,11 @@ highlight MatchParen cterm=Bold ctermbg=33 ctermfg=17
 highlight Search ctermbg=202 ctermfg=0
 highlight Folded ctermbg=NONE
 highlight DiffAdd ctermbg=22 cterm=NONE
-highlight DiffChange ctermbg=52 cterm=NONE
+highlight DiffChange ctermbg=18 cterm=NONE
 highlight DiffDelete ctermbg=124 cterm=bold
 highlight DiffText ctermbg=196 ctermfg=232 cterm=bold
+highlight ALEError ctermbg=88 cterm=bold
+highlight ALEWarning ctermbg=18
 
 " Plugin Settings
 """"""""""""""""""
