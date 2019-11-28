@@ -116,23 +116,32 @@ alias tn='tmux has -t $1 &> /dev/null && tmux attach -t $1 || tmux new -s $1'
 # find an executable file (or symlinked executable file) in the PATH
 pathfind () {
     for i in "${(s/:/)PATH}"; do
-        find -L $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null ;
+        if [[ -d "$i" ]] && [[ -x "$i" ]]; then
+            find -L $i -maxdepth 1 -type f -executable -name "$@" \
+                2> >(grep -v -E "Permission denied|File system loop" >&2)
+        fi
     done
 }
 
 # find an executable file in the PATH and execute it with --version appended
 pathversion () {
     for i in "${(s/:/)PATH}"; do
-        find -L $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null \
-            -exec echo -e "\x1B[35m{}\x1B[0m" \; -exec {} --version \;
+        if [[ -d "$i" ]] && [[ -x "$i" ]]; then
+            find -L $i -maxdepth 1 -type f -executable -name "$@" \
+                -exec echo -e "\x1B[35m{}\x1B[0m" \; -exec {} --version \; \
+                2> >(grep -v -E "Permission denied|File system loop" >&2)
+        fi
     done
 }
 
 # find an executable file in the PATH and execute it with -V appended
 pathv () {
     for i in "${(s/:/)PATH}"; do
-        find -L $i -maxdepth 1 -type f -executable -name "$@" 2>/dev/null \
-            -exec echo -e "\x1B[35m{}\x1B[0m" \; -exec {} -V \;
+        if [[ -d "$i" ]] && [[ -x "$i" ]]; then
+            find -L $i -maxdepth 1 -type f -executable -name "$@" \
+                -exec echo -e "\x1B[35m{}\x1B[0m" \; -exec {} -V \; \
+                2> >(grep -v -E "Permission denied|File system loop" >&2)
+        fi
     done
 }
 
