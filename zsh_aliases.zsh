@@ -64,6 +64,9 @@ alias oops='fuck'
 
 alias pwd='pwd -P'
 
+# I just like typing yay, ok?!
+alias yay='pikaur'
+
 # fancy syntax-highlighted cat
 if type "bat" > /dev/null 2>&1; then
     alias cat='bat'
