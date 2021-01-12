@@ -88,6 +88,8 @@ if [[ -e $(command -v virtualenvwrapper.sh) ]]; then
     source virtualenvwrapper.sh
 elif [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
     source /usr/bin/virtualenvwrapper.sh
+elif [[ -e /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]]; then
+    source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 else
     print "virtualenvwrapper.sh is missing, have you installed virtualenvwrapper?"
 fi
