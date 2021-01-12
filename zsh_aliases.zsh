@@ -72,6 +72,9 @@ fi
 # fancy syntax-highlighted cat
 if type "bat" > /dev/null 2>&1; then
     alias cat='bat'
+elif type "batcat" > /dev/null 2>&1; then
+    alias cat='batcat'
+    alias bat='batcat'
 elif type "pygmentize" > /dev/null 2>&1; then
     echo "cat: bat not available, falling back to pygmentize"
     alias cat='pygmentize -g'
