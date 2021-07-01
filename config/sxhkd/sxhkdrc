@@ -30,9 +30,9 @@ alt + Print
 ctrl + Print
     teiler
 
-# make sxhkd reload its configuration files:
-super + Escape
-	pkill -USR1 -x sxhkd
+# make sxhkd, bspwm, and polybar reload their configs
+{super + Escape, super + F5}
+	pkill -USR1 -x sxhkd && bspc wm -r && polybar-msg cmd restart
 
 # backlight controls
 XF86MonBrightnessUp
@@ -56,8 +56,8 @@ XF86AudioMute
 #
 
 # quit bspwm normally
-super + alt + Escape
-	bspc quit
+super + {alt,mode_switch} + Escape
+	bspc quit && rm /tmp/bspwm-startup.lock
 
 # close and kill
 super + {_,shift + }w
@@ -145,13 +145,11 @@ super + ctrl + shift + space
 # move/resize
 #
 
-# expand a window by moving one of its side outward
-super + alt + {Left,Down,Up,Right}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-# contract a window by moving one of its side inward
-super + alt + shift + {Left,Down,Up,Right}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+# resize a window
+super + alt + {Up,Right,Down,Left}
+    bspwm_resize.sh {north,east,south,west}
+super + mode_switch + {Up,Right,Down,Left}
+    bspwm_resize.sh {north,east,south,west}
 
 # move a floating window
 super + {Left,Down,Up,Right}
