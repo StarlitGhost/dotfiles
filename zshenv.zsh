@@ -34,27 +34,25 @@ export LD_LIBRARY_PATH=$REALHOME/.local/lib:$LD_LIBRARY_PATH
 typeset -T LD_LIBRARY_PATH ld_library_path
 typeset -U ld_library_path
 
-if type manpath > /dev/null; then
-    manpath=(
-        "$REALHOME/.local/man"
-        "$REALHOME/.local/share/man"
-        "$REALHOME/man:"
-    )
-else
-    manpath=(
-        "$REALHOME/.local/man"
-        "$REALHOME/.local/share/man"
-        "$REALHOME/man"
-        "/usr/local/man"
-        "/usr/local/share/man"
-        "/usr/share/man/en"
-        "/usr/share/man"
-        "/user/rcs/man"
-        "/vl/seg/man"
-    )
-fi
-typeset -U manpath
-export MANPATH
+#if type manpath > /dev/null; then
+#    manpath=(
+#        "$REALHOME/.local/man"
+#        "$REALHOME/.local/share/man:"
+#    )
+#else
+#    manpath=(
+#        "$REALHOME/.local/man"
+#        "$REALHOME/.local/share/man"
+#        "/usr/local/man"
+#        "/usr/local/share/man"
+#        "/usr/share/man/en"
+#        "/usr/share/man"
+#        "/user/rcs/man"
+#        "/vl/seg/man"
+#    )
+#fi
+#typeset -U manpath
+#export MANPATH
 
 export COWPATH=$REALHOME/.dotfiles/ignored/cows
 
@@ -94,6 +92,14 @@ elif [[ -e /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]]; then
 else
     print "virtualenvwrapper.sh is missing, have you installed virtualenvwrapper?"
 fi
+
+export NPM_PACKAGES="/home/starlitghost/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
+export PATH="$NPM_PACKAGES/bin:$PATH"
+# Unset manpath so we can inherit from /etc/manpath via the `manpath`
+# command
+#unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
+#export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # if environment variables need to be modified for this machine, source a file that does that
 if [[ -e $REALHOME/.zshenv_ut_post ]]; then

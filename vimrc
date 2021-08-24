@@ -223,6 +223,8 @@ nnoremap <silent> cor :set relativenumber!<CR>
 nnoremap <silent> cog :GitGutterToggle<CR>
 " Toggle NerdTree
 nnoremap <silent> cot :NERDTreeToggle<CR>
+" Toggle ALE (linter)
+nnoremap <silent> col :ALEToggle<CR>
 
 " Colour settings
 """"""""""""""""""

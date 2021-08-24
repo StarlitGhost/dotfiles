@@ -175,3 +175,6 @@ if [[ -o interactive ]]; then
         echo "fortune not installed :("
     fi
 fi
+
+# added by travis gem
+[ -f /home/starlitghost/.travis/travis.sh ] && source /home/starlitghost/.travis/travis.sh

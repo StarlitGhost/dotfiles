@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 export DISPLAY=:0
-export DBUS_SESSION_BUS_ADDRESS=$(cat ${HOME}/.cache/dbusaddr)
+DBUS_SESSION_BUS_ADDRESS=$(cat "${HOME}/.cache/dbusaddr")
+export DBUS_SESSION_BUS_ADDRESS
 
+# shellcheck source=/home/starlitghost/.cache/wal/colors.sh
 . "${HOME}/.cache/wal/colors.sh"
 
 hex2rgb() {
-    printf "%d %d %d\n" 0x${1:1:2} 0x${1:3:2} 0x${1:5:2}
+    printf "%d %d %d\n" "0x${1:1:2}" "0x${1:3:2}" "0x${1:5:2}"
 }
 
 saturatergb() {
@@ -18,18 +20,22 @@ print('{} {} {}'.format(*rgb))"
 }
 
 printrgb() {
-    printf "%d,%d,%d\n" $1 $2 $3
+    arr=("$@")
+    printf "%d,%d,%d\n" "${arr[@]}"
 }
 
 color2keyboard() {
-    printrgb $(saturatergb $(hex2rgb $1))
+    hex=$1
+    rgb="$(hex2rgb "$hex")"
+    saturated="$(saturatergb "${rgb[@]}")"
+    printrgb "${saturated[@]}"
 }
 
 set_keyboard() {
     msi-keyboard -m normal \
-        -r left,$(color2keyboard "$color2") \
-        -r middle,$(color2keyboard "$color6") \
-        -r right,$(color2keyboard "$color4") &
+        -r "left,$(color2keyboard "$color2")" \
+        -r "middle,$(color2keyboard "$color6")" \
+        -r "right,$(color2keyboard "$color4")" &
 }
 
 reload_dunst() {
