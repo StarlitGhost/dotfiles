@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+
+import argparse
+import csv
+import datetime
+import os
+import pathlib
+import requests
+import sys
+
+from typing import Dict, List
+
+latestDB = datetime.datetime.utcnow().year - 2006
+
+
+def loadCSV(content: str) -> List[List[str]]:
+    cr = csv.reader(content.splitlines(), delimiter=',', quotechar='"')
+    if cr:
+        return list(cr)
+
+
+def fetchDayLog(year: int, day: int, force_fetch: bool) -> List[str]:
+    url = f"https://vst.ninja/DB{year}/synced_data/day{day}.csv"
+
+    path = os.path.join(os.path.expanduser('~'), '.cache', 'dbevents')
+    pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+    fname = os.path.join(path, f"DB{year}_D{day}.csv")
+    if os.path.exists(fname) and not force_fetch:
+        # sys.stdout.write(f"\r{fname} exists, skipped")
+        with open(fname, "r") as f:
+            # print(f"loading {fname} from disk")
+            return loadCSV(f.read())
+
+    # sys.stdout.write(f"\rFetching DB{year} - D{day} ...")
+    csv = requests.get(url)
+    if not csv:
+        return
+
+    with open(fname, "wb") as f:
+        f.write(csv.content)
+        # print(f"loading {fname} from web")
+    with open(fname, "r") as f:
+        return loadCSV(f.read())
+
+    sys.stdout.flush()
+
+
+def fetchYearLogs(year: int, force_fetch: bool, video: bool):
+    logs = []
+
+    for day in range(0, 7+1):
+        log = fetchDayLog(year, day, force_fetch)
+        if log:
+            log = [f"DB{year}, Day {day}, Row {row}, {', '.join(line)}"
+                   for row, line in enumerate(log) if (video and line[-1]) or not video]
+            logs.append(log)
+
+    return logs
+
+
+def fetchAllLogs(force_fetch: bool, video: bool) -> Dict[int, List[List[str]]]:
+    logs = {}
+
+    for year in range(1, latestDB+1):
+        logs[year] = fetchYearLogs(year, force_fetch, video)
+
+    return logs
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="DesertBus VST event log tool")
+    parser.add_argument('-y', '--year', type=int,
+                        default=latestDB, choices=range(1, latestDB+1),
+                        help="A specific year, the latest if omitted")
+    parser.add_argument('-a', '--all', action='store_true',
+                        help="All years")
+    parser.add_argument('-v', '--video', action='store_true',
+                        help="Only lines with videos")
+    # parser.add_argument('-t', '--tech-test', action='store_true')
+    parser.add_argument('-f', '--force-fetch', action='store_true',
+                        help="Force a refresh from VST servers")
+    args = parser.parse_args()
+
+    if args.all:
+        logs = fetchAllLogs(args.force_fetch, args.video)
+        for _, log in logs.items():
+            print('\n'.join('\n'.join(lines) for lines in log))
+    else:
+        logs = fetchYearLogs(args.year, args.force_fetch, args.video)
+        print('\n'.join('\n'.join(lines) for lines in logs))
