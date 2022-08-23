@@ -1,3 +1,7 @@
+if [[ ! (-o interactive) ]]; then
+    return
+fi
+
 # Replace zsh with a newer version that supports all the features we want
 autoload -U is-at-least
 if ! is-at-least 4.3.9; then
@@ -160,7 +164,17 @@ fi
 
 # the classic shell introduction
 if [[ -o interactive ]]; then
-    if type "fortune" > /dev/null 2>&1; then
+    if type "dbevents" > /dev/null 2>&1; then
+        dbevents -vFrpa |
+            cowsay -fwitch |
+            if type "lolcat" > /dev/null 2>&1; then
+                lolcat -F 0.2
+            else
+                command cat
+                echo "(lolcat wasn't found, no rainbows for you)"
+            fi
+
+    elif type "fortune" > /dev/null 2>&1; then
         # on systems where I don't have system install rights, fortunes will be under ~/.local
         (fortune 2> /dev/null || fortune $REALHOME/.local/share/games/fortune) |
             cowsay -f witch |
