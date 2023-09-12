@@ -274,9 +274,9 @@ type = internal/date
 interval = 5
 
 date =
-date-alt = " %Y-%m-%d"
-
 time = %H:%M
+
+date-alt = " %a, %d %b %Y-%m-%d"
 time-alt = %H:%M:%S
 
 format-prefix =  
