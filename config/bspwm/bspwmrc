@@ -3,7 +3,7 @@ wallpapers="/home/ghosty/Pictures/Wallpapers"
 
 bspc monitor -d term web dev video games 6 7 8 chat music
 
-bspc config border_width         6
+bspc config border_width         4
 bspc config window_gap           10
 bspc config top_padding          22
 
@@ -11,6 +11,7 @@ bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config paddingless_monocle  true
+bspc config single_monocle       true
 
 bspc config pointer_modifer super
 bspc config pointer_action1 move
@@ -22,6 +23,7 @@ bspc rule -a Vivaldi-snapshot desktop=web
 bspc rule -a firefox desktop=web
 bspc rule -a PyCharm desktop=dev
 bspc rule -a Steam desktop=games
+bspc rule -a Steam:*:"Steam Guard*" state=floating
 bspc rule -a vlc desktop=video
 bspc rule -a streamlink-twitch-gui desktop=video
 bspc rule -a *:irc desktop=chat
@@ -34,8 +36,8 @@ fi
 # startup applications
 sxhkd &
 ~/.dotfiles/scripts/cache.sh &
-wal -i $wallpapers -o ~/.dotfiles/scripts/wal-set.sh &
-picom -fb &
+wal -i $wallpapers -o ~/.dotfiles/scripts/wal-set.sh --backend colorz &
+picom --experimental-backends -fb &
 polybar main &
 
 /usr/lib/geoclue-2.0/demos/agent &
