@@ -21,13 +21,13 @@ print('{} {} {}'.format(*rgb))"
 
 printrgb() {
     arr=("$@")
-    printf "%d,%d,%d\n" "${arr[@]}"
+    printf "%d,%d,%d\n" ${arr[@]}
 }
 
 color2keyboard() {
     hex=$1
     rgb="$(hex2rgb "$hex")"
-    saturated="$(saturatergb "${rgb[@]}")"
+    saturated="$(saturatergb ${rgb[@]})"
     printrgb "${saturated[@]}"
 }
 
