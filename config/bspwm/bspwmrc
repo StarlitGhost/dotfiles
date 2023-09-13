@@ -38,7 +38,7 @@ fi
 sxhkd &
 ~/.dotfiles/scripts/cache.sh &
 wal -i $wallpapers -o ~/.dotfiles/scripts/wal-set.sh --backend colorz &
-picom --experimental-backends -fb &
+picom --backend glx -fb &
 polybar main &
 
 /usr/lib/geoclue-2.0/demos/agent &
