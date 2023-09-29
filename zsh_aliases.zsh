@@ -13,37 +13,37 @@ lass () {
 }
 
 # zsh config files
-alias ez='$EDITOR $REALHOME/.zshrc'
-alias eza='$EDITOR $REALHOME/.zsh_aliases'
-alias ezau='$EDITOR $REALHOME/.zsh_aliases_ut'
-alias eze='$EDITOR $REALHOME/.zshenv'
-alias ezeu='$EDITOR $REALHOME/.zshenv_ut'
-alias ezeup='$EDITOR $REALHOME/.zshenv_ut_post'
-alias sz='source $REALHOME/.zshenv ; source $REALHOME/.zshrc'
+alias ez='$EDITOR $HOME/.zshrc'
+alias eza='$EDITOR $HOME/.zsh_aliases'
+alias ezau='$EDITOR $HOME/.zsh_aliases_ut'
+alias eze='$EDITOR $HOME/.zshenv'
+alias ezeu='$EDITOR $HOME/.zshenv_ut'
+alias ezeup='$EDITOR $HOME/.zshenv_ut_post'
+alias sz='source $HOME/.zshenv ; source $HOME/.zshrc'
 alias szc='sz ; clear'
 
 # vim
 if type "nvim" > /dev/null 2>&1; then
     alias vim=nvim
 fi
-alias vim='vim -u $REALHOME/.vimrc'
-alias vimrc='$EDITOR $REALHOME/.vimrc'
+alias vim='vim -u $HOME/.vimrc'
+alias vimrc='$EDITOR $HOME/.vimrc'
 alias v='vim'
 alias e='$EDITOR'
 
 # i3
-alias vi3='$EDITOR $REALHOME/.config/i3/config'
+alias vi3='$EDITOR $HOME/.config/i3/config'
 
 # bspwm
-alias vb='$EDITOR $REALHOME/.config/bspwm/bspwmrc'
+alias vb='$EDITOR $HOME/.config/bspwm/bspwmrc'
 # sxhkd
-alias vs='$EDITOR $REALHOME/.config/sxhkd/sxhkdrc'
+alias vs='$EDITOR $HOME/.config/sxhkd/sxhkdrc'
 
 # polybar
-alias vp='$EDITOR $REALHOME/.config/polybar/config'
+alias vp='$EDITOR $HOME/.config/polybar/config'
 
 alias update_dotfiles='unsetopt pushd_ignore_dups ; \
-    pushd $REALHOME/.dotfiles > /dev/null 2>&1 ; \
+    pushd $HOME/.dotfiles > /dev/null 2>&1 ; \
     git pull && \
     git submodule update --init --recursive && \
     git submodule foreach git checkout master > /dev/null 2>&1 && \
@@ -189,7 +189,7 @@ rmp () {
 
 # sed replace on the current dir and go to the result
 switchdir () {
-    cd `pwd | sed 's|'$1'|_mhc_switchdir|;s|'$2'|'$1'|' | sed 's|_mhc_switchdir|'$2'|'`
+    cd `pwd | sed 's|'$1'|_hc_switchdir|;s|'$2'|'$1'|' | sed 's|_hc_switchdir|'$2'|'`
 }
 alias swdir='switchdir'
 
@@ -283,10 +283,10 @@ p4syncall() {
 alias color-zgrep='sed -e "s|^\([^:]*\)\(:\)\([0-9]*\)\(:\)|\x1B[35m\1\x1B[36m\2\x1B[32m\3\x1B[36m\4\x1B[0m|"'
 
 # man for python modules
-alias pyman='$REALHOME/.dotfiles/ignored/commands/pyman.py'
+alias pyman='$HOME/.dotfiles/ignored/commands/pyman.py'
 
 # clean out all cmake generated files from the current directory
-alias cmake-clean='$REALHOME/.dotfiles/ignored/commands/cmake-clean.py'
+alias cmake-clean='$HOME/.dotfiles/ignored/commands/cmake-clean.py'
 
 # generate completion for commands that follow standard gnu --help output,
 # but for some reason don't already have completions
@@ -296,12 +296,12 @@ compdef _gnu_generic watch progress bat
 compdef _valgrind colour-valgrind
 
 # test colour theme with some tables and ascii art
-alias ansi-colours='$REALHOME/.dotfiles/ignored/commands/ansi-colours.sh ;\
-    $REALHOME/.dotfiles/ignored/commands/ansi-table.sh ;\
-    $REALHOME/.dotfiles/ignored/commands/ansi-pacman.sh ;\
-    $REALHOME/.dotfiles/ignored/commands/ansi-invaders.sh'
+alias ansi-colours='$HOME/.dotfiles/ignored/commands/ansi-colours.sh ;\
+    $HOME/.dotfiles/ignored/commands/ansi-table.sh ;\
+    $HOME/.dotfiles/ignored/commands/ansi-pacman.sh ;\
+    $HOME/.dotfiles/ignored/commands/ansi-invaders.sh'
 
 # source untracked environment or machine specific aliases, if they exist
-if [[ -e $REALHOME/.zsh_aliases_ut ]]; then
-    source $REALHOME/.zsh_aliases_ut
+if [[ -e $HOME/.zsh_aliases_ut ]]; then
+    source $HOME/.zsh_aliases_ut
 fi

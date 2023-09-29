@@ -5,8 +5,8 @@ fi
 # Replace zsh with a newer version that supports all the features we want
 autoload -U is-at-least
 if ! is-at-least 4.3.9; then
-    if [ -e $REALHOME/bin/zsh ]; then
-        exec $REALHOME/bin/zsh -l
+    if [ -e $HOME/bin/zsh ]; then
+        exec $HOME/bin/zsh -l
     else
         if [[ -o interactive ]]; then
             echo "zsh is too old ($ZSH_VERSION, 4.3.9+ required), aborting zshrc"
@@ -16,7 +16,7 @@ if ! is-at-least 4.3.9; then
 fi
 
 # Path to your oh-my-zsh configuration.
-ZSH=$REALHOME/.oh-my-zsh
+ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -71,12 +71,7 @@ plugins=(
     zsh-syntax-highlighting
 )
 
-source $REALHOME/.dotfiles/ignored/omz-custom/plugins/zsh-autoenv/autoenv.zsh
-
-# Work plugins
-if [[ $USER == mhc || $USER == sim || $USER == simvideo ]]; then
-    plugins+=(uge)
-fi
+source $HOME/.dotfiles/ignored/omz-custom/plugins/zsh-autoenv/autoenv.zsh
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,10 +83,10 @@ source $ZSH/oh-my-zsh.sh
 LISTMAX=0
 
 # my aliases
-source $REALHOME/.zsh_aliases
+source $HOME/.zsh_aliases
 
 # my keybindings
-source $REALHOME/.zsh_keybinds
+source $HOME/.zsh_keybinds
 
 setopt interactivecomments
 
@@ -158,7 +153,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|=*' '+ r:|[._-]=* l:
 export SKIPZSH=1
 
 # wallpaper-based colour theming
-if [[ -e $REALHOME/.cache/wal/sequences ]]; then
+if [[ -e $HOME/.cache/wal/sequences ]]; then
     (command cat ~/.cache/wal/sequences &)
 fi
 
@@ -176,7 +171,7 @@ if [[ -o interactive ]]; then
 
     elif type "fortune" > /dev/null 2>&1; then
         # on systems where I don't have system install rights, fortunes will be under ~/.local
-        (fortune 2> /dev/null || fortune $REALHOME/.local/share/games/fortune) |
+        (fortune 2> /dev/null || fortune $HOME/.local/share/games/fortune) |
             cowsay -f witch |
             # pipe to lolcat if it exists, otherwise just cat to output
             if type "lolcat" > /dev/null 2>&1; then
@@ -191,4 +186,4 @@ if [[ -o interactive ]]; then
 fi
 
 # added by travis gem
-[ -f /home/starlitghost/.travis/travis.sh ] && source /home/starlitghost/.travis/travis.sh
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh

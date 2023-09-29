@@ -1,8 +1,8 @@
 #!/bin/sh
 if type "nvim" &> /dev/null; then
-    MYVIMRC=$REALHOME/.vimrc nvim -u $REALHOME/.vimrc "$@"
+    MYVIMRC=$HOME/.vimrc nvim -u $HOME/.vimrc "$@"
 elif type "vim" &> /dev/null; then
-    MYVIMRC=$REALHOME/.vimrc vim -u $REALHOME/.vimrc "$@"
+    MYVIMRC=$HOME/.vimrc vim -u $HOME/.vimrc "$@"
 else
     nano
 fi

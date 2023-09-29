@@ -1,12 +1,10 @@
 " We're not using Vi, so don't pretend we are
 set nocompatible
 
+" Tell neovim where its python virtualenv is
 if has('nvim')
-    let g:python3_host_prog=expand($REALHOME . '/.virtualenvs/neovim/bin/python')
+    let g:python3_host_prog=expand($HOME . '/.virtualenvs/neovim/bin/python')
 endif
-
-" Set the runtime path (where .vim dir is) to include my $REALHOME var
-let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim'), &runtimepath)
 
 " Plugin system
 call plug#begin()
@@ -108,7 +106,7 @@ set timeoutlen=500          " reduce timeout for command sequences (default 1000
 
 " Make undo history persistent
 if has('persistent_undo')
-    let myUndoDir = expand($REALHOME . '/.vim/undodir')
+    let myUndoDir = expand($HOME . '/.vim/undodir')
     " Create undodir if it doesn't exist
     call system('mkdir ' . myUndoDir)
     let &undodir = myUndoDir
