@@ -26,6 +26,6 @@
 [push]
 	default = current
 [core]
-	pager = $REALHOME/.dotfiles/scripts/diff-fallback.sh
+	pager = $HOME/.dotfiles/scripts/diff-fallback.sh
 [pull]
 	ff = only
