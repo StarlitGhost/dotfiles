@@ -46,7 +46,13 @@ set completeopt=noinsert,menuone,noselect
 "  external tool integrations
 Plug 'rust-lang/rust.vim'      " All kinds of rust stuff
 "Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " phpactor
-Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh \| UpdateRemotePlugins', 'commit': 'f69f3dc'} " gdb/lldb within vim
+" gdb/lldb within vim
+if has('nvim-0.9')
+    Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh \| UpdateRemotePlugins'}
+else
+    " pinned to before they started requiring 0.9+
+    Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh \| UpdateRemotePlugins', 'commit': 'f69f3dc'}
+endif
 Plug 'nfvs/vim-perforce'       " Perforce integration
 Plug 'yuratomo/w3m.vim'        " Web Browser (:W3m [url])
 Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
