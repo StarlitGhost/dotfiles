@@ -8,13 +8,14 @@
 ;=====================================================
 
 [colors]
-background = ${xrdb:color2:#ca2f343f}
+background = ${xrdb:color3:#ca2f343f}
 ;background = #ca2f343f
 background-alt = ${xrdb:color0:#ca181b20}
 ;foreground = ${xrdb:color7:#f3f4f5}
 foreground = #f3f4f5
 ;foreground-alt = ${xrdb:color8:#676e7d}
-foreground-alt = #676e7d
+;foreground-alt = #676e7d
+foreground-alt = #000000
 primary = ${xrdb:color7:#8af4f4}
 secondary = #27a5a5
 alert = #e53935

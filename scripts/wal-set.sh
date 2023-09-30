@@ -41,7 +41,7 @@ set_keyboard() {
 reload_dunst() {
     pkill dunst
     dunst \
-        -frame_color "${color2:-#8af4f4}" \
+        -frame_color "${color3:-#8af4f4}" \
         -lb "${color0:-#2f343f}" \
         -nb "${color0:-#2f343f}" \
         -cb "${color0:-#2f343f}" \
@@ -55,7 +55,7 @@ set_bspwm() {
     if type "bspc" > /dev/null 2>&1; then
         bspc config normal_border_color "${color0:-#2f343f}"
         bspc config active_border_color "${color0:-#2f343f}"
-        bspc config focused_border_color "${color2:-#8af4f4}"
+        bspc config focused_border_color "${color3:-#8af4f4}"
     fi
 }
 
