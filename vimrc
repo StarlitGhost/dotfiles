@@ -12,7 +12,7 @@ call plug#begin()
 "  simple vim editor extensions
 Plug 'terryma/vim-multiple-cursors' " Multiple cursors like Sublime Text. ctrl+n
 Plug 'rjayatilleka/vim-insert-char' " insert single characters with <space>
-Plug 'bogado/file-line'             " Enables 'vim file:20' to open file scrolled to line 20
+Plug 'bogado/file-line', {'branch': 'main'}             " Enables 'vim file:20' to open file scrolled to line 20
 Plug 'luochen1990/rainbow'          " rainbow parentheses
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-reload'             " Auto-reload various types of vim scripts when edited
@@ -46,16 +46,16 @@ set completeopt=noinsert,menuone,noselect
 "  external tool integrations
 Plug 'rust-lang/rust.vim'      " All kinds of rust stuff
 "Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " phpactor
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' } " gdb/lldb within vim
+Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh \| UpdateRemotePlugins', 'commit': 'f69f3dc'} " gdb/lldb within vim
 Plug 'nfvs/vim-perforce'       " Perforce integration
 Plug 'yuratomo/w3m.vim'        " Web Browser (:W3m [url])
-Plug 'airblade/vim-gitgutter'  " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
+Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
 Plug 'dense-analysis/ale'      " Async syntax checking via external linters
 
 "  syntax highlighting
 Plug 'vim-scripts/supp.vim'         " valgrind suppression file syntax highlighting
 Plug 'PotatoesMaster/i3-vim-syntax' " i3 config syntax highlighting
-Plug 'cespare/vim-toml'             " TOML syntax highlighting
+Plug 'cespare/vim-toml', {'branch': 'main'} " TOML syntax highlighting
 Plug 'samsaga2/vim-z80'             " z80 assembly syntax highlighting
 
 call plug#end()
