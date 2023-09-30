@@ -4,21 +4,6 @@
 *.pyc
 *.log
 
-config/discurses.yaml
-config/Kitware
-config/QtProject.conf
-config/htop
-config/mpd/log
-config/mpd/sticker.sql
-config/neofetch
-config/ranger/bookmarks
-config/ranger/history
-config/ranger/tagged
-config/rtv
-config/thefuck
-config/tootstream
-config/yay
-
 ignored/commands/apikeys.json
 
 weechat/logs/*
@@ -28,12 +13,7 @@ weechat/urlserver_list.txt
 weechat/grep*
 weechat/script/plugins.xml.gz
 
+config/nvim/plugged/*
 vim/plugged/*
 
 vim/undodir/*
-vim/syntax/vhc.vim
-vim/syntax/tgn.vim
-vim/syntax/out2.vim
-vim/ftdetect/vhc.vim
-vim/ftdetect/tgn.vim
-vim/ftdetect/out2.vim

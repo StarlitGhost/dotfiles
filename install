@@ -11,31 +11,61 @@ home = os.getenv('HOME', os.path.expanduser('~'))
 dotfiles_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(dotfiles_dir)
 
-for fname in os.listdir(dotfiles_dir):
-    if fname in ['install',
-                 'ignored',
-                 'scripts',
-                 'README.md',
-                 'LICENSE.txt']:
-        continue
-    if fname.startswith('.'): continue
-
-    target, ext = os.path.splitext(fname)
-    if ext != '.zsh':
-        target = fname
-
-    target = os.path.join(home, '.{}'.format(target))
-
-    fpath = os.path.abspath(fname)
-
+def symlink(source, target):
     try:
-        os.symlink(fpath, target)
+        os.symlink(source, target)
         print('{} symlink created'.format(target))
     except OSError as e:
         if e.errno == errno.EEXIST:
-            pass # I don't care if the file/dir already exists
+            if os.path.islink(target):
+                current_source = os.readlink(target)
+                if current_source == source:
+                    pass # we already symlinked our file
+                else:
+                    print(f'!!! {target} is already a symlink, '
+                          f'but points to {current_source} - not {source}')
+            else:
+                print(f'!!! {target} already exists, symlink not created')
+            # TODO: it would be nice to make this interactive, like a git merge
+            #       with whatever is already there, then delete and symlink
         else:
             raise e
+
+def install():
+    for fname in os.listdir(dotfiles_dir):
+        # skip over these
+        if fname in ['install',
+                     'ignored',
+                     'scripts',
+                     'config', # handled separately
+                     'README.md',
+                     'LICENSE.txt']:
+            continue
+        # skip over dotfiles within .dotfiles (.gitignore, etc)
+        if fname.startswith('.'): continue
+
+        # remove .zsh when creating the symlinks
+        target, ext = os.path.splitext(fname)
+        if ext != '.zsh':
+            target = fname
+
+        target = os.path.join(home, '.{}'.format(target))
+
+        fpath = os.path.abspath(fname)
+
+        symlink(fpath, target)
+
+def install_config():
+    config_dir = os.path.join(dotfiles_dir, 'config')
+    os.chdir(config_dir)
+    for fname in os.listdir(config_dir):
+        fpath = os.path.abspath(fname)
+        target = os.path.join(home, '.config', fname)
+        #print(f'{target} -> {fpath}')
+        symlink(fpath, target)
+
+install()
+install_config()
 
 # git push on commit
 post_commit = os.path.join(dotfiles_dir, '.git/hooks/post-commit')
