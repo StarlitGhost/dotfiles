@@ -146,10 +146,13 @@ super + ctrl + shift + space
 #
 
 # resize a window
+#  grow
 super + alt + {Up,Right,Down,Left}
     bspwm_resize.sh {north,east,south,west}
-super + mode_switch + {Up,Right,Down,Left}
+#   AltGr
+super + mod5 + {Up,Right,Down,Left}
     bspwm_resize.sh {north,east,south,west}
+#  TODO: shrink
 
 # move a floating window
 super + {Left,Down,Up,Right}
