@@ -1,57 +1,28 @@
-#!/usr/bin/env sh
-# source: https://github.com/neeasade/dotfiles/blob/f6971201579bf3284559d3be824ad1bb11931f68/wm/.wm/scripts/interact/resize.sh
-# depends on: jq, bc, bspc
-# resize windows or groups of windows in bspwm.
+#!/bin/bash
+# From: https://gitlab.com/protesilaos/dotfiles/-/blob/master/xorg-twm/bin/bspwm_resize
 
-# called like: bspwm_resize {north,east,south,west}
+# Extracted and adapted from source:
+# https://github.com/Chrysostomus/bspwm-scripts/blob/master/bin/bspwm_resize.sh
 
-# percent of current monitor resolution to resize
-percent=5
-dir=$1
+# Resizes (expands or contracts) the selected node in the given
+# direction.  This is assigned to a key binding in $HOME/.config/sxhkd/sxhkdrc
 
-# get rectangle property of origin node, floating or tiling (x,y,width,height)
-originalNode=$(bspc query -N -n)
-dim() {
-	bspc query -T -n $originalNode | jq ".rectangle.$1"
-}
+# NOTE by Protesilaos 2020-05-01: The support for floating windows was
+# contributed by Pierre-François Bonnefoi who also recommends the
+# following sxhkdrc config:
+#
+# super + ctrl + {Left,Down,Up,Right}
+#     bspwm_resize {west,south,north,east} 50
 
-# set fall back, and target window property.
-case $dir in
-	west)   dir=left;   fallDir=right;  targetProp=width;  queryDir=x; op="min"; sign=-;;
-	east)  dir=right;  fallDir=left;   targetProp=width;  queryDir=x; op="max"; sign=+;;
-	north)    dir=top;    fallDir=bottom; targetProp=height; queryDir=y; op="min"; sign=-;;
-	south) dir=bottom; fallDir=top;    targetProp=height; queryDir=y; op="max"; sign=+;;
-	*) exit 1;;
+size=${2:-'10'}
+direction=$1
+
+bspc query -N -n focused.floating
+floating=$?
+
+case "$direction" in
+  west)  [ $floating = 0 ] && bspc node -z right -"$size" 0 || bspc node @west  -r -"$size" || bspc node @east  -r -"$size" ;;
+  east)  [ $floating = 0 ] && bspc node -z right +"$size" 0 || bspc node @west  -r +"$size" || bspc node @east  -r +"$size" ;;
+  north) [ $floating = 0 ] && bspc node -z bottom 0 -"$size" || bspc node @south -r -"$size" || bspc node @north -r -"$size" ;;
+  south) [ $floating = 0 ] && bspc node -z bottom 0 +"$size" || bspc node @south -r +"$size" || bspc node @north -r +"$size" ;;
 esac
-
-# if we're focused on a group of nodes, select a window within, leaning towards our desired direction.
-bspc query -N -n focused.\!window > /dev/null && targetNode=$(bspc query -T -n | jq "[recurse(.[]?) | objects | select(has(\"id\") and .client!=null)] | ${op}_by(.rectangle.$queryDir).id")
-targetNode=${targetNode:-focused}
-
-# set move args
-moveArgs="$sign$(echo "$percent/100*$(bspc query -T -m | jq .rectangle.$targetProp)" | bc -l)"
-[ $targetProp = "height" ] && moveArgs="0 $moveArgs" || moveArgs="$moveArgs 0"
-
-# note current state, initial move attempt.
-beforeVal=$(dim $targetProp)
-bspc node $targetNode -z $dir $moveArgs
-
-# if we're floating, this is all that is needed.
-bspc query -N -n focused.floating && exit 0
-
-# if we weren't successful, try resizing the other way
-[ "$beforeVal" = "$(dim $targetProp)" ] && bspc node $targetNode -z $fallDir $moveArgs
-
-if [ "$beforeVal" = "$(dim $targetProp)" ]; then
-	# undo our wrong resize
-	bspc node $targetNode -z $fallDir $(echo $moveArgs | tr +- -+) &
-
-	# attempt to jump the other direction and push into the node
-	case $dir in
-		left)   targetNode=east;;
-		right)  targetNode=west;;
-		top)    targetNode=south;;
-		bottom) targetNode=north;;
-	esac
-	bspc node $targetNode -z $dir $moveArgs &
-fi
