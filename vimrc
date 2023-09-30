@@ -8,6 +8,13 @@ endif
 " Set the runtime path (where .vim dir is) to include my $REALHOME var
 let &runtimepath = printf('%s,%s', expand($REALHOME . '/.vim'), &runtimepath)
 
+" Auto-install vim-plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Plugin system
 call plug#begin()
 
