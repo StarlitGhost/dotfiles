@@ -61,7 +61,9 @@ else
     Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh \| UpdateRemotePlugins', 'commit': 'f69f3dc'}
 endif
 Plug 'nfvs/vim-perforce'       " Perforce integration
-Plug 'yuratomo/w3m.vim'        " Web Browser (:W3m [url])
+if executable('w3m')
+    Plug 'yuratomo/w3m.vim'    " Web Browser (:W3m [url])
+endif
 Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git integration ([c ]c jump hunks, \hp preview, \hs stage, \hu undo)
 Plug 'dense-analysis/ale'      " Async syntax checking via external linters
 
