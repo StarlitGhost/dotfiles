@@ -1,3 +1,7 @@
+if [[ ! (-o interactive) ]]; then
+    return
+fi
+
 skip_global_compinit=1
 
 export SHELL=$(command -v zsh)
