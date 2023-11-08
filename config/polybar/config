@@ -55,7 +55,7 @@ font-5 = FontAwesome:style=Regular:pixelsize=9;2
 
 modules-left = bspwm
 modules-center = mpd 
-modules-right = volume filesystem memory cpu backlight redshift battery wlan eth date powermenu
+modules-right = volume filesystem memory cpu backlight redshift battery wlan eth updates-pacman date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -269,6 +269,12 @@ format-disconnected =
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/updates-pacman]
+type = custom/script
+exec = ~/.config/polybar/pacman-updates.sh
+interval = 600
+click-left = ~/.config/polybar/yad-pacman-updates.sh
 
 [module/date]
 type = internal/date
