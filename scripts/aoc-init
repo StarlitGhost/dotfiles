@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-source ~/.virtualenvs/aoc/bin/activate
 ~/.virtualenvs/aoc/bin/aocd $(basename "$PWD") $(basename $(dirname "$PWD")) > input
 cat > script.py <<- EOF
 from GhostyUtils import aoc
