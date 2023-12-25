@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+source ~/.virtualenvs/aoc/bin/activate
+~/.virtualenvs/aoc/bin/aocd $(basename "$PWD") $(basename $(dirname "$PWD")) > input
+cat > script.py <<- EOF
+from GhostyUtils import aoc
+
+
+def main():
+    inputs = aoc.read_lines()
+
+
+if __name__ == "__main__":
+    main()
+EOF
+
+$EDITOR input script.py
