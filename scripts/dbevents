@@ -53,7 +53,7 @@ def fetchDayLog(year: int, day: int, force_fetch: bool, no_fetch: bool) -> List[
 def fetchYearLogs(year: int, force_fetch: bool, no_fetch: bool, video: bool):
     logs = []
 
-    for day in range(0, 7+1):
+    for day in range(0, 8+1):
         log = fetchDayLog(year, day, force_fetch, no_fetch)
         if log:
             new_log = []
@@ -78,6 +78,7 @@ def fetchAllLogs(force_fetch: bool, no_fetch: bool, video: bool) -> Dict[int, Li
 
     return logs
 
+
 def printLine(line: List[str], pretty: bool):
     if not pretty:
         print(', '.join(line))
@@ -85,16 +86,16 @@ def printLine(line: List[str], pretty: bool):
 
     year = line[0]
     day = line[1]
-    row = line[2]
+    # row = line[2]
     start = line[3]
     end = line[4]
     _type = line[5]
     event = line[6]
-    uhh = line[7]
-    hmm = line[8]
-    idk = line[9]
-    video = re.sub('www\.youtube\.com/watch\?v=', 'youtu.be/', line[10])
-    
+    # uhh = line[7]
+    # hmm = line[8]
+    # idk = line[9]
+    video = re.sub(r'www\.youtube\.com/watch\?v=', 'youtu.be/', line[10])
+
     print(f"{_type}: {event}\n\n-- {year}, {day}, {start}..{end} {video}")
 
 
@@ -130,7 +131,7 @@ if __name__ == "__main__":
                 for day in log:
                     for line in day:
                         printLine(line, args.pretty)
-    else: # year
+    else:  # year
         logs = fetchYearLogs(args.year, args.force_fetch, args.no_fetch, args.video)
         if args.random:
             day = random.choice(logs)
