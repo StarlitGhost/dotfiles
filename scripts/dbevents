@@ -12,7 +12,7 @@ import sys
 
 from typing import Dict, List
 
-latestDB = datetime.datetime.utcnow().year - 2006
+latestDB = datetime.datetime.now(datetime.UTC).year - 2006
 
 
 def loadCSV(content: str) -> List[List[str]]:
