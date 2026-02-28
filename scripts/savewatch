@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+import argparse
+import datetime
+import os
+import pyinotify
+import shutil
+
+parser = argparse.ArgumentParser(description="automatic save backup tool")
+parser.add_argument('-f', '--files', type=str, help="the file(s) to monitor")
+parser.add_argument('-d', '--dir', type=str, help="a directory to monitor")
+parser.add_argument('-v', '--verbose', action='store_true', help="verbose output")
+args = parser.parse_args()
+
+wm = pyinotify.WatchManager()
+
+monitored = {}
+class SaveHandler(pyinotify.ProcessEvent):
+    def process_IN_MODIFY(self, event):
+        if event.pathname.endswith(".bak"):
+            return
+
+        now = datetime.datetime.now(datetime.UTC)
+        if (event.pathname not in monitored
+            or (now - monitored[event.pathname]).seconds > 30):
+            monitored[event.pathname] = now
+            fname = f"{event.pathname}.{now.strftime('%Y-%m-%d-%H%M%S')}.bak"
+            print("save modified, copied:", os.path.basename(fname))
+        else:
+            fname = f"{event.pathname}.{monitored[event.pathname].strftime('%Y-%m-%d-%H%M%S')}.bak"
+            if args.verbose:
+                print("save modified within 30s, overwritten:", os.path.basename(fname))
+        shutil.copy2(event.pathname, fname)
+
+handler = SaveHandler()
+notifier = pyinotify.Notifier(wm, handler)
+wdd = wm.add_watch(args.files, pyinotify.IN_MODIFY, rec=True)
+
+try:
+    notifier.loop()
+except pyinotify.NotifierError as err:
+    print(err)
+except KeyboardInterrupt as err:
+    pass
