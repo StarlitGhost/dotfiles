@@ -2,39 +2,89 @@
 
 import argparse
 import datetime
+import logging
 import os
 import pyinotify
 import shutil
 
 parser = argparse.ArgumentParser(description="automatic save backup tool")
-parser.add_argument('-f', '--files', type=str, help="the file(s) to monitor")
-parser.add_argument('-d', '--dir', type=str, help="a directory to monitor")
-parser.add_argument('-v', '--verbose', action='store_true', help="verbose output")
+parser.add_argument('-f', '--files', help="the file(s) to monitor", type=str, nargs='+')
+parser.add_argument('-c', '--copy_after', help="only copy after N writes", type=int, default=0, metavar="WRITES")
+parser.add_argument('-o', '--overwrite_seconds',
+                    help="overwrite existing backup if within last N seconds",
+                    type=int, default=5, metavar="SECONDS")
+parser.add_argument('-v', '--verbose', help="verbose output", dest="loglevel",
+                    action="store_const", const=logging.INFO, default=logging.WARNING)
+parser.add_argument('-d', '--debug', help="debug output", dest="loglevel",
+                    action="store_const", const=logging.DEBUG)
 args = parser.parse_args()
 
-wm = pyinotify.WatchManager()
+logging.basicConfig(level=args.loglevel)
+logger = logging.getLogger("savewatch")
 
-monitored = {}
-class SaveHandler(pyinotify.ProcessEvent):
-    def process_IN_MODIFY(self, event):
-        if event.pathname.endswith(".bak"):
+
+class Monitored:
+    def __init__(self, path: str, last_write = None, copy_after_writes = 0):
+        self.path = path
+        self.last_write = last_write
+        self.copy_after_writes = copy_after_writes
+        # start at copy_after_writes so we always copy the first time a write is detected
+        self.writes = copy_after_writes
+
+    def write(self):
+        now = datetime.datetime.now(datetime.UTC)
+        # overwrite the previous backup if within the last N seconds
+        if self.last_write is not None and (now - self.last_write).seconds < args.overwrite_seconds:
+            # skip overwrite if we haven't written enough times to trigger a copy yet
+            if self.writes < self.copy_after_writes:
+                return
+            logger.info(f"overwritten: {self.basename()}, within {self.copy_after_writes} seconds")
+            self._copy()
             return
 
-        now = datetime.datetime.now(datetime.UTC)
-        if (event.pathname not in monitored
-            or (now - monitored[event.pathname]).seconds > 30):
-            monitored[event.pathname] = now
-            fname = f"{event.pathname}.{now.strftime('%Y-%m-%d-%H%M%S')}.bak"
-            print("save modified, copied:", os.path.basename(fname))
+        self.last_write = now
+        self.writes += 1
+        if self.writes >= self.copy_after_writes:
+            logger.info(f"copied to: {self.basename()}")
+            self._copy()
+            self.writes = 0
         else:
-            fname = f"{event.pathname}.{monitored[event.pathname].strftime('%Y-%m-%d-%H%M%S')}.bak"
-            if args.verbose:
-                print("save modified within 30s, overwritten:", os.path.basename(fname))
-        shutil.copy2(event.pathname, fname)
+            logger.info(f"write #{self.writes}/{self.copy_after_writes} for {self.basename()}")
 
+    def filename(self):
+        return f"{self.path}.{self.last_write.strftime('%Y-%m-%d-%H%M%S')}.bak"
+
+    def basename(self):
+        return os.path.basename(self.filename())
+
+    def _copy(self):
+        try:
+            shutil.copy2(self.path, self.filename())
+        except FileNotFoundError:
+            pass
+
+
+class SaveHandler(pyinotify.ProcessEvent):
+    def process_IN_MODIFY(self, event):
+        if event.pathname.endswith((".bak", ".part")):
+            logger.debug(f"ignoring .bak/.part ({event.pathname})")
+            return
+        else:
+            logger.debug(f"{event.pathname} modification detected")
+
+        if event.pathname not in monitored:
+            monitored[event.pathname] = Monitored(event.pathname, copy_after_writes=args.copy_after)
+
+        monitored[event.pathname].write()
+
+
+monitored = {}
+wm = pyinotify.WatchManager()
 handler = SaveHandler()
 notifier = pyinotify.Notifier(wm, handler)
-wdd = wm.add_watch(args.files, pyinotify.IN_MODIFY, rec=True)
+wdd = wm.add_watch(args.files, pyinotify.IN_MODIFY)
+for path, status in wdd.items():
+    logger.info(f"{'WATCHING' if status else 'FAILED'} {path}")
 
 try:
     notifier.loop()
