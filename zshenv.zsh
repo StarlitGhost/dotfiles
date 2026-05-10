@@ -24,7 +24,7 @@ path=(
     "$path[@]"
 )
 export PATH
-typeset -U path
+typeset -U PATH path
 
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 typeset -T LD_LIBRARY_PATH ld_library_path
@@ -64,6 +64,10 @@ export EDITOR="$HOME/.dotfiles/ignored/EDITOR"
 
 # customized file/dir colours for ls
 eval `dircolors -b $HOME/._dircolors_`
+
+if [[ -e $HOME/.dotfiles/ignored/env_colors.sh ]]; then
+    source "$HOME/.dotfiles/ignored/env_colors.sh"
+fi
 
 export PYTHONSTARTUP=$HOME/.pystartup
 

@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+source "../ignored/env_colors.sh"
+info_col=$CYAN
+cmd_col=$GREEN
+
+info_msg() {
+    echo -e "\n${info_col}$@${COLOR_RESET}"
+}
+
+info_eval() {
+    echo -e "${info_col}\$ ${cmd_col}$@${COLOR_RESET}\n"
+    eval "$@"
+}
+
+update_yay() {
+    info_msg "### Updating Packages"
+    info_eval yay -Syu &&\
+    info_msg "### Cleaning Up Pacman Cache" &&\
+    info_eval yay -Sc --noconfirm
+}
+
+update_flatpaks() {
+    info_msg "### Updating Flatpaks"
+    info_eval sudo flatpak update --noninteractive --assumeyes &&\
+    info_msg "### Removing Unused Flatpaks" &&\
+    info_eval sudo flatpak uninstall --unused
+}
+
+update_dotfiles() {
+    info_msg "### Updating .dotfiles"
+    u.
+}
+
+update() {
+    if type "yay" > /dev/null 2>&1; then
+        update_yay
+    fi
+    if type "flatpak" > /dev/null 2>&1; then
+        update_flatpaks
+    fi
+    #update_dotfiles
+}
+
+update
