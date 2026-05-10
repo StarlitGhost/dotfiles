@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-source "../ignored/env_colors.sh"
+source "$DOTFILES/ignored/env_colors.sh"
 info_col=$CYAN
 cmd_col=$GREEN
 
@@ -9,7 +9,7 @@ info_msg() {
 }
 
 info_eval() {
-    echo -e "${info_col}\$ ${cmd_col}$@${COLOR_RESET}\n"
+    echo -e "${info_col}\$ ${cmd_col}$@${COLOR_RESET}"
     eval "$@"
 }
 
@@ -18,6 +18,15 @@ update_yay() {
     info_eval yay -Syu &&\
     info_msg "### Cleaning Up Pacman Cache" &&\
     info_eval yay -Sc --noconfirm
+}
+
+update_apt() {
+    info_msg "### Updating Packages"
+    info_eval sudo apt update &&\
+    info_eval sudo apt upgrade &&\
+    info_msg "### Cleaning Up apt" &&\
+    info_eval sudo apt autoremove &&\
+    info_eval sudo apt autoclean
 }
 
 update_flatpaks() {
@@ -29,17 +38,32 @@ update_flatpaks() {
 
 update_dotfiles() {
     info_msg "### Updating .dotfiles"
-    u.
+
+    unsetopt pushd_ignore_dups
+    pushd $HOME/.dotfiles > /dev/null 2>&1
+    info_eval git pull &&\
+    info_eval git submodule update --init --recursive &&\
+    info_eval git submodule foreach git checkout master &&\
+    info_eval git submodule foreach git pull
+    info_eval ./install
+    echo ""
+    #source "$HOME/.zshenv"
+    #source "$HOME/.zshrc"
+    popd > /dev/null 2>&1
+    setopt pushd_ignore_dups
 }
 
 update() {
     if type "yay" > /dev/null 2>&1; then
         update_yay
     fi
+    if type "apt" > /dev/null 2>&1; then
+        update_apt
+    fi
     if type "flatpak" > /dev/null 2>&1; then
         update_flatpaks
     fi
-    #update_dotfiles
+    update_dotfiles
 }
 
 update
