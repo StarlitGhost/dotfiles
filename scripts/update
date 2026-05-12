@@ -13,6 +13,11 @@ info_eval() {
     eval "$@"
 }
 
+info_eval_silent() {
+    echo -e "${info_col}\$ ${cmd_col}$@${info_col} > /dev/null 2>&1${COLOR_RESET}"
+    eval "$@" > /dev/null 2>&1
+}
+
 update_yay() {
     info_msg "### Updating Packages"
     info_eval yay -Syu &&\
@@ -43,7 +48,7 @@ update_dotfiles() {
     pushd $HOME/.dotfiles > /dev/null 2>&1
     info_eval git pull &&\
     info_eval git submodule update --init --recursive &&\
-    info_eval git submodule foreach git checkout master &&\
+    info_eval_silent git submodule foreach git checkout master &&\
     info_eval git submodule foreach git pull
     info_eval ./install
     echo ""
